@@ -1,11 +1,14 @@
+import { Navigation } from "@/components/ui/Navigation"
+
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <div>
-{children}
+      <Navigation />
+      {children}
     </div>
-  );
+  )
 }
