@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/react-navigation-menu": "^1.2.1",
+    "@radix-ui/react-slot": "^1.1.0",
     "@remixicon/react": "^4.3.0",
     "clsx": "^2.1.1",
     "cx": "^24.9.3",
