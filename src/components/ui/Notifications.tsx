@@ -104,7 +104,7 @@ const formatDate = (dateString: string): string => {
 const NotificationItem = ({ notification }: { notification: Notification }) => {
   const { message, date, read } = notification
   return (
-    <li className="space-y-1 py-2">
+    <li className="space-y-1 py-2.5">
       <p>
         {!read && (
           <div
