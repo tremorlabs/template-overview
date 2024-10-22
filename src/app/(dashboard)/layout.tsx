@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <div>
       <Navigation />
-      {children}
+      <div className="mx-auto max-w-7xl pt-12">{children}</div>
     </div>
   )
 }
