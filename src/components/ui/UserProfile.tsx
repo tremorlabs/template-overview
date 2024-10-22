@@ -24,7 +24,7 @@ function DropdownUserProfile() {
             variant="ghost"
             className={cx(
               focusRing,
-              "group size-9 rounded-full text-sm text-gray-900 shadow-sm ring-1 ring-gray-300 hover:bg-gray-200/50 data-[state=open]:bg-gray-200/50",
+              "group relative size-9 rounded-full bg-white text-sm text-gray-900 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 data-[state=open]:bg-gray-200/50",
             )}
           >
             <RiUser2Line
