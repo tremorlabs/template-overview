@@ -166,7 +166,7 @@ export function Notifications() {
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="max-w-md px-4">
+      <PopoverContent align="end" className="mx-2 max-w-md px-4">
         <div className="flex items-center justify-between gap-16">
           <h2 className="text-base font-semibold text-gray-900">
             Notifications
@@ -179,10 +179,10 @@ export function Notifications() {
             <TabsTrigger value="all">All</TabsTrigger>
           </TabsList>
           <div className="mt-4">
-            <TabsContent value="unread">
+            <TabsContent value="unread" className="max-w-xs">
               <NotificationList />
             </TabsContent>
-            <TabsContent value="all">
+            <TabsContent value="all" className="max-w-xs">
               <div className="relative">
                 <NotificationList showAll />
                 <div
