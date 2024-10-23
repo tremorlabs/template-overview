@@ -3,7 +3,7 @@ import { RiRefreshLine } from "@remixicon/react"
 
 export default function Overview() {
   return (
-    <main className="">
+    <main>
       <div className="flex items-center justify-between border-b pb-6">
         <h1 className="text-3xl font-semibold text-gray-950">Case Analysis</h1>
         <Button variant="secondary" className="group flex gap-2">

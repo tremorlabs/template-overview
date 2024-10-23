@@ -17,6 +17,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
     "@remixicon/react": "^4.3.0",
+    "@tanstack/react-table": "^8.20.5",
     "clsx": "^2.1.1",
     "cx": "^24.9.3",
     "date-fns": "^4.1.0",
@@ -27,6 +28,7 @@
     "tailwind-merge": "^2.5.4",
     "tailwind-variants": "^0.2.1",
     "tsx": "^4.19.1",
+    "use-debounce": "^10.0.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {
