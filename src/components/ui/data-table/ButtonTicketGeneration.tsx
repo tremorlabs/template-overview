@@ -1,6 +1,3 @@
-// Tremor Button [v0.2.0]
-
-import { Slot } from "@radix-ui/react-slot"
 import React from "react"
 
 import { cx, focusRing } from "@/lib/utils"
@@ -23,9 +20,8 @@ const ButtonTicketGeneration = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     forwardedRef,
   ) => {
-    const Component = asChild ? Slot : "button"
     return (
-      <Component
+      <button
         ref={forwardedRef}
         className={cx(
           // base
@@ -51,7 +47,7 @@ const ButtonTicketGeneration = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {children}
-      </Component>
+      </button>
     )
   },
 )

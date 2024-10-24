@@ -22,6 +22,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { Filterbar } from "./DataTableFilterbar"
 
 interface DataTableProps<TData> {
   columns: ColumnDef<TData>[]
@@ -29,7 +30,7 @@ interface DataTableProps<TData> {
 }
 
 export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
-  const pageSize = 12
+  const pageSize = 16
   const table = useReactTable({
     data,
     columns,
@@ -48,7 +49,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   return (
     <>
       <div className="space-y-3">
-        {/* <Filterbar table={table} /> */}
+        <Filterbar table={table} />
         <div className="relative overflow-hidden overflow-x-auto">
           <Table>
             <TableHead>

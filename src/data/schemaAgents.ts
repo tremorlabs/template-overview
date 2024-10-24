@@ -16,27 +16,93 @@ export const schemaAgents = z.object({
 
 export type Agent = z.infer<typeof schemaAgents>
 
-export const accounts = [
-  "Auto Insurance",
-  "Business Liability",
-  "Commercial Property",
-  "Cyber Insurance",
-  "Dental Coverage",
-  "Disability Insurance",
-  "Employee Benefits",
-  "Equipment Insurance",
-  "Fire Insurance",
-  "Flood Insurance",
-  "General Liability",
-  "Health Insurance",
-  "Homeowners Insurance",
-  "Life Insurance",
-  "Marine Insurance",
-  "Medical Malpractice",
-  "Pet Insurance",
-  "Professional Liability",
-  "Property Insurance",
-  "Renters Insurance",
-  "Travel Insurance",
-  "Vision Coverage",
+export const accounts: { value: string; label: string }[] = [
+  {
+    value: "auto-insurance",
+    label: "Auto Insurance",
+  },
+  {
+    value: "business-liability",
+    label: "Business Liability",
+  },
+  {
+    value: "commercial-property",
+    label: "Commercial Property",
+  },
+  {
+    value: "cyber-insurance",
+    label: "Cyber Insurance",
+  },
+  {
+    value: "dental-coverage",
+    label: "Dental Coverage",
+  },
+  {
+    value: "disability-insurance",
+    label: "Disability Insurance",
+  },
+  {
+    value: "employee-benefits",
+    label: "Employee Benefits",
+  },
+  {
+    value: "equipment-insurance",
+    label: "Equipment Insurance",
+  },
+  {
+    value: "fire-insurance",
+    label: "Fire Insurance",
+  },
+  {
+    value: "flood-insurance",
+    label: "Flood Insurance",
+  },
+  {
+    value: "general-liability",
+    label: "General Liability",
+  },
+  {
+    value: "health-insurance",
+    label: "Health Insurance",
+  },
+  {
+    value: "homeowners-insurance",
+    label: "Homeowners Insurance",
+  },
+  {
+    value: "life-insurance",
+    label: "Life Insurance",
+  },
+  {
+    value: "marine-insurance",
+    label: "Marine Insurance",
+  },
+  {
+    value: "medical-malpractice",
+    label: "Medical Malpractice",
+  },
+  {
+    value: "pet-insurance",
+    label: "Pet Insurance",
+  },
+  {
+    value: "professional-liability",
+    label: "Professional Liability",
+  },
+  {
+    value: "property-insurance",
+    label: "Property Insurance",
+  },
+  {
+    value: "renters-insurance",
+    label: "Renters Insurance",
+  },
+  {
+    value: "travel-insurance",
+    label: "Travel Insurance",
+  },
+  {
+    value: "vision-coverage",
+    label: "Vision Coverage",
+  },
 ]

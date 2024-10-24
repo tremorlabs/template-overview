@@ -1,10 +1,12 @@
 "use client"
 
 import { Button } from "@/components/Button"
+import { accounts } from "@/data/schemaAgents"
 // import { Searchbar } from "@/components/Searchbar"
 // import { conditions, regions, statuses } from "@/data/data"
 import { RiDownloadLine } from "@remixicon/react"
 import { Table } from "@tanstack/react-table"
+import { DataTableFilter } from "./DataTableFilter"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -34,16 +36,16 @@ export function Filterbar<TData>({ table }: DataTableToolbarProps<TData>) {
             options={statuses}
             type="select"
           />
-        )}
-        {table.getColumn("region")?.getIsVisible() && (
+        )} */}
+        {table.getColumn("account")?.getIsVisible() && (
           <DataTableFilter
-            column={table.getColumn("region")}
-            title="Region"
-            options={regions}
+            column={table.getColumn("account")}
+            title="Account"
+            options={accounts}
             type="checkbox"
           />
         )}
-        {table.getColumn("costs")?.getIsVisible() && (
+        {/* {table.getColumn("costs")?.getIsVisible() && (
           <DataTableFilter
             column={table.getColumn("costs")}
             title="Costs"
@@ -65,7 +67,7 @@ export function Filterbar<TData>({ table }: DataTableToolbarProps<TData>) {
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
-            className="border border-gray-200 px-2 font-semibold text-indigo-600 sm:border-none sm:py-1 dark:border-gray-800 dark:text-indigo-500"
+            className="border border-gray-200 px-2 font-semibold text-blue-500 sm:border-none sm:py-1 dark:border-gray-800 dark:text-blue-400"
           >
             Clear filters
           </Button>

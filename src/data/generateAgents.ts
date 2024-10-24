@@ -20,7 +20,7 @@ const agents = Array.from({ length: 102 }, () => {
           .between({ from: startDate, to: "2024-10-17T00:00:00Z" })
           .toISOString()
       : null,
-    account: faker.helpers.arrayElement(accounts),
+    account: faker.helpers.arrayElement(accounts).label,
     number: faker.phone.number({ style: "international" }),
     email: `${fullName.charAt(0).toLowerCase()}${fullName
       .split(" ")[1]

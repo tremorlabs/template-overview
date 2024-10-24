@@ -1,7 +1,5 @@
 "use client"
 
-// import { statuses } from "@/data/data"
-// import { formatters } from "@/lib/utils"
 import { Badge } from "@/components/Badge"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { Agent } from "@/data/schemaAgents"
@@ -123,11 +121,12 @@ export const columns = [
       className: "text-left",
       displayName: "Account",
     },
+    filterFn: "arrIncludesSome",
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
           <span className="text-gray-950">{row.original.account}</span>
-          {/* <span className="text-xs text-gray-500">{row.original.account}</span> */}
+          <span className="text-xs text-gray-500">Main division</span>
         </div>
       )
     },
