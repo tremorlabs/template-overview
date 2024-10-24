@@ -1,8 +1,8 @@
 "use client"
-
 import { Button } from "@/components/Button"
 import { Input } from "@/components/Input"
 import { RiDownloadLine } from "@remixicon/react"
+import { useDebouncedCallback } from "use-debounce"
 
 interface DataTableSearchProps {
   value: string
@@ -10,17 +10,9 @@ interface DataTableSearchProps {
 }
 
 export function Filterbar({ value, onChange }: DataTableSearchProps) {
-  // const [searchTerm, setSearchTerm] = useState<string>("")
-
-  // const debouncedSetFilterValue = useDebouncedCallback((value) => {
-  //   table.getColumn("owner")?.setFilterValue(value)
-  // }, 300)
-
-  // const handleSearchChange = (event) => {
-  //   const value = event.target.value
-  //   setSearchTerm(value)
-  //   debouncedSetFilterValue(value)
-  // }
+  const debouncedOnChange = useDebouncedCallback((value: string) => {
+    onChange(value)
+  }, 300)
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-x-6">
@@ -28,8 +20,8 @@ export function Filterbar({ value, onChange }: DataTableSearchProps) {
         className="w-fit"
         type="search"
         placeholder="Search all columns..."
-        value={value ?? ""}
-        onChange={(e) => onChange(e.target.value)}
+        defaultValue={value ?? ""}
+        onChange={(e) => debouncedOnChange(e.target.value)}
       />
       <Button
         variant="secondary"
