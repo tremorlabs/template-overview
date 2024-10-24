@@ -19,7 +19,7 @@ export function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div
+    <button
       onClick={column.getToggleSortingHandler()}
       className={cx(
         column.columnDef.enableSorting === true
@@ -46,6 +46,6 @@ export function DataTableColumnHeader<TData, TValue>({
           />
         </div>
       ) : null}
-    </div>
+    </button>
   )
 }

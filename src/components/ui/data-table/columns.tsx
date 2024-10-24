@@ -1,30 +1,24 @@
 "use client"
 
-// import { Badge, BadgeProps } from "@/components/Badge"
 // import { statuses } from "@/data/data"
 // import { formatters } from "@/lib/utils"
+import { Badge } from "@/components/Badge"
+import { ProgressCircle } from "@/components/ProgressCircle"
 import { Agent } from "@/data/schemaAgents"
 import { cx } from "@/lib/utils"
-import { RiShieldCheckFill } from "@remixicon/react"
+import {
+  RiCheckboxCircleFill,
+  RiCloseCircleFill,
+  RiShieldCheckFill,
+} from "@remixicon/react"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
+import { ButtonTicketGeneration } from "./ButtonTicketGeneration"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 // import { ConditionFilter } from "./DataTableFilter"
-// import { DataTableRowActions } from "./DataTableRowActions"
 
 const columnHelper = createColumnHelper<Agent>()
 
 export const columns = [
-  // columnHelper.accessor("agent", {
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Agent" />
-  //   ),
-  //   enableSorting: true,
-  //   enableHiding: false,
-  //   meta: {
-  //     className: "text-left",
-  //     displayName: "Agent",
-  //   },
-  // }),
   columnHelper.accessor("full_name", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Agent" />
@@ -80,6 +74,46 @@ export const columns = [
       )
     },
   }),
+  columnHelper.accessor("end_date", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Contract Dates" />
+    ),
+    enableSorting: true,
+    meta: {
+      className: "text-left",
+      displayName: "Contract Dates",
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="flex flex-col gap-1">
+          <span className="tabular-nums text-gray-950">
+            {row.original.end_date ? (
+              <>
+                End:{" "}
+                {new Date(row.original.end_date).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}
+              </>
+            ) : (
+              <Badge className="px-1.5 py-0.5" variant="success">
+                Active
+              </Badge>
+            )}
+          </span>
+          <span className="text-xs tabular-nums text-gray-500">
+            Start:{" "}
+            {new Date(row.original.start_date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
+          </span>
+        </div>
+      )
+    },
+  }),
   columnHelper.accessor("account", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Account" />
@@ -98,39 +132,86 @@ export const columns = [
       )
     },
   }),
-  columnHelper.accessor("contract", {
+
+  columnHelper.accessor("minutes_called", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Contract Dates" />
+      <DataTableColumnHeader column={column} title="Capacity (mins)" />
     ),
     enableSorting: true,
     meta: {
       className: "text-left",
-      displayName: "Contract Dates",
+      displayName: "Capacity (mins)",
     },
     cell: ({ row }) => {
+      const { minutes_called, minutes_booked } = row.original
+
+      const calculatePercentage = () => {
+        if (!minutes_booked || minutes_booked === 0) return 0
+        return (minutes_called / minutes_booked) * 100
+      }
+
+      const capacity = calculatePercentage()
+
+      const getColorByCapacity = (value: number) => {
+        const fixedValue = parseFloat(value.toFixed(0))
+        if (fixedValue >= 85) return "error"
+        if (fixedValue > 60) return "warning"
+        return "default"
+      }
+
       return (
-        <div className="flex flex-col gap-1">
-          <span className="tabular-nums text-gray-950">
-            End:{" "}
-            {new Date(row.original.end_date).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}
-          </span>
-          <span className="text-xs tabular-nums text-gray-500">
-            Start:{" "}
-            {new Date(row.original.start_date).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}
-          </span>
+        <div className="flex gap-2">
+          <div className="flex items-center gap-x-2.5">
+            <ProgressCircle
+              value={capacity}
+              radius={14}
+              strokeWidth={3}
+              variant={getColorByCapacity(capacity)}
+              aria-hidden={true}
+            >
+              <span className="text-[11px] font-semibold">
+                {capacity.toFixed(0)}
+              </span>
+            </ProgressCircle>
+          </div>
+          <div className="flex flex-col gap-0">
+            <span className="text-gray-950">
+              <span className="text-gray-500">Called </span>
+              <span className="font-medium">
+                {new Intl.NumberFormat().format(minutes_called)}
+              </span>
+            </span>
+            <span className="text-xs text-gray-500">
+              Booked {new Intl.NumberFormat().format(minutes_booked)}
+            </span>
+          </div>
         </div>
       )
     },
   }),
-
+  columnHelper.accessor("ticket_generation", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Ticket Generation" />
+    ),
+    enableSorting: false,
+    meta: {
+      className: "text-left",
+      displayName: "Ticket Generation",
+    },
+    cell: ({ row }) => {
+      const isEnabled = row.original.ticket_generation
+      return (
+        <ButtonTicketGeneration className="flex gap-1.5">
+          {isEnabled ? (
+            <RiCheckboxCircleFill className="size-4 shrink-0 text-emerald-600" />
+          ) : (
+            <RiCloseCircleFill className="size-4 shrink-0 text-gray-400" />
+          )}
+          {isEnabled ? "Enabled" : "Disabled"}
+        </ButtonTicketGeneration>
+      )
+    },
+  }),
   // columnHelper.accessor("status", {
   //   header: ({ column }) => (
   //     <DataTableColumnHeader column={column} title="Status" />

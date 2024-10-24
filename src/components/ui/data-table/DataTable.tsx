@@ -55,7 +55,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
                   key={headerGroup.id}
-                  className="border-y border-gray-200 dark:border-gray-800"
+                  className="border-gray-200 dark:border-gray-800"
                 >
                   {headerGroup.headers.map((header) => (
                     <TableHeaderCell
@@ -79,7 +79,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}
-                    className="group select-none hover:bg-gray-50 hover:dark:bg-gray-900"
+                    className="group select-none hover:bg-[#FBFBFC] hover:dark:bg-gray-900"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
