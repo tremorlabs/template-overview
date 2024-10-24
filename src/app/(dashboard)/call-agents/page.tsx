@@ -15,7 +15,7 @@ export default function Overview() {
           Refresh
         </Button> */}
       </div>
-      <section>
+      <section className="mt-12">
         <DataTable data={agents} columns={columns} />
       </section>
     </main>
