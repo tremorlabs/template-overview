@@ -11,6 +11,7 @@ import { cx } from "@/lib/utils"
 import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils"
 import {
   ColumnDef,
+  ColumnFiltersState,
   FilterFn,
   flexRender,
   getCoreRowModel,
@@ -47,6 +48,11 @@ interface DataTableProps<TData> {
 export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const pageSize = 16
   const [globalFilter, setGlobalFilter] = useState("")
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+
+  const registeredFilterValue = columnFilters.find(
+    (filter) => filter.id === "registered",
+  )?.value as boolean | undefined
 
   const table = useReactTable({
     data,
@@ -56,8 +62,10 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
     },
     state: {
       globalFilter,
+      columnFilters,
     },
     onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     globalFilterFn: fuzzyFilter,
     initialState: {
       pagination: {
@@ -73,7 +81,14 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
 
   return (
     <div className="space-y-3">
-      <Filterbar value={globalFilter} onChange={setGlobalFilter} />
+      <Filterbar
+        globalFilter={globalFilter}
+        setGlobalFilter={setGlobalFilter}
+        registeredOnly={Boolean(registeredFilterValue)}
+        setRegisteredOnly={(checked) => {
+          table.getColumn("registered")?.setFilterValue(checked || null)
+        }}
+      />
       <div className="relative overflow-hidden overflow-x-auto border-t pt-1">
         <Table>
           <TableHead>

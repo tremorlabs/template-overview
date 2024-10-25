@@ -9,17 +9,7 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 }
 
 const ButtonTicketGeneration = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      asChild,
-      loadingText,
-      className,
-      disabled,
-      children,
-      ...props
-    }: ButtonProps,
-    forwardedRef,
-  ) => {
+  ({ className, children, ...props }: ButtonProps, forwardedRef) => {
     return (
       <button
         ref={forwardedRef}

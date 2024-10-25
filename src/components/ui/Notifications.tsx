@@ -166,7 +166,7 @@ export function Notifications() {
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="mx-2 max-w-md px-4">
+      <PopoverContent align="end" className="z-20 mx-2 max-w-md px-4">
         <div className="flex items-center justify-between gap-16">
           <h2 className="text-base font-semibold text-gray-900">
             Notifications

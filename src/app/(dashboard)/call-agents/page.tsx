@@ -4,7 +4,7 @@ import { agents } from "@/data/agents"
 
 export default function Overview() {
   return (
-    <main>
+    <main className="pb-12">
       <div className="flex items-center justify-between border-b pb-6">
         <h1 className="text-2xl font-semibold text-gray-950">Call Agents</h1>
         {/* <Button variant="secondary" className="group flex gap-2">
