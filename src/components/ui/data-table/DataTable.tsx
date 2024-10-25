@@ -57,6 +57,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const table = useReactTable({
     data,
     columns,
+    enableColumnResizing: false,
     filterFns: {
       fuzzy: fuzzyFilter,
     },
@@ -125,7 +126,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
                     <TableCell
                       key={cell.id}
                       className={cx(
-                        "relative whitespace-nowrap py-2.5 text-gray-600 first:w-10 dark:text-gray-400",
+                        "relative whitespace-nowrap py-2.5 text-gray-600 dark:text-gray-400",
                         cell.column.columnDef.meta?.className,
                       )}
                     >
