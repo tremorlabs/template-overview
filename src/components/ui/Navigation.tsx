@@ -11,7 +11,7 @@ import { DropdownUserProfile } from "./UserProfile"
 function Navigation() {
   const pathname = usePathname()
   return (
-    <div className="sticky top-0 z-10 bg-gray-50">
+    <div className="sticky top-0 z-10 bg-white shadow-sm">
       <div className="flex items-center justify-between px-6 pt-3">
         <Logo className="h-6" />
         <div className="flex flex-nowrap gap-2">
@@ -33,13 +33,6 @@ function Navigation() {
           active={pathname === "/case-analysis" || pathname === "/"}
         >
           <Link href="/case-analysis">Case Analysis</Link>
-        </TabNavigationLink>
-        <TabNavigationLink
-          className="inline-flex gap-2"
-          asChild
-          active={pathname === "/balances"}
-        >
-          <Link href="/balances">Balances</Link>
         </TabNavigationLink>
         <TabNavigationLink
           className="inline-flex gap-2"
