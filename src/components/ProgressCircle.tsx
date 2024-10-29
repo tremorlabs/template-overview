@@ -1,4 +1,4 @@
-// Tremor ProgressCircle [v0.0.2]
+// Tremor Custom ProgressCircle [v0.0.2]
 
 import React from "react"
 import { tv, VariantProps } from "tailwind-variants"
@@ -13,23 +13,23 @@ const progressCircleVariants = tv({
   variants: {
     variant: {
       default: {
-        background: "stroke-blue-200 dark:stroke-blue-500/30",
+        background: "stroke-gray-100 dark:stroke-gray-500/30",
         circle: "stroke-blue-500 dark:stroke-blue-500",
       },
       neutral: {
-        background: "stroke-gray-200 dark:stroke-gray-500/40",
+        background: "stroke-gray-100 dark:stroke-gray-500/30",
         circle: "stroke-gray-500 dark:stroke-gray-500",
       },
       warning: {
-        background: "stroke-yellow-200 dark:stroke-yellow-500/30",
+        background: "stroke-gray-100 dark:stroke-gray-500/30",
         circle: "stroke-yellow-500 dark:stroke-yellow-500",
       },
       error: {
-        background: "stroke-red-200 dark:stroke-red-500/30",
+        background: "stroke-gray-100 dark:stroke-gray-500/30",
         circle: "stroke-red-500 dark:stroke-red-500",
       },
       success: {
-        background: "stroke-emerald-200 dark:stroke-emerald-500/30",
+        background: "stroke-gray-100 dark:stroke-gray-500/30",
         circle: "stroke-emerald-500 dark:stroke-emerald-500",
       },
     },

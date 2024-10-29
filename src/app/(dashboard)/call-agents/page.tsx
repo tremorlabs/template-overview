@@ -1,6 +1,6 @@
 import { columns } from "@/components/ui/data-table/columns"
 import { DataTable } from "@/components/ui/data-table/DataTable"
-import { agents } from "@/data/agents"
+import { agents } from "@/data/agents/agents"
 
 export default function Overview() {
   return (
