@@ -232,6 +232,44 @@ const SelectItem = React.forwardRef<
 
 SelectItem.displayName = "SelectItem"
 
+// new component created specifically for this template, outside of Tremor's standard components
+const SelectItemExtended = React.forwardRef<
+    React.ElementRef<typeof SelectPrimitives.Item>,
+    React.ComponentPropsWithoutRef<typeof SelectPrimitives.Item> & {
+        option: string,
+        description: string | boolean
+    }
+>(({ className, option, description, ...props }, forwardedRef) => {
+    return (
+        <SelectPrimitives.Item
+            ref={forwardedRef}
+            className={cx(
+                // base
+                "flex items-center justify-between cursor-pointer rounded px-3 py-2 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+                // text color
+                "text-gray-900 dark:text-gray-50",
+                // disabled
+                "data-[disabled]:pointer-events-none data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
+                // focus
+                "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
+                // hover
+                "hover:bg-gray-100 hover:dark:bg-gray-900",
+                className,
+            )}
+            {...props}
+        >
+            <SelectPrimitives.ItemText>
+                {option}
+            </SelectPrimitives.ItemText>
+            <span className="font-normal text-gray-400 dark:text-gray-600">
+                {description}
+            </span>
+        </SelectPrimitives.Item>
+    )
+})
+
+SelectItemExtended.displayName = "SelectItemExtended"
+
 const SelectSeparator = React.forwardRef<
     React.ElementRef<typeof SelectPrimitives.Separator>,
     React.ComponentPropsWithoutRef<typeof SelectPrimitives.Separator>
@@ -257,6 +295,7 @@ export {
     SelectGroup,
     SelectGroupLabel,
     SelectItem,
+    SelectItemExtended,
     SelectSeparator,
     SelectTrigger,
     SelectValue
