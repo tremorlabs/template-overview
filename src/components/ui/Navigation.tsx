@@ -23,9 +23,9 @@ function Navigation() {
         <TabNavigationLink
           className="inline-flex gap-2"
           asChild
-          active={pathname === "/overview" || pathname === "/"}
+          active={pathname === "/transactions" || pathname === "/"}
         >
-          <Link href="/overview">Overview</Link>
+          <Link href="/transactions">Transactions</Link>
         </TabNavigationLink>
         <TabNavigationLink
           className="inline-flex gap-2"
@@ -37,9 +37,9 @@ function Navigation() {
         <TabNavigationLink
           className="inline-flex gap-2"
           asChild
-          active={pathname === "/transactions"}
+          active={pathname === "/Heatmap"}
         >
-          <Link href="/transactions">Transactions</Link>
+          <Link href="/heatmap">Heatmap</Link>
         </TabNavigationLink>
         <TabNavigationLink
           className="inline-flex gap-2"
