@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/Select"
-import { destinations, paymentOptions } from "@/data/schemaTransactions"
+import { destinations, paymentOptions } from "@/data/transactions/schema"
 import { cx } from "@/lib/utils"
 import React from "react"
 import { Checkbox } from "../Checkbox"

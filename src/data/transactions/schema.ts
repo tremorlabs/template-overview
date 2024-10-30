@@ -5,12 +5,25 @@ export const schemaTransactions = z.object({
   status: z.string(),
   description: z.string(),
   additional: z.string(),
-  iconType: z.string(),
+  paymentType: z.string(),
   type: z.string(),
   amount: z.string().nullable(),
 })
 
 export type Transaction = z.infer<typeof schemaTransactions>
+
+// export type Status = "inbound" | "outbound" | "transfer" | "card payment"
+
+export const statusOptions = ["approved", "pending", "failed"] as const
+export type Status = (typeof statusOptions)[number]
+
+export const paymentType = [
+  "inbound",
+  "outbound",
+  "transfer",
+  "card payment",
+] as const
+export type Payment = (typeof paymentType)[number]
 
 export const paymentOptions: {
   name: string

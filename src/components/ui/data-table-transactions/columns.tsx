@@ -1,4 +1,4 @@
-import { Transaction } from "@/data/schemaTransactions"
+import { Transaction } from "@/data/transactions/schema"
 import { cx } from "@/lib/utils"
 import {
   RiArrowLeftCircleLine,
@@ -8,9 +8,9 @@ import {
 } from "@remixicon/react"
 import { ColumnDef } from "@tanstack/react-table"
 
-type Status = "inbound" | "outbound" | "transfer" | "card payment"
+import { Payment } from "@/data/transactions/schema"
 
-const iconMapping: Record<Status, React.ElementType> = {
+const iconMapping: Record<Payment, React.ElementType> = {
   inbound: RiArrowRightCircleLine,
   outbound: RiArrowLeftCircleLine,
   transfer: RiArrowLeftRightLine,
@@ -29,12 +29,16 @@ export const columns = [
         <span
           className={cx(
             "size-2 shrink-0 rounded-full",
-            row.getValue("status") === "approved"
+            row.original.status === "approved"
               ? "bg-emerald-600 dark:bg-emerald-400"
               : "bg-gray-400 dark:bg-gray-600",
           )}
         />
-        <span>{row.getValue("created")}</span>
+        {new Date(row.original.created).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })}
       </div>
     ),
   },
@@ -43,14 +47,15 @@ export const columns = [
     accessorKey: "description",
     meta: {
       className: "text-left",
-      cell: "font-medium text-gray-900 dark:text-gray-50",
+      cell: "font-medium text-gray-900 dark:text-gray-50 capitalize",
     },
   },
   {
-    header: "Additional info",
+    header: "Key Account",
     accessorKey: "additional",
     meta: {
       className: "text-left",
+      cell: "capitalize",
     },
   },
   {
@@ -60,11 +65,11 @@ export const columns = [
       className: "text-left",
     },
     cell: ({ row }) => {
-      const Icon = iconMapping[row.original.iconType as Status]
+      const Icon = iconMapping[row.original.paymentType as Payment]
       return (
         <div className="flex items-center gap-2">
           {Icon && <Icon className="size-4 shrink-0" aria-hidden="true" />}
-          <span>{row.getValue("type")}</span>
+          <span className="capitalize">{row.original.paymentType}</span>
         </div>
       )
     },
@@ -74,7 +79,35 @@ export const columns = [
     accessorKey: "amount",
     meta: {
       className: "text-right",
-      cell: "font-medium text-gray-900 dark:text-gray-50",
+    },
+    cell: ({ row }) => {
+      const CurrencyCell = (props: { number: string | null }) => {
+        if (props.number === null) return null
+        const num = parseFloat(props.number)
+        const isNegative = num < 0
+        const absNum = Math.abs(num)
+        const formatted = new Intl.NumberFormat("en-US", {
+          style: "decimal",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(absNum)
+        const [dollars, cents] = formatted.split(".")
+        return (
+          <span className="ml-auto text-gray-400">
+            {isNegative ? "(" : ""}
+            <span>$</span>
+            <span className="font-medium text-gray-950">{dollars}</span>
+            <span>.{cents}</span>
+            {isNegative ? ")" : ""}
+          </span>
+        )
+      }
+
+      return (
+        <div className="flex items-center gap-2">
+          <CurrencyCell number={row.original.amount} />
+        </div>
+      )
     },
   },
 ] as ColumnDef<Transaction>[]

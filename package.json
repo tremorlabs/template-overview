@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate:agents": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/agents/generator.ts",
-    "generate:workflow": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/workflow/generator.ts"
+    "generate:workflow": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/workflow/generator.ts",
+    "generate:transactions": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/transactions/generator.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",

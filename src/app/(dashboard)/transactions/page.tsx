@@ -8,8 +8,8 @@ import { ProgressCircle } from "@/components/ProgressCircle"
 import { TransactionDrawer } from "@/components/ui/TransactionDrawer"
 import { DataTable } from "@/components/ui/data-table-transactions/DataTable"
 import { columns } from "@/components/ui/data-table-transactions/columns"
-import { spendings } from "@/data/chart-data"
-import { transactions } from "@/data/transactions"
+import { spending } from "@/data/transactions/spending"
+import { transactions } from "@/data/transactions/transactions"
 import { RiArrowDownSLine } from "@remixicon/react"
 import React from "react"
 
@@ -100,7 +100,7 @@ export default function Transactions() {
           <dt className="text-sm font-medium text-gray-900 dark:text-gray-50">
             Budget health
           </dt>
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-x-16 gap-y-4">
+          <div className="mt-4 flex flex-nowrap items-center justify-between gap-y-4">
             <dd className="space-y-3">
               <div>
                 <div className="flex items-center gap-2">
@@ -127,14 +127,8 @@ export default function Transactions() {
                 </span>
               </div>
             </dd>
-            <div>
-              <ProgressCircle
-                value={62}
-                radius={45}
-                strokeWidth={7}
-                className="[&_circle:first-child]:stroke-gray-300 [&_circle:first-child]:dark:stroke-gray-700"
-              />
-            </div>
+
+            <ProgressCircle value={62} radius={45} strokeWidth={7} />
           </div>
         </Card>
         {/* --- Card 3 --- */}
@@ -172,7 +166,7 @@ export default function Transactions() {
             </dd>
             <LineChart
               className="h-28"
-              data={spendings}
+              data={spending}
               index="date"
               categories={["This month", "Previous month"]}
               colors={["blue", "lightGray"]}

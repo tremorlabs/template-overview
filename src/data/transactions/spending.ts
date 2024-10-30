@@ -1,4 +1,4 @@
-export const spendings: {
+export const spending: {
   date: string
   "This month": number
   "Previous month": number
