@@ -20,13 +20,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/Select"
-import { destinations, paymentOptions } from "@/data/overview/data"
+import { destinations, paymentOptions } from "@/data/schemaTransactions"
 import { cx } from "@/lib/utils"
 import React from "react"
-import { Checkbox } from "./Checkbox"
-import { DatePicker } from "./DatePicker"
-import { Input } from "./Input"
-import { Label } from "./Label"
+import { Checkbox } from "../Checkbox"
+import { DatePicker } from "../DatePicker"
+import { Input } from "../Input"
+import { Label } from "../Label"
 
 
 const ProgressIndicator = ({ currentPage, className }: { currentPage: number, className?: string }) => (

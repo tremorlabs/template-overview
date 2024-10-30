@@ -70,6 +70,7 @@ export const columns = [
         accessorKey: 'amount',
         meta: {
             className: 'text-right',
+            cell: 'font-medium text-gray-900 dark:text-gray-50',
         },
     },
 ] as ColumnDef<Transaction>[]

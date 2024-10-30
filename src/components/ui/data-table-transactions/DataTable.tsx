@@ -54,7 +54,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
                                         <TableHeaderCell
                                             key={header.id}
                                             className={cx(
-                                                "py-2.5",
+                                                "py-2.5 whitespace-nowrap",
                                                 header.column.columnDef.meta?.className,
                                             )}
                                         >
@@ -74,7 +74,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
                                         <TableCell
                                             key={cell.id}
                                             className={cx(
-                                                "py-2.5",
+                                                "py-2.5 whitespace-nowrap",
                                                 cell.column.columnDef.meta?.className,
                                                 cell.column.columnDef.meta?.cell
                                             )}
