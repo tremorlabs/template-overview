@@ -25,7 +25,7 @@ function Navigation() {
           asChild
           active={pathname === "/overview" || pathname === "/"}
         >
-          <Link href="/case-analysis">Overview</Link>
+          <Link href="/overview">Overview</Link>
         </TabNavigationLink>
         <TabNavigationLink
           className="inline-flex gap-2"

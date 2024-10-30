@@ -5,18 +5,11 @@ import { Card } from "@/components/Card"
 import { CategoryBar } from "@/components/CategoryBar"
 import { LineChart } from "@/components/LineChart"
 import { ProgressCircle } from "@/components/ProgressCircle"
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeaderCell,
-    TableRoot,
-    TableRow
-} from "@/components/Table"
 import { TransactionDrawer } from "@/components/TransactionDrawer"
-import { cx } from "@/lib/utils"
-import { RiArrowDownSLine, RiArrowLeftCircleLine, RiArrowLeftRightLine, RiArrowRightCircleLine, RiBankCardLine } from "@remixicon/react"
+import { DataTable } from "@/components/ui/data-table-transactions/DataTable"
+import { columns } from "@/components/ui/data-table-transactions/columns"
+import { transactions } from "@/data/transactions"
+import { RiArrowDownSLine } from "@remixicon/react"
 import React from "react"
 
 const data = [
@@ -84,273 +77,19 @@ const data = [
     //array-end
 ]
 
-const tableData = [
-    //array-start
-    {
-        id: 1,
-        status: "approved",
-        created: "Oct 2, 2:53pm",
-        description: "Payroll",
-        additional: "Gusto",
-        type: "ACH Transfer",
-        iconType: "outbound",
-        amount: "-$3,783.00",
-    },
-    {
-        id: 2,
-        status: "open",
-        created: "Oct 1, 1:03am",
-        description: "Funding",
-        additional: "Stuart Little",
-        type: "Inbound Wire Transfer",
-        iconType: "inbound",
-        amount: "+$500,000.00",
-    },
-    {
-        id: 3,
-        status: "open",
-        created: "Sep 30, 10:41am",
-        description: "Invoice 22345",
-        additional: "JPMorgan Chase Bank ••1189",
-        type: "ACH Debit Transfer",
-        iconType: "inbound",
-        amount: "+$50,000.00",
-    },
-    {
-        id: 4,
-        status: "approved",
-        created: "Sep 29, 05:32pm",
-        description: "Jimmy Nadoe",
-        additional: "USAA Federal Savings Bank ••4478",
-        type: "Inbound ACH Transfer",
-        iconType: "inbound",
-        amount: "+$1,200.00",
-    },
-    {
-        id: 5,
-        status: "approved",
-        created: "Sep 28, 3:21pm",
-        description: "Office Supplies",
-        additional: "Staples",
-        type: "Credit Card Payment",
-        iconType: "card payment",
-        amount: "-$320.00",
-    },
-    {
-        id: 6,
-        status: "approved",
-        created: "Sep 27, 9:08am",
-        description: "Consulting Fee",
-        additional: "John Consulting",
-        type: "ACH Transfer",
-        iconType: "transfer",
-        amount: "+$10,000.00",
-    },
-    {
-        id: 7,
-        status: "open",
-        created: "Sep 26, 11:55am",
-        description: "Rent Payment",
-        additional: "ABC Realty",
-        type: "ACH Debit",
-        iconType: "outbound",
-        amount: "-$5,000.00",
-    },
-    {
-        id: 8,
-        status: "open",
-        created: "Sep 25, 4:00pm",
-        description: "Client Payment",
-        additional: "Wells Fargo Bank ••2267",
-        type: "Inbound Wire Transfer",
-        iconType: "inbound",
-        amount: "+$15,500.00",
-    },
-    {
-        id: 9,
-        status: "open",
-        created: "Sep 24, 6:35pm",
-        description: "Marketing",
-        additional: "Google Ads",
-        type: "Credit Card Payment",
-        iconType: "card payment",
-        amount: "-$1,250.00",
-    },
-    {
-        id: 10,
-        status: "approved",
-        created: "Sep 23, 3:15pm",
-        description: "Insurance Premium",
-        additional: "Progressive Insurance",
-        type: "ACH Transfer",
-        iconType: "transfer",
-        amount: "-$850.00",
-    },
-    {
-        id: 11,
-        status: "approved",
-        created: "Sep 22, 9:47am",
-        description: "Software Subscription",
-        additional: "Salesforce",
-        type: "ACH Debit Transfer",
-        iconType: "outbound",
-        amount: "-$2,200.00",
-    },
-    {
-        id: 12,
-        status: "approved",
-        created: "Sep 21, 8:00pm",
-        description: "Client Refund",
-        additional: "Jane Doe",
-        type: "ACH Transfer",
-        iconType: "outbound",
-        amount: "-$1,000.00",
-    },
-    {
-        id: 13,
-        status: "approved",
-        created: "Sep 20, 11:10am",
-        description: "Payment Received",
-        additional: "Bank of America ••6790",
-        type: "Inbound ACH Transfer",
-        iconType: "inbound",
-        amount: "+$7,500.00",
-    },
-    {
-        id: 14,
-        status: "approved",
-        created: "Sep 19, 2:44pm",
-        description: "Utilities",
-        additional: "ConEdison",
-        type: "ACH Debit Transfer",
-        iconType: "transfer",
-        amount: "-$540.00",
-    },
-    {
-        id: 15,
-        status: "approved",
-        created: "Sep 18, 10:17am",
-        description: "Advertising",
-        additional: "Facebook",
-        type: "Credit Card Payment",
-        iconType: "card payment",
-        amount: "-$1,800.00",
-    },
-    {
-        id: 16,
-        status: "open",
-        created: "Sep 17, 1:25pm",
-        description: "Legal Fees",
-        additional: "Law Offices of S. Smith",
-        type: "ACH Transfer",
-        iconType: "transfer",
-        amount: "-$4,300.00",
-    },
-    {
-        id: 17,
-        status: "approved",
-        created: "Sep 16, 8:15am",
-        description: "Investor Funding",
-        additional: "Venture Capital Co",
-        type: "Inbound Wire Transfer",
-        iconType: "inbound",
-        amount: "+$250,000.00",
-    },
-    {
-        id: 18,
-        status: "open",
-        created: "Sep 15, 12:53pm",
-        description: "Equipment Purchase",
-        additional: "Best Buy",
-        type: "ACH Debit",
-        iconType: "outbound",
-        amount: "-$3,200.00",
-    },
-    {
-        id: 19,
-        status: "approved",
-        created: "Sep 14, 4:30pm",
-        description: "Payroll",
-        additional: "ADP",
-        type: "ACH Transfer",
-        iconType: "transfer",
-        amount: "-$6,500.00",
-    },
-    {
-        id: 20,
-        status: "approved",
-        created: "Sep 13, 7:35am",
-        description: "Client Payment",
-        additional: "Citibank ••9283",
-        type: "Inbound Wire Transfer",
-        iconType: "inbound",
-        amount: "+$22,000.00",
-    },
-    {
-        id: 21,
-        status: "approved",
-        created: "Sep 12, 2:22pm",
-        description: "Research Expense",
-        additional: "LexisNexis",
-        type: "Credit Card Payment",
-        iconType: "card payment",
-        amount: "-$500.00",
-    },
-    {
-        id: 22,
-        status: "approved",
-        created: "Sep 11, 5:40pm",
-        description: "Travel Reimbursement",
-        additional: "Employee A",
-        type: "ACH Transfer",
-        iconType: "outbound",
-        amount: "-$300.00",
-    },
-    {
-        id: 23,
-        status: "approved",
-        created: "Sep 10, 10:15am",
-        description: "Invoice 22451",
-        additional: "Wells Fargo Bank ••4567",
-        type: "Inbound ACH Transfer",
-        iconType: "inbound",
-        amount: "+$12,500.00",
-    },
-    {
-        id: 24,
-        status: "approved",
-        created: "Sep 9, 4:07pm",
-        description: "Web Hosting Fee",
-        additional: "Amazon Web Services",
-        type: "Credit Card Payment",
-        iconType: "card payment",
-        amount: "-$750.00",
-    },
-    {
-        id: 25,
-        status: "open",
-        created: "Sep 8, 11:30am",
-        description: "Miscellaneous Expense",
-        additional: "Office Supplies",
-        type: "Debit Card Payment",
-        iconType: "card payment",
-        amount: "-$200.00",
-    },
-    //array-end
-];
 
-type Status = 'inbound' | 'outbound' | 'transfer' | 'card payment';
+// type Status = 'inbound' | 'outbound' | 'transfer' | 'card payment';
 
-const iconMapping: Record<Status, React.ElementType> = {
-    'inbound': RiArrowRightCircleLine,
-    'outbound': RiArrowLeftCircleLine,
-    'transfer': RiArrowLeftRightLine,
-    'card payment': RiBankCardLine
-};
+// const iconMapping: Record<Status, React.ElementType> = {
+//     'inbound': RiArrowRightCircleLine,
+//     'outbound': RiArrowLeftCircleLine,
+//     'transfer': RiArrowLeftRightLine,
+//     'card payment': RiBankCardLine
+// };
 
 
 
-export default function Home() {
+export default function Overview() {
     const [isOpen, setIsOpen] = React.useState(false)
     return (
         <>
@@ -359,14 +98,12 @@ export default function Home() {
             <>
                 <div className="mt-6 flex items-center justify-between">
                     <div>
-                        <h2 className="font-medium text-gray-900 dark:text-gray-50">Overview</h2>
-                        {/* <p className="mt-2 flex items-baseline gap-x-3">
-                            <span className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-50">$450,432</span>
-                            <span className="text-lg font-medium text-gray-500 dark:text-gray-500">$420,210 available</span>
-                        </p> */}
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50">Overview</h2>
+                        <p className="text-sm/6 text-gray-500 dark:text-gray-500">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
                     </div>
-                    <Button onClick={() => setIsOpen(true)} variant="secondary" className="flex items-center gap-2">
+                    <Button onClick={() => setIsOpen(true)} className="flex items-center gap-2">
                         Move money
+                        {/* @CHRIS: add popover dropdown */}
                         <RiArrowDownSLine className="size-5 shrink-0" aria-hidden="true" />
                     </Button>
                     <TransactionDrawer open={isOpen} onOpenChange={setIsOpen} />
@@ -469,7 +206,9 @@ export default function Home() {
                         </div>
                     </Card>
                 </dl>
-                <TableRoot className="mt-6">
+                {/* keep old version */}
+
+                {/* <TableRoot className="mt-6">
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -495,7 +234,6 @@ export default function Home() {
                                     <TableCell className="py-2.5 font-medium text-gray-900 dark:text-gray-50">{item.description}</TableCell>
                                     <TableCell className="py-2.5">{item.additional}</TableCell>
                                     <TableCell className="py-2.5 flex items-center gap-2">
-                                        {/* @SEV: further simplified? */}
                                         {(() => {
                                             const Icon = iconMapping[item.iconType as Status];
                                             return <Icon className="size-4 shrink-0" aria-hidden="true" />;
@@ -507,23 +245,9 @@ export default function Home() {
                             ))}
                         </TableBody>
                     </Table>
-                </TableRoot>
-                {/* @CHRIS: pagination */}
+                </TableRoot> */}
 
-                {/* <div className="mt-8">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-base font-medium text-gray-900 dark:text-gray-50">Requests over time</h2>
-                        <div className="flex items-center gap-3">
-                            <button type="button">
-                                <RiArrowLeftSLine className="size-5 shrink-0 text-gray-700 dark:text-gray-300" aria-hidden="true" />
-                            </button>
-                            <span className="text-sm font-medium text-gray-900 dark:text-gray-50">Jan 1 – Aug 31, 2024</span>
-                            <button type="button">
-                                <RiArrowRightSLine className="size-5 shrink-0 text-gray-700 dark:text-gray-300" aria-hidden="true" />
-                            </button>
-                        </div>
-                    </div>
-                </div> */}
+                <DataTable data={transactions} columns={columns} />
             </>
         </>
     )

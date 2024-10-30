@@ -1,62 +1,7 @@
-export const paymentOptions = [
-  {
-    name: "ACH",
-    value: "ach",
-    extended: "ACH transfer",
-  },
-  {
-    name: "Wire",
-    value: "wire",
-    extended: "Wire transfer",
-  },
-  {
-    name: "Check",
-    value: "check",
-    extended: "Check",
-  },
-  {
-    name: "RTP",
-    value: "rtp",
-    extended: "RTP transfer",
-  },
-]
+import { Transaction } from "./schemaTransactions"
 
-export const destinations = [
+export const transactions: Transaction[] = [
   {
-    value: "manually",
-    label: "Enter details manually",
-    category: false,
-  },
-  {
-    value: "deel",
-    label: "Deel",
-    category: "US Bank",
-  },
-  {
-    value: "gusto",
-    label: "Gusto",
-    category: "Chase Bank",
-  },
-  {
-    value: "stuart-little",
-    label: "Stuart Little",
-    category: "Wells Fargo Bank",
-  },
-  {
-    value: "wilmer-lawyers",
-    label: "Wilmer Lawyers",
-    category: "Citi Bank",
-  },
-  {
-    value: "forest-lawyers-group",
-    label: "Forest Lawyer Group",
-    category: "UBS Bank",
-  },
-]
-
-export const tableData = [
-  {
-    id: 1,
     status: "approved",
     created: "Oct 2, 2:53pm",
     description: "Payroll",
@@ -66,7 +11,6 @@ export const tableData = [
     amount: "-$3,783.00",
   },
   {
-    id: 2,
     status: "open",
     created: "Oct 1, 1:03am",
     description: "Funding",
@@ -76,7 +20,6 @@ export const tableData = [
     amount: "+$500,000.00",
   },
   {
-    id: 3,
     status: "open",
     created: "Sep 30, 10:41am",
     description: "Invoice 22345",
@@ -86,7 +29,6 @@ export const tableData = [
     amount: "+$50,000.00",
   },
   {
-    id: 4,
     status: "approved",
     created: "Sep 29, 05:32pm",
     description: "Jimmy Nadoe",
@@ -96,7 +38,6 @@ export const tableData = [
     amount: "+$1,200.00",
   },
   {
-    id: 5,
     status: "approved",
     created: "Sep 28, 3:21pm",
     description: "Office Supplies",
@@ -106,7 +47,6 @@ export const tableData = [
     amount: "-$320.00",
   },
   {
-    id: 6,
     status: "approved",
     created: "Sep 27, 9:08am",
     description: "Consulting Fee",
@@ -116,7 +56,6 @@ export const tableData = [
     amount: "+$10,000.00",
   },
   {
-    id: 7,
     status: "open",
     created: "Sep 26, 11:55am",
     description: "Rent Payment",
@@ -126,7 +65,6 @@ export const tableData = [
     amount: "-$5,000.00",
   },
   {
-    id: 8,
     status: "open",
     created: "Sep 25, 4:00pm",
     description: "Client Payment",
@@ -136,7 +74,6 @@ export const tableData = [
     amount: "+$15,500.00",
   },
   {
-    id: 9,
     status: "open",
     created: "Sep 24, 6:35pm",
     description: "Marketing",
@@ -146,7 +83,6 @@ export const tableData = [
     amount: "-$1,250.00",
   },
   {
-    id: 10,
     status: "approved",
     created: "Sep 23, 3:15pm",
     description: "Insurance Premium",
@@ -156,7 +92,6 @@ export const tableData = [
     amount: "-$850.00",
   },
   {
-    id: 11,
     status: "approved",
     created: "Sep 22, 9:47am",
     description: "Software Subscription",
@@ -166,7 +101,6 @@ export const tableData = [
     amount: "-$2,200.00",
   },
   {
-    id: 12,
     status: "approved",
     created: "Sep 21, 8:00pm",
     description: "Client Refund",
@@ -176,7 +110,6 @@ export const tableData = [
     amount: "-$1,000.00",
   },
   {
-    id: 13,
     status: "approved",
     created: "Sep 20, 11:10am",
     description: "Payment Received",
@@ -186,7 +119,6 @@ export const tableData = [
     amount: "+$7,500.00",
   },
   {
-    id: 14,
     status: "approved",
     created: "Sep 19, 2:44pm",
     description: "Utilities",
@@ -196,7 +128,6 @@ export const tableData = [
     amount: "-$540.00",
   },
   {
-    id: 15,
     status: "approved",
     created: "Sep 18, 10:17am",
     description: "Advertising",
@@ -206,7 +137,6 @@ export const tableData = [
     amount: "-$1,800.00",
   },
   {
-    id: 16,
     status: "open",
     created: "Sep 17, 1:25pm",
     description: "Legal Fees",
@@ -216,7 +146,6 @@ export const tableData = [
     amount: "-$4,300.00",
   },
   {
-    id: 17,
     status: "approved",
     created: "Sep 16, 8:15am",
     description: "Investor Funding",
@@ -226,7 +155,6 @@ export const tableData = [
     amount: "+$250,000.00",
   },
   {
-    id: 18,
     status: "open",
     created: "Sep 15, 12:53pm",
     description: "Equipment Purchase",
@@ -236,7 +164,6 @@ export const tableData = [
     amount: "-$3,200.00",
   },
   {
-    id: 19,
     status: "approved",
     created: "Sep 14, 4:30pm",
     description: "Payroll",
@@ -246,7 +173,6 @@ export const tableData = [
     amount: "-$6,500.00",
   },
   {
-    id: 20,
     status: "approved",
     created: "Sep 13, 7:35am",
     description: "Client Payment",
@@ -256,7 +182,6 @@ export const tableData = [
     amount: "+$22,000.00",
   },
   {
-    id: 21,
     status: "approved",
     created: "Sep 12, 2:22pm",
     description: "Research Expense",
@@ -266,7 +191,6 @@ export const tableData = [
     amount: "-$500.00",
   },
   {
-    id: 22,
     status: "approved",
     created: "Sep 11, 5:40pm",
     description: "Travel Reimbursement",
@@ -276,7 +200,6 @@ export const tableData = [
     amount: "-$300.00",
   },
   {
-    id: 23,
     status: "approved",
     created: "Sep 10, 10:15am",
     description: "Invoice 22451",
@@ -286,7 +209,6 @@ export const tableData = [
     amount: "+$12,500.00",
   },
   {
-    id: 24,
     status: "approved",
     created: "Sep 9, 4:07pm",
     description: "Web Hosting Fee",
@@ -296,7 +218,6 @@ export const tableData = [
     amount: "-$750.00",
   },
   {
-    id: 25,
     status: "open",
     created: "Sep 8, 11:30am",
     description: "Miscellaneous Expense",

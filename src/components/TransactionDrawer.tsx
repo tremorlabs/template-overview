@@ -24,8 +24,21 @@ import { destinations, paymentOptions } from "@/data/overview/data"
 import { cx } from "@/lib/utils"
 import React from "react"
 import { Checkbox } from "./Checkbox"
+import { DatePicker } from "./DatePicker"
 import { Input } from "./Input"
 import { Label } from "./Label"
+
+
+const ProgressIndicator = ({ currentPage, className }: { currentPage: number, className?: string }) => (
+    <div className={cx(
+        className
+    )}>
+        <div className="absolute left-[25%] right-[25%] top-[2.25rem] h-[2px] bg-gray-200 dark:bg-gray-800" />
+        <div className="absolute left-[25%] right-[75%] top-[2.25rem] h-[2px] bg-blue-500 transition-all duration-300"
+            style={{ right: `${75 - ((currentPage - 1) * 25)}%` }}
+        />
+    </div>
+)
 
 interface DataTableDrawerProps {
     open: boolean
@@ -36,14 +49,15 @@ export function TransactionDrawer({
     open,
     onOpenChange,
 }: DataTableDrawerProps) {
+    const [date, setDate] = React.useState<Date | undefined>(undefined)
     const [formData, setFormData] = React.useState({
         method: paymentOptions[0].value,
-        destination: "manually", // Initialize with the same value as selectedDestination
+        destination: destinations[1].label,
         accountNumber: "",
         routingNumber: "",
         statementDescriptor: "",
         saveDetails: false,
-        amount: "",
+        amount: "500",
         memo: "",
         scheduledDate: "",
     })
@@ -94,11 +108,11 @@ export function TransactionDrawer({
                 </DrawerTitle>
             </DrawerHeader>
             <DrawerBody className="space-y-6 border-t border-gray-200 dark:border-gray-800 -mx-6 px-6">
-                <fieldset className="space-y-3">
-                    <legend className="text-sm font-medium">Method</legend>
+                <fieldset>
+                    <Label className="font-medium">Method</Label>
                     <RadioCardGroup
                         defaultValue={formData.method}
-                        className="text-sm flex items-center gap-2"
+                        className="text-sm mt-2 flex items-center gap-2"
                         onValueChange={(value) => setFormData(prev => ({ ...prev, method: value }))}
                     >
                         {paymentOptions.map((option) => (
@@ -107,6 +121,7 @@ export function TransactionDrawer({
                                 value={option.value}
                                 className={cx(
                                     "p-2.5",
+                                    // @CHRIS: add dark mode styling
                                     "data-[state=checked]:bg-blue-500 data-[state=checked]:text-white data-[state=checked]:border-transparent"
                                 )}
                             >
@@ -196,7 +211,7 @@ export function TransactionDrawer({
             </DrawerHeader>
             <DrawerBody className="space-y-6 border-t border-gray-200 dark:border-gray-800 -mx-6 px-6 overflow-y-scroll">
                 <div>
-                    <Label htmlFor="amount" className="font-medium">Amount</Label>
+                    <Label htmlFor="amount" className="font-medium">Amount ($)</Label>
                     <Input
                         id="amount"
                         name="amount"
@@ -221,13 +236,12 @@ export function TransactionDrawer({
                 </div>
 
                 <div>
-                    <Label htmlFor="scheduledDate" className="font-medium">Scheduled Date</Label>
-                    <Input
-                        id="scheduledDate"
-                        name="scheduledDate"
-                        type="date"
-                        value={formData.scheduledDate}
-                        onChange={handleInputChange}
+                    <Label htmlFor="transaction-date" className="font-medium">Scheduled Date</Label>
+                    {/* @SEV: here the "apply"-UX feels unnatural -> select date & close immediately feels smoother */}
+                    <DatePicker
+                        id="transaction-date"
+                        value={date}
+                        onChange={setDate}
                         className="mt-2"
                     />
                 </div>
@@ -256,8 +270,43 @@ export function TransactionDrawer({
                         </span>
                     </DrawerTitle>
                 </DrawerHeader>
-                <DrawerBody className="space-y-6 border-t border-gray-200 dark:border-gray-800 -mx-6 px-6 overflow-y-scroll">
-                    <div className="rounded-lg border border-gray-200 dark:border-gray-800">
+                <DrawerBody className="space-y-4 border-t border-gray-200 dark:border-gray-800 -mx-6 px-6 overflow-y-scroll">
+                    <p>
+                        <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                            {formData.amount ? `$${parseFloat(formData.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}` : 'Not provided'}
+                        </span>
+                        <span className="ml-1 text-sm">
+                            {getMethodLabel() ? `${getMethodLabel()} transfer` : ''}
+                        </span>
+                    </p>
+                    <div className="bg-gray-50 dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 rounded-md p-4">
+                        <ul role="list" className="space-y-6">
+                            <li className="relative flex gap-x-4">
+                                <div className="-bottom-6 absolute left-0 top-0 flex w-6 justify-center">
+                                    <div className="w-px bg-gray-200 dark:bg-gray-800" />
+                                </div>
+                                <div className="relative flex h-6 w-6 flex-none items-center justify-center bg-gray-50 dark:bg-gray-900">
+                                    <div className="size-1.5 rounded-full bg-gray-100 dark:bg-gray-900 ring-1 ring-gray-300 dark:ring-gray-700" />
+                                </div>
+                                <p className="flex-auto py-0.5">
+                                    <span className="block text-sm text-gray-500 dark:text-gray-500">Source</span>
+                                    <span className="block text-base font-medium text-gray-900">Primary account</span>
+                                    <span className="block text-sm text-gray-600 dark:text-gray-600">{formData.amount ? `$${parseFloat(formData.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}` : 'Not provided'}</span>
+                                </p>
+                            </li>
+                            <li className="relative flex gap-x-4">
+                                <div className="relative flex h-6 w-6 flex-none items-center justify-center bg-gray-50 dark:bg-gray-900">
+                                    <div className="size-1.5 rounded-full bg-gray-100 dark:bg-gray-900 ring-1 ring-gray-300 dark:ring-gray-700" />
+                                </div>
+                                <p className="flex-auto py-0.5">
+                                    <span className="block text-sm text-gray-500 dark:text-gray-500">Destination</span>
+                                    <span className="block text-base font-medium text-gray-900">{getDestinationLabel()}</span>
+                                    <span className="block text-sm text-gray-600 dark:text-gray-400">{formData.accountNumber ? formData.accountNumber : 'Not provided'}</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="rounded-md border border-gray-200 dark:border-gray-800">
                         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
                             <h3 className="font-medium">Recipient Information</h3>
                             <div className="mt-4 space-y-4">
@@ -292,10 +341,10 @@ export function TransactionDrawer({
     return (
         <Drawer open={open} onOpenChange={onOpenChange}>
             <DrawerContent className="overflow-x-hidden sm:max-w-lg dark:bg-gray-925">
+                {/* <ProgressIndicator currentPage={currentPage} /> */}
                 {currentPage === 1 && <FirstPage />}
                 {currentPage === 2 && <SecondPage />}
                 {currentPage === 3 && <SummaryPage />}
-
                 <DrawerFooter className="-mx-6 -mb-2 gap-2 bg-white px-6 dark:bg-gray-925 sm:justify-between">
                     {currentPage === 1 ? (
                         <>
