@@ -37,7 +37,7 @@ function Navigation() {
         <TabNavigationLink
           className="inline-flex gap-2"
           asChild
-          active={pathname === "/Heatmap"}
+          active={pathname === "/heatmap"}
         >
           <Link href="/heatmap">Heatmap</Link>
         </TabNavigationLink>
