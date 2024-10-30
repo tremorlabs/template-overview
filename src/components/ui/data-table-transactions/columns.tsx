@@ -12,10 +12,6 @@ const iconMapping: Record<Status, React.ElementType> = {
     'card payment': RiBankCardLine
 };
 
-interface ColumnMeta {
-    className?: string;
-    cell?: string | false;
-}
 
 export const columns = [
     {
@@ -23,7 +19,7 @@ export const columns = [
         accessorKey: 'created',
         meta: {
             className: 'text-left',
-        } as ColumnMeta,
+        },
         cell: ({ row }) => (
             <div className="flex items-center gap-2">
                 <span
@@ -44,21 +40,21 @@ export const columns = [
         meta: {
             className: 'text-left',
             cell: 'font-medium text-gray-900 dark:text-gray-50',
-        } as ColumnMeta,
+        },
     },
     {
         header: 'Additional info',
         accessorKey: 'additional',
         meta: {
             className: 'text-left',
-        } as ColumnMeta,
+        },
     },
     {
         header: 'Type',
         accessorKey: 'type',
         meta: {
             className: 'text-left',
-        } as ColumnMeta,
+        },
         cell: ({ row }) => {
             const Icon = iconMapping[row.original.iconType as Status];
             return (
@@ -74,7 +70,7 @@ export const columns = [
         accessorKey: 'amount',
         meta: {
             className: 'text-right',
-        } as ColumnMeta,
+        },
     },
 ] as ColumnDef<Transaction>[]
 
