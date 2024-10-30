@@ -1,4 +1,4 @@
-import { Transaction } from "@/data/transactions/schema"
+import { Transaction } from "@/data/support/schema"
 import { cx } from "@/lib/utils"
 import {
   RiArrowLeftCircleLine,
@@ -8,7 +8,7 @@ import {
 } from "@remixicon/react"
 import { ColumnDef } from "@tanstack/react-table"
 
-import { Payment } from "@/data/transactions/schema"
+import { Payment } from "@/data/support/schema"
 
 const iconMapping: Record<Payment, React.ElementType> = {
   inbound: RiArrowRightCircleLine,
