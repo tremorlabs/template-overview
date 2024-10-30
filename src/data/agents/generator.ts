@@ -1,7 +1,7 @@
 import { fakerDE_CH as faker } from "@faker-js/faker"
 import fs from "fs"
 import path from "path"
-import { accounts } from "./schemaAgents"
+import { accounts } from "./schema"
 
 const agents = Array.from({ length: 102 }, () => {
   const fullName = `${faker.person.firstName()} ${faker.person.lastName()}`
@@ -39,5 +39,5 @@ const agents = Array.from({ length: 102 }, () => {
 
 fs.writeFileSync(
   path.join(__dirname, "agents.ts"),
-  `import { Agent } from "./schemaAgents";\nexport const agents: Agent[] = ${JSON.stringify(agents, null, 2)};`,
+  `import { Agent } from "./schema";\nexport const agents: Agent[] = ${JSON.stringify(agents, null, 2)};`,
 )

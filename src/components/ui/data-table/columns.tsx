@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/Badge"
 import { ProgressCircle } from "@/components/ProgressCircle"
-import { Agent } from "@/data/schemaAgents"
+import { Agent } from "@/data/agents/schema"
 import { cx } from "@/lib/utils"
 import {
   RiCheckboxCircleFill,
