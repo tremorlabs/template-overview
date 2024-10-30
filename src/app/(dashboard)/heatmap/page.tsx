@@ -8,23 +8,23 @@ import {
   TableHeaderCell,
   TableRoot,
   TableRow,
-} from "@/components/Table";
-import { cx } from "@/lib/utils";
-import { RiArrowRightUpLine } from "@remixicon/react";
-import Link from "next/link";
+} from "@/components/Table"
+import { cx } from "@/lib/utils"
+import { RiArrowRightUpLine } from "@remixicon/react"
+import Link from "next/link"
 
 // Types
 interface WeekData {
-  percentage: number;
-  users: number;
+  percentage: number
+  users: number
 }
 
 interface CohortData {
-  date: string;
-  initialDownloads: number;
+  date: string
+  initialDownloads: number
   retention: {
-    [key: `week${number}`]: WeekData;
-  };
+    [key: `week${number}`]: WeekData
+  }
 }
 
 const cohortData: CohortData[] = [
@@ -147,20 +147,20 @@ const cohortData: CohortData[] = [
       week10: { percentage: 25.9, users: 35 },
     },
   },
-];
+]
 
 // Helper functions
 const getWeeks = (data: CohortData[]): string[] => {
-  return Object.keys(data[0].retention).sort((a, b) =>
-    parseInt(a.replace('week', '')) - parseInt(b.replace('week', ''))
-  );
-};
+  return Object.keys(data[0].retention).sort(
+    (a, b) => parseInt(a.replace("week", "")) - parseInt(b.replace("week", "")),
+  )
+}
 
 const getAllPercentages = (data: CohortData[]): number[] => {
-  return data.flatMap(cohort =>
-    Object.values(cohort.retention).map(week => week.percentage)
-  );
-};
+  return data.flatMap((cohort) =>
+    Object.values(cohort.retention).map((week) => week.percentage),
+  )
+}
 
 const colorClasses = [
   "bg-gray-200/70 dark:bg-gray-800",
@@ -171,9 +171,13 @@ const colorClasses = [
   "bg-blue-300 dark:bg-blue-700",
   "bg-blue-400 dark:bg-blue-600",
   "bg-blue-500 dark:bg-blue-500",
-];
+]
 
-const getBackgroundColor = (value: number, minValue: number, maxValue: number) => {
+const getBackgroundColor = (
+  value: number,
+  minValue: number,
+  maxValue: number,
+) => {
   const normalizedValue = (value - minValue) / (maxValue - minValue)
   const index = Math.min(
     Math.floor(normalizedValue * colorClasses.length),
@@ -190,10 +194,10 @@ const getTextColor = (value: number, minValue: number, maxValue: number) => {
 }
 
 export default function Heatmap() {
-  const weeks = getWeeks(cohortData);
-  const allValues = getAllPercentages(cohortData);
-  const maxValue = Math.max(...allValues);
-  const minValue = Math.min(...allValues);
+  const weeks = getWeeks(cohortData)
+  const allValues = getAllPercentages(cohortData)
+  const maxValue = Math.max(...allValues)
+  const minValue = Math.min(...allValues)
 
   return (
     <main className="mt-6">
@@ -201,7 +205,7 @@ export default function Heatmap() {
         <Table className="border-separate border-spacing-0 text-sm tabular-nums">
           <TableHead>
             <TableRow>
-              <TableHeaderCell className="sticky top-0 w-56 whitespace-nowrap bg-white left-0 z-20 border-r border-gray-200 dark:border-gray-800 pr-4 dark:bg-gray-950">
+              <TableHeaderCell className="sticky left-0 top-0 z-20 w-56 whitespace-nowrap border-r border-gray-200 bg-white pr-4 dark:border-gray-800 dark:bg-gray-950">
                 <span className="block">Day of Download</span>
                 <span className="block font-normal text-gray-500 dark:text-gray-500">
                   Initial users
@@ -212,7 +216,7 @@ export default function Heatmap() {
                   key={week}
                   className="border-r border-gray-200 dark:border-gray-800"
                 >
-                  <span>Week {week.replace('week', '')}</span>
+                  <span>Week {week.replace("week", "")}</span>
                 </TableHeaderCell>
               ))}
             </TableRow>
@@ -240,14 +244,19 @@ export default function Heatmap() {
                   </Link>
                 </TableCell>
                 {weeks.map((week) => {
-                  const weekData = cohort.retention[week as keyof typeof cohort.retention];
+                  const weekData =
+                    cohort.retention[week as keyof typeof cohort.retention]
                   return (
                     <TableCell
                       key={week}
                       className={cx(
-                        getBackgroundColor(weekData.percentage, minValue, maxValue),
+                        getBackgroundColor(
+                          weekData.percentage,
+                          minValue,
+                          maxValue,
+                        ),
                         getTextColor(weekData.percentage, minValue, maxValue),
-                        "min-w-32 border-b border-r border-gray-200 dark:border-gray-800"
+                        "min-w-32 border-b border-r border-gray-200 dark:border-gray-800",
                       )}
                     >
                       <span className="block text-sm font-medium">
@@ -256,13 +265,13 @@ export default function Heatmap() {
                       <span
                         className={cx(
                           getTextColor(weekData.percentage, minValue, maxValue),
-                          "mt-0.5 block text-sm"
+                          "mt-0.5 block text-sm",
                         )}
                       >
                         {weekData.users}K
                       </span>
                     </TableCell>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -270,5 +279,5 @@ export default function Heatmap() {
         </Table>
       </TableRoot>
     </main>
-  );
+  )
 }
