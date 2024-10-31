@@ -351,7 +351,7 @@ export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
     if (currentPage === 1) {
       return (
         <>
-          <DrawerClose>
+          <DrawerClose asChild>
             <Button variant="secondary">Cancel</Button>
           </DrawerClose>
           <Button onClick={() => setCurrentPage(2)}>Continue</Button>
