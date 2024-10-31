@@ -9,7 +9,8 @@
     "lint": "next lint",
     "generate:agents": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/agents/generator.ts",
     "generate:workflow": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/workflow/generator.ts",
-    "generate:support": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/support/generator.ts"
+    "generate:support": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/support/generator.ts",
+    "generate:retention": "tsx --tsconfig ./tsconfig.scripts.json ./src/data/retention/generator.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.1.0",

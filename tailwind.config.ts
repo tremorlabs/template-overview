@@ -52,6 +52,13 @@ const config: Config = {
           },
           to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
         },
+        dialogContentFullShow: {
+          from: {
+            opacity: "0",
+            transform: "scale(0.95)",
+          },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
         drawerSlideLeftAndFade: {
           from: { opacity: "0", transform: "translateX(100%)" },
           to: { opacity: "1", transform: "translateX(0)" },
@@ -77,6 +84,8 @@ const config: Config = {
         "dialogOverlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
       dialogContentShow:
         "dialogContentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+      dialogContentFullShow:
+        "dialogContentFullShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
       // Drawer
       drawerSlideLeftAndFade:
         "drawerSlideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
