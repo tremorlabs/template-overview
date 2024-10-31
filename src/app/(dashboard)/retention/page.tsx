@@ -82,7 +82,7 @@ const CohortDetailsDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContentFull className="fixed inset-4 mx-auto flex w-[95vw] flex-col overflow-hidden rounded-lg border bg-white p-0 shadow-lg sm:max-w-5xl">
+      <DialogContentFull className="fixed inset-4 mx-auto flex w-[95vw] flex-col overflow-hidden rounded-lg border bg-white p-0 shadow-lg sm:max-w-3xl">
         <DialogHeader className="flex-none border-b px-6 py-4">
           <DialogTitle className="text-lg font-semibold">
             Cohort Details
@@ -276,20 +276,17 @@ export default function CohortRetention() {
       </div>
       <section className="mt-12">
         <TableRoot className="overflow-scroll">
-          <Table className="border-transparent dark:border-transparent">
+          <Table className="border-none">
             <TableHead>
               <TableRow>
-                <TableHeaderCell className="sticky left-0 top-0 z-10 min-w-40 border-transparent bg-white dark:border-transparent dark:bg-gray-900">
+                <TableHeaderCell className="sticky left-0 top-0 z-10 min-w-40 border-transparent bg-white p-px dark:border-transparent dark:bg-gray-900">
                   <span className="block">Cohort</span>
                   <span className="block font-normal text-gray-500 dark:text-gray-500">
                     Initial customers
                   </span>
                 </TableHeaderCell>
                 {weeks.map((week) => (
-                  <TableHeaderCell
-                    key={week}
-                    className="border-transparent dark:border-transparent"
-                  >
+                  <TableHeaderCell key={week} className="border-none">
                     Week {week}
                   </TableHeaderCell>
                 ))}
@@ -299,7 +296,7 @@ export default function CohortRetention() {
               {cohortEntries.map(
                 ([cohortKey, cohortData]: [string, CohortData]) => (
                   <TableRow key={cohortKey} className="h-full">
-                    <TableCell className="sticky left-0 z-10 h-full min-w-56 bg-white px-0.5 py-0.5 dark:bg-gray-900">
+                    <TableCell className="sticky left-0 z-10 h-full min-w-56 bg-white p-0 dark:bg-gray-900">
                       <button
                         className={cx(
                           "group relative -ml-2 h-full w-full rounded pl-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100",
@@ -322,7 +319,7 @@ export default function CohortRetention() {
                     {cohortData.weeks.map((weekData, weekIndex) => (
                       <TableCell
                         key={weekIndex}
-                        className="h-full min-w-24 px-0.5 py-0.5"
+                        className="h-full min-w-24 p-px"
                       >
                         {weekData === null ? (
                           <div
