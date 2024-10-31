@@ -1,20 +1,19 @@
-import { Transaction } from "@/data/support/schema"
+import { Badge } from "@/components/Badge"
+import { Ticket } from "@/data/support/schema"
 import { cx } from "@/lib/utils"
 import {
-  RiArrowLeftCircleLine,
-  RiArrowLeftRightLine,
-  RiArrowRightCircleLine,
-  RiBankCardLine,
+  RiAlarmWarningLine,
+  RiFileCheckLine,
+  RiFileListLine,
+  RiFolderReduceLine,
 } from "@remixicon/react"
 import { ColumnDef } from "@tanstack/react-table"
 
-import { Payment } from "@/data/support/schema"
-
-const iconMapping: Record<Payment, React.ElementType> = {
-  inbound: RiArrowRightCircleLine,
-  outbound: RiArrowLeftCircleLine,
-  transfer: RiArrowLeftRightLine,
-  "card payment": RiBankCardLine,
+const typeIconMapping: Record<string, React.ElementType> = {
+  "fnol-contact": RiFolderReduceLine,
+  "policy-contact": RiFileListLine,
+  "claims-contact": RiFileCheckLine,
+  "emergency-contact": RiAlarmWarningLine,
 }
 
 export const columns = [
@@ -29,15 +28,19 @@ export const columns = [
         <span
           className={cx(
             "size-2 shrink-0 rounded-full",
-            row.original.status === "approved"
-              ? "bg-emerald-600 dark:bg-emerald-400"
-              : "bg-gray-400 dark:bg-gray-600",
+            row.original.status === "resolved"
+              ? "bg-green-600 dark:bg-green-400"
+              : row.original.status === "escalated"
+                ? "bg-rose-600 dark:bg-rose-400"
+                : "bg-blue-400 dark:bg-blue-600",
           )}
         />
         {new Date(row.original.created).toLocaleDateString("en-GB", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
         })}
       </div>
     ),
@@ -47,67 +50,91 @@ export const columns = [
     accessorKey: "description",
     meta: {
       className: "text-left",
-      cell: "font-medium text-gray-900 dark:text-gray-50 capitalize",
+      cell: "font-medium text-gray-900 dark:text-gray-50",
     },
   },
   {
-    header: "Key Account",
-    accessorKey: "additional",
+    header: "Policy Info",
+    accessorKey: "policyNumber",
     meta: {
       className: "text-left",
-      cell: "capitalize",
+      cell: "font-medium",
     },
   },
   {
-    header: "Type",
+    header: "Contact Type",
     accessorKey: "type",
     meta: {
       className: "text-left",
     },
     cell: ({ row }) => {
-      const Icon = iconMapping[row.original.paymentType as Payment]
+      const Icon = typeIconMapping[row.original.type]
       return (
         <div className="flex items-center gap-2">
           {Icon && <Icon className="size-4 shrink-0" aria-hidden="true" />}
-          <span className="capitalize">{row.original.paymentType}</span>
+          <span className="capitalize">
+            {row.original.type.replace("-contact", "")}
+          </span>
         </div>
       )
     },
   },
   {
-    header: "Amount",
-    accessorKey: "amount",
+    header: "Duration",
+    accessorKey: "duration",
     meta: {
       className: "text-right",
     },
     cell: ({ row }) => {
-      const CurrencyCell = (props: { number: string | null }) => {
-        if (props.number === null) return null
-        const num = parseFloat(props.number)
-        const isNegative = num < 0
-        const absNum = Math.abs(num)
-        const formatted = new Intl.NumberFormat("en-US", {
-          style: "decimal",
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }).format(absNum)
-        const [dollars, cents] = formatted.split(".")
+      const DurationCell = (props: { minutes: string | null }) => {
+        if (props.minutes === null) return null
+        const mins = parseInt(props.minutes)
+        const hours = Math.floor(mins / 60)
+        const remainingMins = mins % 60
+
         return (
-          <span className="ml-auto text-gray-400">
-            {isNegative ? "(" : ""}
-            <span>$</span>
-            <span className="font-medium text-gray-950">{dollars}</span>
-            <span>.{cents}</span>
-            {isNegative ? ")" : ""}
+          <span className="ml-auto text-gray-600 dark:text-gray-300">
+            {hours > 0 ? `${hours}h ` : ""}
+            {remainingMins}m
           </span>
         )
       }
-
       return (
         <div className="flex items-center gap-2">
-          <CurrencyCell number={row.original.amount} />
+          <DurationCell minutes={row.original.duration} />
         </div>
       )
     },
   },
-] as ColumnDef<Transaction>[]
+  {
+    header: "Assessed Priority",
+    accessorKey: "priority",
+    meta: {
+      className: "text-center",
+    },
+    cell: ({ row }) => {
+      const getPriorityVariant = (priority: string) => {
+        switch (priority) {
+          case "emergency":
+            return "error"
+          case "urgent":
+            return "warning"
+          case "high":
+            return "default"
+          case "medium":
+            return "neutral"
+          default:
+            return "neutral"
+        }
+      }
+      return (
+        <Badge
+          variant={getPriorityVariant(row.original.priority)}
+          className="capitalize"
+        >
+          {row.original.priority}
+        </Badge>
+      )
+    },
+  },
+] as ColumnDef<Ticket>[]

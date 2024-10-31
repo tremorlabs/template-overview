@@ -5,14 +5,12 @@ import { Card } from "@/components/Card"
 import { CategoryBar } from "@/components/CategoryBar"
 import { LineChartSupport } from "@/components/LineChartSupport"
 import { ProgressCircle } from "@/components/ProgressCircle"
-import { TransactionDrawer } from "@/components/ui/TransactionDrawer"
+import { TicketDrawer } from "@/components/ui/TicketDrawer"
 import { DataTable } from "@/components/ui/data-table-transactions/DataTable"
 import { columns } from "@/components/ui/data-table-transactions/columns"
-import { transactions } from "@/data/support/transactions"
+import { tickets } from "@/data/support/tickets"
 import { volume } from "@/data/support/volume"
-// import { callVolume } from "@/data/support/callVolume"
-// import { tickets } from "@/data/support/tickets"
-import { RiArrowDownSLine } from "@remixicon/react"
+import { RiAddCircleLine } from "@remixicon/react"
 import React from "react"
 
 export default function SupportDashboard() {
@@ -33,9 +31,9 @@ export default function SupportDashboard() {
           className="flex items-center gap-2"
         >
           Create Ticket
-          <RiArrowDownSLine className="size-5 shrink-0" aria-hidden="true" />
+          <RiAddCircleLine className="size-5 shrink-0" aria-hidden="true" />
         </Button>
-        <TransactionDrawer open={isOpen} onOpenChange={setIsOpen} />
+        <TicketDrawer open={isOpen} onOpenChange={setIsOpen} />
       </div>
       <dl className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {/* --- Card 1: Ticket Status --- */}
@@ -104,7 +102,7 @@ export default function SupportDashboard() {
               <div>
                 <div className="flex items-center gap-2">
                   <span
-                    className="size-2.5 shrink-0 rounded-sm bg-emerald-500 dark:bg-emerald-500"
+                    className="size-2.5 shrink-0 rounded-sm bg-blue-500 dark:bg-blue-500"
                     aria-hidden="true"
                   />
                   <span className="text-sm">Within SLA</span>
@@ -127,12 +125,7 @@ export default function SupportDashboard() {
               </div>
             </dd>
 
-            <ProgressCircle
-              variant="success"
-              value={83}
-              radius={45}
-              strokeWidth={7}
-            />
+            <ProgressCircle value={83} radius={45} strokeWidth={7} />
           </div>
         </Card>
         {/* --- Card 3: Call Volume --- */}
@@ -184,7 +177,7 @@ export default function SupportDashboard() {
           </div>
         </Card>
       </dl>
-      <DataTable data={transactions} columns={columns} />
+      <DataTable data={tickets} columns={columns} />
     </main>
   )
 }

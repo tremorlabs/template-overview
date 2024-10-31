@@ -1,4 +1,5 @@
 "use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import React from "react"
@@ -539,7 +540,7 @@ export const LineChartSupport = React.forwardRef<
 
   function CustomCursor(props: any) {
     const { pointerEvents, height, points, className, payload, width } = props
-    let label = payload[0]?.payload?.time // change it to your name of the index
+    const label = payload[0]?.payload?.[index] // change it to your name of the index
     const { x, y } = points[0]
     const textWidth = 60 // adjust based on your text size
     const textHeight = 15 // adjust based on your text size
@@ -951,3 +952,5 @@ export const LineChartSupport = React.forwardRef<
     </div>
   )
 })
+
+LineChartSupport.displayName = "LineChartSupport"
