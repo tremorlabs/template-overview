@@ -296,7 +296,7 @@ export default function CohortRetention() {
               {cohortEntries.map(
                 ([cohortKey, cohortData]: [string, CohortData]) => (
                   <TableRow key={cohortKey} className="h-full">
-                    <TableCell className="sticky left-0 z-10 h-full min-w-56 bg-white p-0 dark:bg-gray-900">
+                    <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-gray-900">
                       <button
                         className={cx(
                           "group relative -ml-2 h-full w-full rounded pl-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100",
@@ -327,13 +327,8 @@ export default function CohortRetention() {
                               "flex h-full flex-col justify-center rounded border border-dashed bg-gray-50 px-3.5 py-3 text-gray-200",
                             )}
                           >
-                            <span className="flex items-center gap-px text-sm font-semibold">
-                              <span className="h-4 w-9 rounded-sm bg-gray-100" />
-                              %
-                            </span>
-                            <span className="mt-0.5 flex items-center gap-px text-sm font-semibold">
-                              <span className="h-4 w-5 rounded-sm bg-gray-100" />
-                            </span>
+                            <span className="h-4 w-9 rounded-sm bg-gray-100" />
+                            <span className="mt-0.5 h-4 w-6 rounded-sm bg-gray-100" />
                           </div>
                         ) : (
                           <div
