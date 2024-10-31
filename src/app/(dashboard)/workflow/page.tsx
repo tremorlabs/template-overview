@@ -1,6 +1,4 @@
 "use client"
-import { Button } from "@/components/Button"
-import { DatePicker } from "@/components/DatePicker"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { Slider } from "@/components/Slider"
 import { WorkflowStats } from "@/data/workflow/schema"
@@ -21,6 +19,9 @@ export const getWorkflowData = (days: number = 90): WorkflowStats[] => {
     }
   })
 }
+
+const valueFormatter = (number: number) =>
+  `${Intl.NumberFormat('us').format(number).toString()}`;
 
 export default function Workflow() {
   const data = React.useMemo(() => getWorkflowData(90), [])
@@ -87,31 +88,31 @@ export default function Workflow() {
             max={100}
             step={5}
           />
-          <div className="flex w-72 items-center gap-2 text-sm text-gray-600">
+          <div className="mt-1 flex w-72 items-center gap-2 text-sm text-gray-600">
             <span className="text-gray-400">Current: {actualQuota}%</span>
             <span>Scenario: {scenarioQuota}%</span>
-            <Button
+            {/* <Button
               variant="ghost"
               onClick={() => setScenarioQuota(actualQuota)}
             >
               Reset
-            </Button>
+            </Button> */}
           </div>
         </div>
-        <DatePicker
+        {/* <DatePicker
           toDate={new Date()}
           fromDate={new Date(data[0].timestamp)}
           value={selectedDate}
           onChange={(date) => setSelectedDate(date ?? new Date())}
           className="w-40"
-        />
-        {/* <Button variant="secondary" className="group flex gap-2" disabled>
-            <RiRefreshLine
-              aria-hidden="true"
-              className="size-5 shrink-0 transition group-hover:rotate-[25deg] group-active:rotate-90"
-            />
-            Refresh
-          </Button> */}
+        /> */}
+        {/* <Button variant="secondary" className="group flex gap-2">
+          <RiRefreshLine
+            aria-hidden="true"
+            className="size-5 shrink-0 transition group-hover:rotate-[25deg] group-active:rotate-90"
+          />
+          Refresh
+        </Button> */}
       </div>
       <section className="mt-12 overflow-x-scroll p-4">
         <div className="grid min-w-[40rem] grid-cols-5">
@@ -127,7 +128,7 @@ export default function Workflow() {
               >
                 <div className="flex flex-col items-center">
                   <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                    {displayData.total_cases}
+                    {valueFormatter(displayData.total_cases)}
                   </span>
                   <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
                     100%
@@ -137,9 +138,9 @@ export default function Workflow() {
             </div>
           </div>
           <div className="mt-24 min-w-32">
-            <div className="w-full border-t border-dashed border-gray-300" />
-            <div className="mx-auto mt-0 h-36 w-px border-l border-dashed border-gray-300" />
-            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300" />
+            <div className="w-full border-t border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="mx-auto h-36 w-px border-l border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300 dark:border-gray-700" />
           </div>
           <div className="flex flex-col items-center gap-6">
             <div>
@@ -156,7 +157,7 @@ export default function Workflow() {
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.tested_cases}
+                      {valueFormatter(displayData.tested_cases)}
                     </span>
                     <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
                       {(
@@ -181,7 +182,7 @@ export default function Workflow() {
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.untested_cases}
+                      {valueFormatter(displayData.untested_cases)}
                     </span>
                     <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
                       {(
@@ -197,9 +198,9 @@ export default function Workflow() {
             </div>
           </div>
           <div className="mt-24 min-w-32">
-            <div className="w-full border-t border-dashed border-gray-300" />
-            <div className="mx-auto mt-0 h-36 w-px border-l border-dashed border-gray-300" />
-            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300" />
+            <div className="w-full border-t border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="mx-auto mt-0 h-36 w-px border-l border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300 dark:border-gray-700" />
           </div>
           <div className="flex flex-col items-center gap-6">
             <div>
@@ -218,7 +219,7 @@ export default function Workflow() {
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.error_free_cases}
+                      {valueFormatter(displayData.error_free_cases)}
                     </span>
                     <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
                       {(
@@ -246,7 +247,7 @@ export default function Workflow() {
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.corrected_cases}
+                      {valueFormatter(displayData.corrected_cases)}
                     </span>
                     <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
                       {(
