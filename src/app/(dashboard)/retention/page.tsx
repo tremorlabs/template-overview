@@ -30,7 +30,7 @@ import {
   SatisfactionMetrics,
   TopIssue,
 } from "@/data/retention/schema"
-import { cx } from "@/lib/utils"
+import { cx, focusRing } from "@/lib/utils"
 import { RiCloseLine, RiExpandDiagonalLine } from "@remixicon/react"
 import { useState } from "react"
 
@@ -301,13 +301,16 @@ export default function CohortRetention() {
                   <TableRow key={cohortKey} className="h-full">
                     <TableCell className="sticky left-0 z-10 h-full min-w-56 bg-white px-0.5 py-0.5 dark:bg-gray-900">
                       <button
-                        className="group relative -ml-2 h-full w-full rounded pl-2 text-left transition hover:bg-gray-100"
+                        className={cx(
+                          "group relative -ml-2 h-full w-full rounded pl-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100",
+                          focusRing,
+                        )}
                         onClick={() => {
                           setSelectedCohort(cohortData)
                           setSelectedCohortKey(cohortKey)
                         }}
                       >
-                        <RiExpandDiagonalLine className="absolute right-4 top-4 size-5 shrink-0 text-gray-500/0 transition group-hover:text-gray-500" />
+                        <RiExpandDiagonalLine className="absolute right-4 top-4 size-5 shrink-0 text-gray-500/0 transition group-hover:text-gray-500 group-focus-visible:text-gray-500" />
                         <span className="block text-sm font-medium text-gray-900 dark:text-gray-50">
                           {cohortKey}
                         </span>
