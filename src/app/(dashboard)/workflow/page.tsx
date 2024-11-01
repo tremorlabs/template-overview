@@ -1,44 +1,56 @@
 "use client"
-import { Button } from "@/components/Button"
-import { DatePicker } from "@/components/DatePicker"
+import { Checkbox } from "@/components/Checkbox"
+import { Divider } from "@/components/Divider"
+import { Input } from "@/components/Input"
+import { Label } from "@/components/Label"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { Slider } from "@/components/Slider"
-import { WorkflowStats } from "@/data/workflow/schema"
 import { workflowStats } from "@/data/workflow/workflow-data"
 import React from "react"
 
-export const getWorkflowData = (days: number = 90): WorkflowStats[] => {
-  const today = new Date()
-
-  return workflowStats.slice(0, days).map((stat, index) => {
-    const date = new Date(today)
-    date.setDate(today.getDate() - (days - 1 - index))
-    date.setHours(0, 0, 0, 0)
-
-    return {
-      ...stat,
-      timestamp: date.toISOString(),
-    }
-  })
-}
+const valueFormatter = (number: number) =>
+  `${Intl.NumberFormat("us").format(number).toString()}`
 
 export default function Workflow() {
-  const data = React.useMemo(() => getWorkflowData(90), [])
-  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date())
+  const data = React.useMemo(() => workflowStats, [])
+  const [selectedDepartments, setSelectedDepartments] = React.useState<
+    Set<string>
+  >(new Set(data[0].department_stats.map((dept) => dept.department)))
 
-  const selectedData = React.useMemo(() => {
-    const targetDate = selectedDate.toISOString().split("T")[0]
-    return (
-      data.find((entry) => entry.timestamp.split("T")[0] === targetDate) ??
-      data[0]
+  const aggregateStats = React.useMemo(() => {
+    const selectedStats = data[0].department_stats.filter((dept) =>
+      selectedDepartments.has(dept.department),
     )
-  }, [data, selectedDate])
+
+    return {
+      total_cases: selectedStats.reduce(
+        (sum, dept) => sum + dept.total_cases,
+        0,
+      ),
+      tested_cases: selectedStats.reduce(
+        (sum, dept) => sum + dept.tested_cases,
+        0,
+      ),
+      untested_cases: selectedStats.reduce(
+        (sum, dept) => sum + dept.untested_cases,
+        0,
+      ),
+      error_free_cases: selectedStats.reduce(
+        (sum, dept) => sum + dept.error_free_cases,
+        0,
+      ),
+      corrected_cases: selectedStats.reduce(
+        (sum, dept) => sum + dept.corrected_cases,
+        0,
+      ),
+    }
+  }, [data, selectedDepartments])
 
   const actualQuota = React.useMemo(() => {
     return Math.round(
-      (selectedData.tested_cases / selectedData.total_cases) * 100,
+      (aggregateStats.tested_cases / aggregateStats.total_cases) * 100,
     )
-  }, [selectedData])
+  }, [aggregateStats])
 
   const [scenarioQuota, setScenarioQuota] = React.useState<number>(actualQuota)
 
@@ -46,90 +58,177 @@ export default function Workflow() {
     setScenarioQuota(actualQuota)
   }, [actualQuota])
 
-  const scenarioData = React.useMemo(() => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Math.min(Math.max(0, Number(event.target.value)), 100)
+    setScenarioQuota(value)
+  }
+
+  const scenarioStats = React.useMemo(() => {
     const newTestedCases = Math.round(
-      (scenarioQuota / 100) * selectedData.total_cases,
+      (scenarioQuota / 100) * aggregateStats.total_cases,
     )
-    const newUntestedCases = selectedData.total_cases - newTestedCases
+    const newUntestedCases = aggregateStats.total_cases - newTestedCases
 
     const originalErrorRatio =
-      selectedData.error_free_cases / selectedData.tested_cases
+      aggregateStats.error_free_cases / aggregateStats.tested_cases
     const newErrorFreeCases = Math.round(newTestedCases * originalErrorRatio)
     const newCorrectedCases = newTestedCases - newErrorFreeCases
 
     return {
-      ...selectedData,
+      total_cases: aggregateStats.total_cases,
       tested_cases: newTestedCases,
       untested_cases: newUntestedCases,
       error_free_cases: newErrorFreeCases,
       corrected_cases: newCorrectedCases,
     }
-  }, [selectedData, scenarioQuota])
+  }, [aggregateStats, scenarioQuota])
 
-  const displayData =
-    scenarioQuota === actualQuota ? selectedData : scenarioData
+  const displayStats =
+    scenarioQuota === actualQuota ? aggregateStats : scenarioStats
+
+  const handleDepartmentToggle = (department: string) => {
+    setSelectedDepartments((prev) => {
+      const newSet = new Set(prev)
+      if (newSet.has(department)) {
+        newSet.delete(department)
+      } else {
+        newSet.add(department)
+      }
+      return newSet
+    })
+  }
+
+  const COST_ASSUMPTIONS = {
+    testCostPerCase: 50,
+    errorCorrectionCost: 200,
+    undetectedErrorCost: 800,
+    casesPerFTEAnnually: 250,
+    expectedErrorRate: 0.15,
+  }
+
+  const calculateImpact = (stats: typeof displayStats) => {
+    const untested = stats.untested_cases
+    const tested = stats.tested_cases
+    const corrected = stats.corrected_cases
+
+    const testingCosts = tested * COST_ASSUMPTIONS.testCostPerCase
+
+    const correctionCosts = corrected * COST_ASSUMPTIONS.errorCorrectionCost
+
+    const undetectedErrors = Math.round(
+      untested * COST_ASSUMPTIONS.expectedErrorRate,
+    )
+    const undetectedErrorCosts =
+      undetectedErrors * COST_ASSUMPTIONS.undetectedErrorCost
+
+    const baselineErrorCosts = Math.round(
+      stats.total_cases *
+        COST_ASSUMPTIONS.expectedErrorRate *
+        COST_ASSUMPTIONS.undetectedErrorCost,
+    )
+
+    const totalCosts = testingCosts + correctionCosts + undetectedErrorCosts
+
+    const savings = baselineErrorCosts - totalCosts
+
+    const testingFTE = tested / COST_ASSUMPTIONS.casesPerFTEAnnually
+
+    const correctionFTE = corrected / (COST_ASSUMPTIONS.casesPerFTEAnnually * 2)
+
+    const preventionFTE =
+      (baselineErrorCosts - undetectedErrorCosts) /
+      (COST_ASSUMPTIONS.undetectedErrorCost * 100)
+
+    const netFTEImpact = preventionFTE - (testingFTE + correctionFTE)
+
+    return {
+      costs: totalCosts,
+      savings: savings,
+      fteImpact: netFTEImpact,
+    }
+  }
+
+  const currentImpact = calculateImpact(aggregateStats)
+  const scenarioImpact = calculateImpact(displayStats)
 
   return (
     <main className="pb-12">
       <div className="flex items-center justify-between border-b pb-6">
         <h1 className="text-2xl font-semibold text-gray-950">Workflow</h1>
       </div>
-      <div className="mt-12 flex items-center gap-12">
-        <div className="flex flex-col items-center gap-2">
-          <label htmlFor="test-quota" className="sr-only">
-            Test Quota
-          </label>
-          <Slider
-            id="test-quota"
-            value={[scenarioQuota]}
-            onValueChange={([value]) => setScenarioQuota(value)}
-            min={0}
-            max={100}
-            step={5}
-          />
-          <div className="flex w-72 items-center gap-2 text-sm text-gray-600">
+      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 p-6 ring-1 ring-gray-200">
+        <div className="w-full sm:w-96">
+          <Label htmlFor="test-quota" className="font-medium">
+            Test Quota (%)
+          </Label>
+          <div className="mt-2 flex items-center gap-4">
+            <Slider
+              value={[scenarioQuota]}
+              onValueChange={([value]) => setScenarioQuota(value)}
+              min={0}
+              max={100}
+              step={5}
+              className="w-full sm:max-w-56"
+            />
+            <Input
+              type="number"
+              value={scenarioQuota}
+              onChange={handleInputChange}
+              min={0}
+              max={100}
+              className="w-20 sm:w-16"
+            />
+          </div>
+          <p className="mt-1 flex items-center gap-2 text-sm text-gray-600">
             <span className="text-gray-400">Current: {actualQuota}%</span>
-            <span>Scenario: {scenarioQuota}%</span>
-            <Button
-              variant="ghost"
-              onClick={() => setScenarioQuota(actualQuota)}
-            >
-              Reset
-            </Button>
+            <span className="text-gray-900">Scenario: {scenarioQuota}%</span>
+          </p>
+        </div>
+        <div>
+          <legend className="text-sm font-medium text-gray-900">
+            Select departments to include
+          </legend>
+          <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {data[0].department_stats.map((dept) => (
+              <div key={dept.department} className="flex items-center gap-2.5">
+                <Checkbox
+                  id={dept.department}
+                  checked={selectedDepartments.has(dept.department)}
+                  onCheckedChange={() =>
+                    handleDepartmentToggle(dept.department)
+                  }
+                />
+                <Label
+                  htmlFor={dept.department}
+                  className="whitespace-nowrap sm:text-sm"
+                >
+                  {dept.department_label}
+                </Label>
+              </div>
+            ))}
           </div>
         </div>
-        <DatePicker
-          toDate={new Date()}
-          fromDate={new Date(data[0].timestamp)}
-          value={selectedDate}
-          onChange={(date) => setSelectedDate(date ?? new Date())}
-          className="w-40"
-        />
-        {/* <Button variant="secondary" className="group flex gap-2" disabled>
-            <RiRefreshLine
-              aria-hidden="true"
-              className="size-5 shrink-0 transition group-hover:rotate-[25deg] group-active:rotate-90"
-            />
-            Refresh
-          </Button> */}
       </div>
+
       <section className="mt-12 overflow-x-scroll p-4">
         <div className="grid min-w-[40rem] grid-cols-5">
           <div className="flex flex-col items-center gap-6">
             <div>
-              <h2 className="text-nowrap">1. Completed Cases</h2>
+              <h2 className="text-nowrap text-sm font-medium text-gray-900">
+                1. Completed Cases
+              </h2>
             </div>
             <div className="flex justify-center">
               <ProgressCircle
                 radius={45}
                 strokeWidth={6}
-                value={displayData.total_cases}
+                value={displayStats.total_cases}
               >
                 <div className="flex flex-col items-center">
-                  <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                    {displayData.total_cases}
+                  <span className="mt-1 font-medium tabular-nums text-gray-900">
+                    {valueFormatter(displayStats.total_cases)}
                   </span>
-                  <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
+                  <span className="text-xs font-medium tabular-nums text-gray-500">
                     100%
                   </span>
                 </div>
@@ -138,12 +237,14 @@ export default function Workflow() {
           </div>
           <div className="mt-24 min-w-32">
             <div className="w-full border-t border-dashed border-gray-300" />
-            <div className="mx-auto mt-0 h-36 w-px border-l border-dashed border-gray-300" />
+            <div className="mx-auto h-48 w-px border-l border-dashed border-gray-300" />
             <div className="ml-auto w-1/2 border-t border-dashed border-gray-300" />
           </div>
           <div className="flex flex-col items-center gap-6">
             <div>
-              <h2 className="text-nowrap">2. Test Results</h2>
+              <h2 className="text-nowrap text-sm font-medium text-gray-900">
+                2. Test Results
+              </h2>
             </div>
             <div>
               <div className="flex justify-center">
@@ -151,16 +252,16 @@ export default function Workflow() {
                   radius={45}
                   strokeWidth={6}
                   value={
-                    (displayData.tested_cases / displayData.total_cases) * 100
+                    (displayStats.tested_cases / displayStats.total_cases) * 100
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.tested_cases}
+                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                      {valueFormatter(displayStats.tested_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
+                    <span className="text-xs font-medium tabular-nums text-gray-500">
                       {(
-                        (displayData.tested_cases / displayData.total_cases) *
+                        (displayStats.tested_cases / displayStats.total_cases) *
                         100
                       ).toFixed(1)}
                       %
@@ -170,22 +271,24 @@ export default function Workflow() {
               </div>
               <p className="mt-4 text-sm text-gray-700">Tested Cases</p>
             </div>
-            <div>
+            <div className="mt-10">
               <div className="flex justify-center">
                 <ProgressCircle
                   radius={45}
                   strokeWidth={6}
                   value={
-                    (displayData.untested_cases / displayData.total_cases) * 100
+                    (displayStats.untested_cases / displayStats.total_cases) *
+                    100
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.untested_cases}
+                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                      {valueFormatter(displayStats.untested_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
+                    <span className="text-xs font-medium tabular-nums text-gray-500">
                       {(
-                        (displayData.untested_cases / displayData.total_cases) *
+                        (displayStats.untested_cases /
+                          displayStats.total_cases) *
                         100
                       ).toFixed(1)}
                       %
@@ -198,12 +301,14 @@ export default function Workflow() {
           </div>
           <div className="mt-24 min-w-32">
             <div className="w-full border-t border-dashed border-gray-300" />
-            <div className="mx-auto mt-0 h-36 w-px border-l border-dashed border-gray-300" />
+            <div className="mx-auto h-48 w-px border-l border-dashed border-gray-300" />
             <div className="ml-auto w-1/2 border-t border-dashed border-gray-300" />
           </div>
           <div className="flex flex-col items-center gap-6">
             <div>
-              <h2 className="text-nowrap">3. Test Results</h2>
+              <h2 className="text-nowrap text-sm font-medium text-gray-900">
+                3. Impact
+              </h2>
             </div>
             <div>
               <div className="flex justify-center">
@@ -212,18 +317,18 @@ export default function Workflow() {
                   radius={45}
                   strokeWidth={6}
                   value={
-                    (displayData.error_free_cases / displayData.total_cases) *
+                    (displayStats.error_free_cases / displayStats.total_cases) *
                     100
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.error_free_cases}
+                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                      {valueFormatter(displayStats.error_free_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
+                    <span className="text-xs font-medium tabular-nums text-gray-500">
                       {(
-                        (displayData.error_free_cases /
-                          displayData.total_cases) *
+                        (displayStats.error_free_cases /
+                          displayStats.total_cases) *
                         100
                       ).toFixed(1)}
                       %
@@ -233,25 +338,25 @@ export default function Workflow() {
               </div>
               <p className="mt-4 text-sm text-gray-700">Error-free Cases</p>
             </div>
-            <div>
+            <div className="mt-10">
               <div className="flex justify-center">
                 <ProgressCircle
                   variant="error"
                   radius={45}
                   strokeWidth={6}
                   value={
-                    (displayData.corrected_cases / displayData.total_cases) *
+                    (displayStats.corrected_cases / displayStats.total_cases) *
                     100
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                      {displayData.corrected_cases}
+                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                      {valueFormatter(displayStats.corrected_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-50">
+                    <span className="text-xs font-medium tabular-nums text-gray-500">
                       {(
-                        (displayData.corrected_cases /
-                          displayData.total_cases) *
+                        (displayStats.corrected_cases /
+                          displayStats.total_cases) *
                         100
                       ).toFixed(1)}
                       %
@@ -261,6 +366,169 @@ export default function Workflow() {
               </div>
               <p className="mt-4 text-sm text-gray-700">Corrected Cases</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <Divider className="my-12" />
+      <section className="mt-12">
+        <h2 className="font-medium text-gray-900">Impact overview</h2>
+        <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
+            <span
+              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
+              aria-hidden="true"
+            />
+            <div>
+              <p className="flex items-center justify-between gap-2">
+                <span className="text-sm text-gray-500">Total cases</span>
+                <span className="text-sm text-gray-500">current</span>
+              </p>
+              <p className="flex items-center justify-between gap-2">
+                <span className="text-lg font-medium text-gray-900">
+                  {valueFormatter(displayStats.total_cases)}
+                </span>
+                <span className="text-base font-medium text-gray-500">
+                  {valueFormatter(aggregateStats.total_cases)}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
+            <span
+              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
+              aria-hidden="true"
+            />
+            <div>
+              <p className="flex items-center justify-between gap-2">
+                <span className="text-sm text-gray-500">Net cost savings</span>
+                <span className="text-sm text-gray-500">current</span>
+              </p>
+              <p className="flex items-center justify-between gap-2">
+                <span className="text-lg font-medium text-gray-900">
+                  ${valueFormatter(Math.round(scenarioImpact.savings))}
+                </span>
+                <span className="text-base font-medium text-gray-500">
+                  ${valueFormatter(Math.round(currentImpact.savings))}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
+            <span
+              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
+              aria-hidden="true"
+            />
+            <div>
+              <p className="flex items-center justify-between gap-2">
+                <span className="text-sm text-gray-500">Net FTE impact</span>
+                <span className="text-sm text-gray-500">current</span>
+              </p>
+              <p className="flex items-center justify-between gap-2">
+                <span className="text-lg font-medium text-gray-900">
+                  {scenarioImpact.fteImpact.toFixed(1)}
+                </span>
+                <span className="text-base font-medium text-gray-500">
+                  {currentImpact.fteImpact.toFixed(1)}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <div>
+            <h3 className="text-sm font-medium text-gray-900">
+              Cost savings breakdown
+            </h3>
+            <ul role="list" className="mt-2 divide-y divide-gray-200 text-sm">
+              {[1, 5, 10].map((years) => {
+                const multiplier = Math.pow(1.1, years)
+                const currentSavings = currentImpact.savings * multiplier
+                const projectedSavings = scenarioImpact.savings * multiplier
+                const difference =
+                  ((projectedSavings - currentSavings) /
+                    Math.abs(currentSavings)) *
+                  100
+
+                return (
+                  <li
+                    key={years}
+                    className="flex items-center justify-between py-3"
+                  >
+                    <span>
+                      In {years} year{years > 1 ? "s" : ""}
+                    </span>
+                    <span className="flex items-center gap-3 tabular-nums">
+                      <span className="text-right font-medium text-gray-900">
+                        ${valueFormatter(Math.round(projectedSavings))}
+                      </span>
+                      <span
+                        className="h-5 w-px bg-gray-200"
+                        aria-hidden="true"
+                      />
+                      <span
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600"
+                              : "bg-red-50 text-red-600"
+                        }`}
+                      >
+                        {difference > 0 ? "+" : ""}
+                        {difference.toFixed(1)}%
+                      </span>
+                    </span>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-900">
+              FTE impact breakdown
+            </h3>
+            <ul role="list" className="mt-2 divide-y divide-gray-200 text-sm">
+              {[1, 5, 10].map((years) => {
+                const multiplier = Math.pow(1.1, years)
+                const currentFTE = currentImpact.fteImpact * multiplier
+                const projectedFTE = scenarioImpact.fteImpact * multiplier
+                const difference =
+                  ((projectedFTE - currentFTE) / Math.abs(currentFTE)) * 100
+
+                return (
+                  <li
+                    key={years}
+                    className="flex items-center justify-between py-3"
+                  >
+                    <span>
+                      In {years} year{years > 1 ? "s" : ""}
+                    </span>
+                    <span className="flex items-center gap-3 tabular-nums">
+                      <span className="text-right font-medium text-gray-900">
+                        {projectedFTE.toFixed(1)}
+                      </span>
+                      <span
+                        className="h-5 w-px bg-gray-200"
+                        aria-hidden="true"
+                      />
+                      <span
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600"
+                              : "bg-red-50 text-red-600"
+                        }`}
+                      >
+                        {difference > 0 ? "+" : ""}
+                        {difference.toFixed(1)}%
+                      </span>
+                    </span>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
       </section>

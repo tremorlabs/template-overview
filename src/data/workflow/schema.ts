@@ -1,8 +1,8 @@
 import { z } from "zod"
 
-export const schemaWorkflowStats = z.object({
-  id: z.string().uuid(),
-  timestamp: z.string(), // ISO string format
+export const departmentSchema = z.object({
+  department: z.string(),
+  department_label: z.string(),
   total_cases: z.number().int().positive(),
   tested_cases: z.number().int().nonnegative(),
   untested_cases: z.number().int().nonnegative(),
@@ -10,9 +10,15 @@ export const schemaWorkflowStats = z.object({
   corrected_cases: z.number().int().nonnegative(),
 })
 
-export type WorkflowStats = z.infer<typeof schemaWorkflowStats>
+export const schemaWorkflowStats = z.object({
+  id: z.string().uuid(),
+  total_cases: z.number().int().positive(),
+  department_stats: z.array(departmentSchema),
+})
 
-// Mock departments for more realistic data generation
+export type WorkflowStats = z.infer<typeof schemaWorkflowStats>
+export type DepartmentStats = z.infer<typeof departmentSchema>
+
 export const departments: { value: string; label: string }[] = [
   {
     value: "customer-service",
