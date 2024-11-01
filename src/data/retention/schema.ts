@@ -58,3 +58,48 @@ export interface CohortData {
 }
 
 export type CohortRetentionData = Record<string, CohortData>
+
+export type CohortsAggregate = {
+  totalCohorts: number;
+  totalUsers: number;
+  aggregateMetrics: {
+    activity: {
+      avgTicketsCreated: number;
+      avgTicketsResolved: number;
+      avgCallsMade: number;
+      avgChatSessions: number;
+      avgEmailInteractions: number;
+      totalTicketsCreated: number;
+      totalTicketsResolved: number;
+      ticketResolutionRate: number;
+    };
+    satisfaction: {
+      avgCsatScore: number;
+      avgNpsScore: number;
+      totalFeedbackResponses: number;
+      positiveFeedbackRate: number;
+      negativeFeedbackRate: number;
+    };
+    performance: {
+      avgResponseTimeMinutes: number;
+      avgHandlingTimeMinutes: number;
+      avgFirstContactResolutionRate: number;
+      avgEscalationRate: number;
+    };
+    channelDistribution: {
+      phone: number;
+      email: number;
+      chat: number;
+      social: number;
+    };
+    retention: {
+      averageRetentionByWeek: number[];
+      overallRetentionRate: number;
+    };
+  };
+  commonIssues: Array<{
+    category: string;
+    totalCount: number;
+    avgResolutionRate: number;
+  }>;
+}

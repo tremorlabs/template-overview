@@ -1,664 +1,664 @@
-import type { CohortRetentionData } from "./schema"
+import type { CohortRetentionData } from "./schema";
 
 export const cohorts: CohortRetentionData = {
   "Sep 15, 2023": {
-    size: 2787,
-    dates: {
-      start: "2023-09-15T00:00:00.000Z",
-      end: "2023-09-22T00:00:00.000Z",
+    "size": 2157,
+    "dates": {
+      "start": "2023-09-15T00:00:00.000Z",
+      "end": "2023-09-22T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 6217,
-        total_tickets_resolved: 5905,
-        total_calls_made: 3522,
-        total_chat_sessions: 1496,
-        total_email_interactions: 2538,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 5001,
+        "total_tickets_resolved": 4688,
+        "total_calls_made": 2316,
+        "total_chat_sessions": 1417,
+        "total_email_interactions": 1725
       },
-      satisfaction: {
-        avg_csat_score: 87.4,
-        avg_nps_score: 31.6,
-        total_satisfaction_responses: 2611,
-        total_positive_feedback: 1937,
-        total_negative_feedback: 994,
+      "satisfaction": {
+        "avg_csat_score": 86.7,
+        "avg_nps_score": 50.6,
+        "total_satisfaction_responses": 2383,
+        "total_positive_feedback": 1214,
+        "total_negative_feedback": 574
       },
-      performance: {
-        avg_response_time_minutes: 9.1,
-        avg_handling_time_minutes: 11.6,
-        avg_first_contact_resolution_rate: 0.7,
-        avg_escalation_rate: 0.11,
+      "performance": {
+        "avg_response_time_minutes": 9.2,
+        "avg_handling_time_minutes": 14.7,
+        "avg_first_contact_resolution_rate": 0.74,
+        "avg_escalation_rate": 0.06
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Claim Status",
-          count: 245,
-          resolution_rate: 0.73,
+          "category": "Account Service",
+          "count": 475,
+          "resolution_rate": 0.93
         },
         {
-          category: "Emergency",
-          count: 266,
-          resolution_rate: 0.86,
+          "category": "Accident Report",
+          "count": 429,
+          "resolution_rate": 0.9
         },
         {
-          category: "Complaint",
-          count: 423,
-          resolution_rate: 0.79,
-        },
+          "category": "Claim Status",
+          "count": 429,
+          "resolution_rate": 0.77
+        }
       ],
-      channels: {
-        phone: 148,
-        email: 101,
-        chat: 67,
-        social: 28,
-      },
+      "channels": {
+        "phone": 138,
+        "email": 81,
+        "chat": 62,
+        "social": 38
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2787,
+        "percentage": 100,
+        "count": 2157
       },
       {
-        percentage: 66.6,
-        count: 1856,
+        "percentage": 69.2,
+        "count": 1492
       },
       {
-        percentage: 54.5,
-        count: 1518,
+        "percentage": 49.3,
+        "count": 1063
       },
       {
-        percentage: 43.6,
-        count: 1215,
+        "percentage": 44.6,
+        "count": 962
       },
       {
-        percentage: 35.5,
-        count: 989,
+        "percentage": 28.8,
+        "count": 621
       },
       {
-        percentage: 21.7,
-        count: 604,
+        "percentage": 23.9,
+        "count": 515
       },
       {
-        percentage: 18.8,
-        count: 523,
+        "percentage": 19.3,
+        "count": 416
       },
       {
-        percentage: 17.1,
-        count: 476,
+        "percentage": 12.6,
+        "count": 271
       },
       {
-        percentage: 10.6,
-        count: 295,
+        "percentage": 9.6,
+        "count": 207
       },
       {
-        percentage: 11.1,
-        count: 309,
-      },
-    ],
+        "percentage": 8.2,
+        "count": 176
+      }
+    ]
   },
   "Sep 22, 2023": {
-    size: 2731,
-    dates: {
-      start: "2023-09-22T00:00:00.000Z",
-      end: "2023-09-29T00:00:00.000Z",
+    "size": 2584,
+    "dates": {
+      "start": "2023-09-22T00:00:00.000Z",
+      "end": "2023-09-29T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 4871,
-        total_tickets_resolved: 3929,
-        total_calls_made: 3118,
-        total_chat_sessions: 2531,
-        total_email_interactions: 2026,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 6197,
+        "total_tickets_resolved": 5746,
+        "total_calls_made": 2545,
+        "total_chat_sessions": 1895,
+        "total_email_interactions": 1931
       },
-      satisfaction: {
-        avg_csat_score: 91.2,
-        avg_nps_score: 40.9,
-        total_satisfaction_responses: 1874,
-        total_positive_feedback: 1868,
-        total_negative_feedback: 794,
+      "satisfaction": {
+        "avg_csat_score": 87.9,
+        "avg_nps_score": 60.1,
+        "total_satisfaction_responses": 2907,
+        "total_positive_feedback": 2230,
+        "total_negative_feedback": 320
       },
-      performance: {
-        avg_response_time_minutes: 10.2,
-        avg_handling_time_minutes: 18.8,
-        avg_first_contact_resolution_rate: 0.78,
-        avg_escalation_rate: 0.14,
+      "performance": {
+        "avg_response_time_minutes": 9.9,
+        "avg_handling_time_minutes": 20,
+        "avg_first_contact_resolution_rate": 0.81,
+        "avg_escalation_rate": 0.07
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Billing",
-          count: 595,
-          resolution_rate: 0.87,
+          "category": "Complaint",
+          "count": 405,
+          "resolution_rate": 0.84
         },
         {
-          category: "New Quote",
-          count: 377,
-          resolution_rate: 0.82,
+          "category": "Account Service",
+          "count": 498,
+          "resolution_rate": 0.71
         },
         {
-          category: "New Quote",
-          count: 480,
-          resolution_rate: 0.94,
-        },
+          "category": "Agent Request",
+          "count": 300,
+          "resolution_rate": 0.95
+        }
       ],
-      channels: {
-        phone: 93,
-        email: 79,
-        chat: 81,
-        social: 37,
-      },
+      "channels": {
+        "phone": 112,
+        "email": 111,
+        "chat": 59,
+        "social": 43
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2731,
+        "percentage": 100,
+        "count": 2584
       },
       {
-        percentage: 63.7,
-        count: 1739,
+        "percentage": 62.2,
+        "count": 1607
       },
       {
-        percentage: 49.4,
-        count: 1349,
+        "percentage": 51.9,
+        "count": 1341
       },
       {
-        percentage: 46.1,
-        count: 1258,
+        "percentage": 46.4,
+        "count": 1198
       },
       {
-        percentage: 28.4,
-        count: 775,
+        "percentage": 29.1,
+        "count": 751
       },
       {
-        percentage: 22.9,
-        count: 625,
+        "percentage": 29.4,
+        "count": 759
       },
       {
-        percentage: 24.7,
-        count: 674,
+        "percentage": 18.5,
+        "count": 478
       },
       {
-        percentage: 18.3,
-        count: 499,
+        "percentage": 15.5,
+        "count": 400
       },
       {
-        percentage: 15.1,
-        count: 412,
+        "percentage": 15.8,
+        "count": 408
       },
-      null,
-    ],
+      null
+    ]
   },
   "Sep 29, 2023": {
-    size: 2109,
-    dates: {
-      start: "2023-09-29T00:00:00.000Z",
-      end: "2023-10-06T00:00:00.000Z",
+    "size": 2873,
+    "dates": {
+      "start": "2023-09-29T00:00:00.000Z",
+      "end": "2023-10-06T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 3497,
-        total_tickets_resolved: 3266,
-        total_calls_made: 2392,
-        total_chat_sessions: 1302,
-        total_email_interactions: 2282,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 5825,
+        "total_tickets_resolved": 4822,
+        "total_calls_made": 3538,
+        "total_chat_sessions": 2176,
+        "total_email_interactions": 2294
       },
-      satisfaction: {
-        avg_csat_score: 81.1,
-        avg_nps_score: 66.7,
-        total_satisfaction_responses: 1618,
-        total_positive_feedback: 1114,
-        total_negative_feedback: 443,
+      "satisfaction": {
+        "avg_csat_score": 85.3,
+        "avg_nps_score": 37.1,
+        "total_satisfaction_responses": 2856,
+        "total_positive_feedback": 2646,
+        "total_negative_feedback": 584
       },
-      performance: {
-        avg_response_time_minutes: 5.4,
-        avg_handling_time_minutes: 20.8,
-        avg_first_contact_resolution_rate: 0.75,
-        avg_escalation_rate: 0.17,
+      "performance": {
+        "avg_response_time_minutes": 7.7,
+        "avg_handling_time_minutes": 8.6,
+        "avg_first_contact_resolution_rate": 0.8,
+        "avg_escalation_rate": 0.12
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "New Quote",
-          count: 227,
-          resolution_rate: 0.84,
+          "category": "Billing",
+          "count": 482,
+          "resolution_rate": 0.8
         },
         {
-          category: "Policy Changes",
-          count: 153,
-          resolution_rate: 0.87,
+          "category": "Claim Status",
+          "count": 517,
+          "resolution_rate": 0.87
         },
         {
-          category: "Billing",
-          count: 356,
-          resolution_rate: 0.82,
-        },
+          "category": "Agent Request",
+          "count": 594,
+          "resolution_rate": 0.81
+        }
       ],
-      channels: {
-        phone: 119,
-        email: 87,
-        chat: 67,
-        social: 22,
-      },
+      "channels": {
+        "phone": 141,
+        "email": 113,
+        "chat": 83,
+        "social": 19
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2109,
+        "percentage": 100,
+        "count": 2873
       },
       {
-        percentage: 61.6,
-        count: 1299,
+        "percentage": 63.5,
+        "count": 1824
       },
       {
-        percentage: 47.6,
-        count: 1003,
+        "percentage": 54.9,
+        "count": 1577
       },
       {
-        percentage: 38.3,
-        count: 807,
+        "percentage": 46.3,
+        "count": 1330
       },
       {
-        percentage: 36.4,
-        count: 767,
+        "percentage": 32.2,
+        "count": 925
       },
       {
-        percentage: 30.7,
-        count: 647,
+        "percentage": 27.5,
+        "count": 790
       },
       {
-        percentage: 17.8,
-        count: 375,
+        "percentage": 26.1,
+        "count": 749
       },
       {
-        percentage: 12.1,
-        count: 255,
+        "percentage": 15.4,
+        "count": 442
       },
       null,
-      null,
-    ],
+      null
+    ]
   },
   "Oct 6, 2023": {
-    size: 2258,
-    dates: {
-      start: "2023-10-06T00:00:00.000Z",
-      end: "2023-10-13T00:00:00.000Z",
+    "size": 2882,
+    "dates": {
+      "start": "2023-10-06T00:00:00.000Z",
+      "end": "2023-10-13T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 5204,
-        total_tickets_resolved: 4201,
-        total_calls_made: 2338,
-        total_chat_sessions: 1652,
-        total_email_interactions: 2559,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 5660,
+        "total_tickets_resolved": 4569,
+        "total_calls_made": 3535,
+        "total_chat_sessions": 2246,
+        "total_email_interactions": 2149
       },
-      satisfaction: {
-        avg_csat_score: 77.1,
-        avg_nps_score: 34.5,
-        total_satisfaction_responses: 2192,
-        total_positive_feedback: 1557,
-        total_negative_feedback: 507,
+      "satisfaction": {
+        "avg_csat_score": 85.5,
+        "avg_nps_score": 54,
+        "total_satisfaction_responses": 1907,
+        "total_positive_feedback": 2678,
+        "total_negative_feedback": 647
       },
-      performance: {
-        avg_response_time_minutes: 8.9,
-        avg_handling_time_minutes: 12.9,
-        avg_first_contact_resolution_rate: 0.74,
-        avg_escalation_rate: 0.18,
+      "performance": {
+        "avg_response_time_minutes": 2.1,
+        "avg_handling_time_minutes": 14.5,
+        "avg_first_contact_resolution_rate": 0.77,
+        "avg_escalation_rate": 0.17
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Policy Changes",
-          count: 236,
-          resolution_rate: 0.76,
+          "category": "Complaint",
+          "count": 366,
+          "resolution_rate": 0.75
         },
         {
-          category: "New Quote",
-          count: 598,
-          resolution_rate: 0.76,
+          "category": "Emergency",
+          "count": 461,
+          "resolution_rate": 0.8
         },
         {
-          category: "Policy Changes",
-          count: 308,
-          resolution_rate: 0.92,
-        },
+          "category": "Fraud Report",
+          "count": 544,
+          "resolution_rate": 0.89
+        }
       ],
-      channels: {
-        phone: 108,
-        email: 60,
-        chat: 74,
-        social: 40,
-      },
+      "channels": {
+        "phone": 105,
+        "email": 111,
+        "chat": 78,
+        "social": 29
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2258,
+        "percentage": 100,
+        "count": 2882
       },
       {
-        percentage: 63.7,
-        count: 1438,
+        "percentage": 61.8,
+        "count": 1781
       },
       {
-        percentage: 55.7,
-        count: 1257,
+        "percentage": 55,
+        "count": 1585
       },
       {
-        percentage: 41.7,
-        count: 941,
+        "percentage": 39.6,
+        "count": 1141
       },
       {
-        percentage: 29.5,
-        count: 666,
+        "percentage": 32.4,
+        "count": 933
       },
       {
-        percentage: 29.3,
-        count: 661,
+        "percentage": 22.1,
+        "count": 636
       },
       {
-        percentage: 22.5,
-        count: 508,
+        "percentage": 19.4,
+        "count": 559
       },
       null,
       null,
-      null,
-    ],
+      null
+    ]
   },
   "Oct 13, 2023": {
-    size: 2589,
-    dates: {
-      start: "2023-10-13T00:00:00.000Z",
-      end: "2023-10-20T00:00:00.000Z",
+    "size": 2925,
+    "dates": {
+      "start": "2023-10-13T00:00:00.000Z",
+      "end": "2023-10-20T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 4870,
-        total_tickets_resolved: 4567,
-        total_calls_made: 3146,
-        total_chat_sessions: 2243,
-        total_email_interactions: 2751,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 5547,
+        "total_tickets_resolved": 5129,
+        "total_calls_made": 3319,
+        "total_chat_sessions": 2766,
+        "total_email_interactions": 2171
       },
-      satisfaction: {
-        avg_csat_score: 77.4,
-        avg_nps_score: 59.4,
-        total_satisfaction_responses: 2535,
-        total_positive_feedback: 1749,
-        total_negative_feedback: 708,
+      "satisfaction": {
+        "avg_csat_score": 85.5,
+        "avg_nps_score": 56.2,
+        "total_satisfaction_responses": 2622,
+        "total_positive_feedback": 1979,
+        "total_negative_feedback": 585
       },
-      performance: {
-        avg_response_time_minutes: 8.3,
-        avg_handling_time_minutes: 25.1,
-        avg_first_contact_resolution_rate: 0.67,
-        avg_escalation_rate: 0.19,
+      "performance": {
+        "avg_response_time_minutes": 7.1,
+        "avg_handling_time_minutes": 14,
+        "avg_first_contact_resolution_rate": 0.76,
+        "avg_escalation_rate": 0.18
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Fraud Report",
-          count: 254,
-          resolution_rate: 0.78,
+          "category": "Coverage Inquiry",
+          "count": 409,
+          "resolution_rate": 0.84
         },
         {
-          category: "Billing",
-          count: 393,
-          resolution_rate: 0.91,
+          "category": "Claim Status",
+          "count": 277,
+          "resolution_rate": 0.91
         },
         {
-          category: "Account Service",
-          count: 270,
-          resolution_rate: 0.88,
-        },
+          "category": "New Quote",
+          "count": 196,
+          "resolution_rate": 0.91
+        }
       ],
-      channels: {
-        phone: 135,
-        email: 102,
-        chat: 67,
-        social: 39,
-      },
+      "channels": {
+        "phone": 98,
+        "email": 106,
+        "chat": 80,
+        "social": 44
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2589,
+        "percentage": 100,
+        "count": 2925
       },
       {
-        percentage: 65.7,
-        count: 1700,
+        "percentage": 65.6,
+        "count": 1918
       },
       {
-        percentage: 49.2,
-        count: 1273,
+        "percentage": 56.7,
+        "count": 1658
       },
       {
-        percentage: 43.4,
-        count: 1123,
+        "percentage": 45.2,
+        "count": 1322
       },
       {
-        percentage: 38.2,
-        count: 988,
+        "percentage": 32.2,
+        "count": 941
       },
       {
-        percentage: 23.6,
-        count: 611,
+        "percentage": 28,
+        "count": 819
       },
       null,
       null,
       null,
-      null,
-    ],
+      null
+    ]
   },
   "Oct 20, 2023": {
-    size: 2173,
-    dates: {
-      start: "2023-10-20T00:00:00.000Z",
-      end: "2023-10-27T00:00:00.000Z",
+    "size": 2066,
+    "dates": {
+      "start": "2023-10-20T00:00:00.000Z",
+      "end": "2023-10-27T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 3733,
-        total_tickets_resolved: 3014,
-        total_calls_made: 2514,
-        total_chat_sessions: 1187,
-        total_email_interactions: 2185,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 4594,
+        "total_tickets_resolved": 3921,
+        "total_calls_made": 2078,
+        "total_chat_sessions": 1089,
+        "total_email_interactions": 1982
       },
-      satisfaction: {
-        avg_csat_score: 81.7,
-        avg_nps_score: 31.6,
-        total_satisfaction_responses: 1701,
-        total_positive_feedback: 1358,
-        total_negative_feedback: 295,
+      "satisfaction": {
+        "avg_csat_score": 89.8,
+        "avg_nps_score": 50.3,
+        "total_satisfaction_responses": 1946,
+        "total_positive_feedback": 1957,
+        "total_negative_feedback": 516
       },
-      performance: {
-        avg_response_time_minutes: 2.4,
-        avg_handling_time_minutes: 9,
-        avg_first_contact_resolution_rate: 0.72,
-        avg_escalation_rate: 0.14,
+      "performance": {
+        "avg_response_time_minutes": 5.6,
+        "avg_handling_time_minutes": 9,
+        "avg_first_contact_resolution_rate": 0.68,
+        "avg_escalation_rate": 0.09
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Account Service",
-          count: 286,
-          resolution_rate: 0.92,
+          "category": "Policy Changes",
+          "count": 297,
+          "resolution_rate": 0.91
         },
         {
-          category: "Billing",
-          count: 429,
-          resolution_rate: 0.76,
+          "category": "Fraud Report",
+          "count": 339,
+          "resolution_rate": 0.94
         },
         {
-          category: "Accident Report",
-          count: 270,
-          resolution_rate: 0.85,
-        },
+          "category": "Accident Report",
+          "count": 576,
+          "resolution_rate": 0.85
+        }
       ],
-      channels: {
-        phone: 139,
-        email: 95,
-        chat: 59,
-        social: 16,
-      },
+      "channels": {
+        "phone": 127,
+        "email": 112,
+        "chat": 55,
+        "social": 21
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2173,
+        "percentage": 100,
+        "count": 2066
       },
       {
-        percentage: 61.9,
-        count: 1345,
+        "percentage": 67.9,
+        "count": 1402
       },
       {
-        percentage: 56.6,
-        count: 1229,
+        "percentage": 55.4,
+        "count": 1144
       },
       {
-        percentage: 37.4,
-        count: 812,
+        "percentage": 37.6,
+        "count": 776
       },
       {
-        percentage: 28.9,
-        count: 627,
+        "percentage": 29.7,
+        "count": 613
       },
       null,
       null,
       null,
       null,
-      null,
-    ],
+      null
+    ]
   },
   "Oct 27, 2023": {
-    size: 2480,
-    dates: {
-      start: "2023-10-27T00:00:00.000Z",
-      end: "2023-11-03T00:00:00.000Z",
+    "size": 2302,
+    "dates": {
+      "start": "2023-10-27T00:00:00.000Z",
+      "end": "2023-11-03T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 4302,
-        total_tickets_resolved: 3648,
-        total_calls_made: 3147,
-        total_chat_sessions: 1801,
-        total_email_interactions: 2263,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 4795,
+        "total_tickets_resolved": 4467,
+        "total_calls_made": 3209,
+        "total_chat_sessions": 1556,
+        "total_email_interactions": 2372
       },
-      satisfaction: {
-        avg_csat_score: 90.4,
-        avg_nps_score: 44.8,
-        total_satisfaction_responses: 1945,
-        total_positive_feedback: 1791,
-        total_negative_feedback: 583,
+      "satisfaction": {
+        "avg_csat_score": 94.1,
+        "avg_nps_score": 39.7,
+        "total_satisfaction_responses": 1891,
+        "total_positive_feedback": 1685,
+        "total_negative_feedback": 721
       },
-      performance: {
-        avg_response_time_minutes: 14.1,
-        avg_handling_time_minutes: 12.4,
-        avg_first_contact_resolution_rate: 0.82,
-        avg_escalation_rate: 0.08,
+      "performance": {
+        "avg_response_time_minutes": 2.6,
+        "avg_handling_time_minutes": 11.3,
+        "avg_first_contact_resolution_rate": 0.79,
+        "avg_escalation_rate": 0.19
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Agent Request",
-          count: 222,
-          resolution_rate: 0.92,
+          "category": "Claim Status",
+          "count": 209,
+          "resolution_rate": 0.76
         },
         {
-          category: "Claim Status",
-          count: 575,
-          resolution_rate: 0.79,
+          "category": "Claim Status",
+          "count": 167,
+          "resolution_rate": 0.86
         },
         {
-          category: "Account Service",
-          count: 274,
-          resolution_rate: 0.87,
-        },
+          "category": "Account Service",
+          "count": 257,
+          "resolution_rate": 0.83
+        }
       ],
-      channels: {
-        phone: 124,
-        email: 101,
-        chat: 80,
-        social: 17,
-      },
+      "channels": {
+        "phone": 123,
+        "email": 97,
+        "chat": 56,
+        "social": 21
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2480,
+        "percentage": 100,
+        "count": 2302
       },
       {
-        percentage: 69.8,
-        count: 1731,
+        "percentage": 64.5,
+        "count": 1484
       },
       {
-        percentage: 56.6,
-        count: 1403,
+        "percentage": 48.8,
+        "count": 1123
       },
       {
-        percentage: 37.6,
-        count: 932,
+        "percentage": 46.1,
+        "count": 1061
       },
       null,
       null,
       null,
       null,
       null,
-      null,
-    ],
+      null
+    ]
   },
   "Nov 3, 2023": {
-    size: 2931,
-    dates: {
-      start: "2023-11-03T00:00:00.000Z",
-      end: "2023-11-10T00:00:00.000Z",
+    "size": 2361,
+    "dates": {
+      "start": "2023-11-03T00:00:00.000Z",
+      "end": "2023-11-10T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 6230,
-        total_tickets_resolved: 5306,
-        total_calls_made: 3216,
-        total_chat_sessions: 2547,
-        total_email_interactions: 2792,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 3821,
+        "total_tickets_resolved": 3301,
+        "total_calls_made": 2878,
+        "total_chat_sessions": 1784,
+        "total_email_interactions": 2167
       },
-      satisfaction: {
-        avg_csat_score: 90.9,
-        avg_nps_score: 32.8,
-        total_satisfaction_responses: 2877,
-        total_positive_feedback: 2359,
-        total_negative_feedback: 354,
+      "satisfaction": {
+        "avg_csat_score": 94.6,
+        "avg_nps_score": 40.5,
+        "total_satisfaction_responses": 1714,
+        "total_positive_feedback": 1282,
+        "total_negative_feedback": 820
       },
-      performance: {
-        avg_response_time_minutes: 8.5,
-        avg_handling_time_minutes: 16.8,
-        avg_first_contact_resolution_rate: 0.82,
-        avg_escalation_rate: 0.08,
+      "performance": {
+        "avg_response_time_minutes": 12.8,
+        "avg_handling_time_minutes": 15.4,
+        "avg_first_contact_resolution_rate": 0.85,
+        "avg_escalation_rate": 0.06
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Emergency",
-          count: 564,
-          resolution_rate: 0.83,
+          "category": "Document Request",
+          "count": 195,
+          "resolution_rate": 0.85
         },
         {
-          category: "Account Service",
-          count: 443,
-          resolution_rate: 0.73,
+          "category": "Complaint",
+          "count": 511,
+          "resolution_rate": 0.82
         },
         {
-          category: "Policy Changes",
-          count: 362,
-          resolution_rate: 0.81,
-        },
+          "category": "Fraud Report",
+          "count": 418,
+          "resolution_rate": 0.76
+        }
       ],
-      channels: {
-        phone: 116,
-        email: 111,
-        chat: 86,
-        social: 37,
-      },
+      "channels": {
+        "phone": 139,
+        "email": 85,
+        "chat": 47,
+        "social": 16
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2931,
+        "percentage": 100,
+        "count": 2361
       },
       {
-        percentage: 65.5,
-        count: 1919,
+        "percentage": 66.9,
+        "count": 1579
       },
       {
-        percentage: 54.9,
-        count: 1609,
+        "percentage": 51,
+        "count": 1204
       },
       null,
       null,
@@ -666,68 +666,68 @@ export const cohorts: CohortRetentionData = {
       null,
       null,
       null,
-      null,
-    ],
+      null
+    ]
   },
   "Nov 10, 2023": {
-    size: 2489,
-    dates: {
-      start: "2023-11-10T00:00:00.000Z",
-      end: "2023-11-17T00:00:00.000Z",
+    "size": 2729,
+    "dates": {
+      "start": "2023-11-10T00:00:00.000Z",
+      "end": "2023-11-17T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 5419,
-        total_tickets_resolved: 4397,
-        total_calls_made: 3192,
-        total_chat_sessions: 2153,
-        total_email_interactions: 2414,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 5254,
+        "total_tickets_resolved": 4275,
+        "total_calls_made": 3416,
+        "total_chat_sessions": 2512,
+        "total_email_interactions": 2864
       },
-      satisfaction: {
-        avg_csat_score: 87.3,
-        avg_nps_score: 42.8,
-        total_satisfaction_responses: 2222,
-        total_positive_feedback: 2230,
-        total_negative_feedback: 362,
+      "satisfaction": {
+        "avg_csat_score": 80,
+        "avg_nps_score": 58.6,
+        "total_satisfaction_responses": 2546,
+        "total_positive_feedback": 2038,
+        "total_negative_feedback": 857
       },
-      performance: {
-        avg_response_time_minutes: 9,
-        avg_handling_time_minutes: 26.4,
-        avg_first_contact_resolution_rate: 0.71,
-        avg_escalation_rate: 0.19,
+      "performance": {
+        "avg_response_time_minutes": 5.4,
+        "avg_handling_time_minutes": 19.6,
+        "avg_first_contact_resolution_rate": 0.81,
+        "avg_escalation_rate": 0.05
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "New Quote",
-          count: 373,
-          resolution_rate: 0.71,
+          "category": "Coverage Inquiry",
+          "count": 578,
+          "resolution_rate": 0.82
         },
         {
-          category: "Complaint",
-          count: 576,
-          resolution_rate: 0.88,
+          "category": "Coverage Inquiry",
+          "count": 403,
+          "resolution_rate": 0.8
         },
         {
-          category: "Document Request",
-          count: 492,
-          resolution_rate: 0.95,
-        },
+          "category": "Accident Report",
+          "count": 383,
+          "resolution_rate": 0.71
+        }
       ],
-      channels: {
-        phone: 92,
-        email: 60,
-        chat: 62,
-        social: 15,
-      },
+      "channels": {
+        "phone": 104,
+        "email": 120,
+        "chat": 81,
+        "social": 18
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2489,
+        "percentage": 100,
+        "count": 2729
       },
       {
-        percentage: 69.1,
-        count: 1719,
+        "percentage": 69.9,
+        "count": 1907
       },
       null,
       null,
@@ -736,64 +736,64 @@ export const cohorts: CohortRetentionData = {
       null,
       null,
       null,
-      null,
-    ],
+      null
+    ]
   },
   "Nov 17, 2023": {
-    size: 2343,
-    dates: {
-      start: "2023-11-17T00:00:00.000Z",
-      end: "2023-11-24T00:00:00.000Z",
+    "size": 2905,
+    "dates": {
+      "start": "2023-11-17T00:00:00.000Z",
+      "end": "2023-11-24T00:00:00.000Z"
     },
-    summary: {
-      activity: {
-        total_tickets_created: 4425,
-        total_tickets_resolved: 4117,
-        total_calls_made: 3094,
-        total_chat_sessions: 1195,
-        total_email_interactions: 1707,
+    "summary": {
+      "activity": {
+        "total_tickets_created": 5266,
+        "total_tickets_resolved": 4301,
+        "total_calls_made": 3368,
+        "total_chat_sessions": 2229,
+        "total_email_interactions": 2117
       },
-      satisfaction: {
-        avg_csat_score: 90.9,
-        avg_nps_score: 37.2,
-        total_satisfaction_responses: 2075,
-        total_positive_feedback: 1632,
-        total_negative_feedback: 723,
+      "satisfaction": {
+        "avg_csat_score": 79.7,
+        "avg_nps_score": 64.5,
+        "total_satisfaction_responses": 2147,
+        "total_positive_feedback": 1598,
+        "total_negative_feedback": 348
       },
-      performance: {
-        avg_response_time_minutes: 6.3,
-        avg_handling_time_minutes: 12.4,
-        avg_first_contact_resolution_rate: 0.77,
-        avg_escalation_rate: 0.17,
+      "performance": {
+        "avg_response_time_minutes": 9.2,
+        "avg_handling_time_minutes": 14.1,
+        "avg_first_contact_resolution_rate": 0.83,
+        "avg_escalation_rate": 0.18
       },
-      top_issues: [
+      "top_issues": [
         {
-          category: "Document Request",
-          count: 451,
-          resolution_rate: 0.75,
+          "category": "Policy Changes",
+          "count": 547,
+          "resolution_rate": 0.94
         },
         {
-          category: "Fraud Report",
-          count: 576,
-          resolution_rate: 0.91,
+          "category": "Account Service",
+          "count": 375,
+          "resolution_rate": 0.89
         },
         {
-          category: "Coverage Inquiry",
-          count: 509,
-          resolution_rate: 0.78,
-        },
+          "category": "Account Service",
+          "count": 210,
+          "resolution_rate": 0.89
+        }
       ],
-      channels: {
-        phone: 122,
-        email: 62,
-        chat: 51,
-        social: 17,
-      },
+      "channels": {
+        "phone": 145,
+        "email": 96,
+        "chat": 63,
+        "social": 25
+      }
     },
-    weeks: [
+    "weeks": [
       {
-        percentage: 100,
-        count: 2343,
+        "percentage": 100,
+        "count": 2905
       },
       null,
       null,
@@ -803,7 +803,7 @@ export const cohorts: CohortRetentionData = {
       null,
       null,
       null,
-      null,
-    ],
-  },
-}
+      null
+    ]
+  }
+};

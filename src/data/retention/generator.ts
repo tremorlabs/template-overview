@@ -2,7 +2,12 @@ import { fakerDE_CH as faker } from "@faker-js/faker"
 import fs from "fs"
 import path from "path"
 import { categoryTypes } from "../support/schema"
-import { CohortRetentionData, CohortSummary, WeekData } from "./schema"
+import {
+  CohortRetentionData,
+  CohortSummary,
+  CohortsAggregate,
+  WeekData,
+} from "./schema"
 
 const generateDecimal = (
   min: number,
@@ -138,10 +143,218 @@ const generateCohortData = (): CohortRetentionData => {
 
 const cohortData = generateCohortData()
 
-// Fix the export statement to match CohortRetentionData type
 fs.writeFileSync(
   path.join(__dirname, "cohorts.ts"),
   `import type { CohortRetentionData } from "./schema";\n\nexport const cohorts: CohortRetentionData = ${JSON.stringify(cohortData, null, 2)};`,
 )
 
 console.log("Cohort data generated")
+
+const roundToDecimal = (num: number): number => Math.round(num * 10) / 10
+
+function generateCohortsAggregate(
+  cohorts: CohortRetentionData,
+): CohortsAggregate {
+  const cohortEntries = Object.entries(cohorts)
+  const totalCohorts = cohortEntries.length
+
+  // Initialize aggregates
+  const summary: CohortsAggregate = {
+    totalCohorts,
+    totalUsers: 0,
+    aggregateMetrics: {
+      activity: {
+        avgTicketsCreated: 0,
+        avgTicketsResolved: 0,
+        avgCallsMade: 0,
+        avgChatSessions: 0,
+        avgEmailInteractions: 0,
+        totalTicketsCreated: 0,
+        totalTicketsResolved: 0,
+        ticketResolutionRate: 0,
+      },
+      satisfaction: {
+        avgCsatScore: 0,
+        avgNpsScore: 0,
+        totalFeedbackResponses: 0,
+        positiveFeedbackRate: 0,
+        negativeFeedbackRate: 0,
+      },
+      performance: {
+        avgResponseTimeMinutes: 0,
+        avgHandlingTimeMinutes: 0,
+        avgFirstContactResolutionRate: 0,
+        avgEscalationRate: 0,
+      },
+      channelDistribution: {
+        phone: 0,
+        email: 0,
+        chat: 0,
+        social: 0,
+      },
+      retention: {
+        averageRetentionByWeek: [],
+        overallRetentionRate: 0,
+      },
+    },
+    commonIssues: [],
+  }
+
+  // Aggregate all metrics
+  cohortEntries.forEach(([, cohort]) => {
+    summary.totalUsers += cohort.size
+
+    // Activity metrics
+    summary.aggregateMetrics.activity.totalTicketsCreated +=
+      cohort.summary.activity.total_tickets_created
+    summary.aggregateMetrics.activity.totalTicketsResolved +=
+      cohort.summary.activity.total_tickets_resolved
+    summary.aggregateMetrics.activity.avgCallsMade +=
+      cohort.summary.activity.total_calls_made
+    summary.aggregateMetrics.activity.avgChatSessions +=
+      cohort.summary.activity.total_chat_sessions
+    summary.aggregateMetrics.activity.avgEmailInteractions +=
+      cohort.summary.activity.total_email_interactions
+
+    // Satisfaction metrics
+    summary.aggregateMetrics.satisfaction.avgCsatScore +=
+      cohort.summary.satisfaction.avg_csat_score
+    summary.aggregateMetrics.satisfaction.avgNpsScore +=
+      cohort.summary.satisfaction.avg_nps_score
+    summary.aggregateMetrics.satisfaction.totalFeedbackResponses +=
+      cohort.summary.satisfaction.total_satisfaction_responses
+
+    // Performance metrics
+    summary.aggregateMetrics.performance.avgResponseTimeMinutes +=
+      cohort.summary.performance.avg_response_time_minutes
+    summary.aggregateMetrics.performance.avgHandlingTimeMinutes +=
+      cohort.summary.performance.avg_handling_time_minutes
+    summary.aggregateMetrics.performance.avgFirstContactResolutionRate +=
+      cohort.summary.performance.avg_first_contact_resolution_rate
+    summary.aggregateMetrics.performance.avgEscalationRate +=
+      cohort.summary.performance.avg_escalation_rate
+
+    // Channel distribution
+    Object.entries(cohort.summary.channels).forEach(([channel, count]) => {
+      summary.aggregateMetrics.channelDistribution[
+        channel as keyof typeof summary.aggregateMetrics.channelDistribution
+      ] += count
+    })
+
+    // Process retention data
+    cohort.weeks.forEach((week, index) => {
+      if (!week) return
+      if (!summary.aggregateMetrics.retention.averageRetentionByWeek[index]) {
+        summary.aggregateMetrics.retention.averageRetentionByWeek[index] = 0
+      }
+      summary.aggregateMetrics.retention.averageRetentionByWeek[index] +=
+        week.percentage
+    })
+
+    // Process top issues
+    cohort.summary.top_issues.forEach((issue) => {
+      const existingIssue = summary.commonIssues.find(
+        (i) => i.category === issue.category,
+      )
+      if (existingIssue) {
+        existingIssue.totalCount += issue.count
+        existingIssue.avgResolutionRate = roundToDecimal(
+          (existingIssue.avgResolutionRate + issue.resolution_rate) / 2,
+        )
+      } else {
+        summary.commonIssues.push({
+          category: issue.category,
+          totalCount: issue.count,
+          avgResolutionRate: roundToDecimal(issue.resolution_rate),
+        })
+      }
+    })
+  })
+
+  // Calculate averages with rounding
+  const activity = summary.aggregateMetrics.activity
+  activity.avgTicketsCreated = roundToDecimal(
+    activity.totalTicketsCreated / totalCohorts,
+  )
+  activity.avgTicketsResolved = roundToDecimal(
+    activity.totalTicketsResolved / totalCohorts,
+  )
+  activity.ticketResolutionRate = roundToDecimal(
+    activity.totalTicketsResolved / activity.totalTicketsCreated,
+  )
+  activity.avgCallsMade = roundToDecimal(activity.avgCallsMade / totalCohorts)
+  activity.avgChatSessions = roundToDecimal(
+    activity.avgChatSessions / totalCohorts,
+  )
+  activity.avgEmailInteractions = roundToDecimal(
+    activity.avgEmailInteractions / totalCohorts,
+  )
+
+  const satisfaction = summary.aggregateMetrics.satisfaction
+  satisfaction.avgCsatScore = roundToDecimal(
+    satisfaction.avgCsatScore / totalCohorts,
+  )
+  satisfaction.avgNpsScore = roundToDecimal(
+    satisfaction.avgNpsScore / totalCohorts,
+  )
+  satisfaction.positiveFeedbackRate =
+    satisfaction.totalFeedbackResponses > 0
+      ? roundToDecimal(
+          cohortEntries.reduce(
+            (sum, [, cohort]) =>
+              sum + cohort.summary.satisfaction.total_positive_feedback,
+            0,
+          ) / satisfaction.totalFeedbackResponses,
+        )
+      : 0
+  satisfaction.negativeFeedbackRate =
+    satisfaction.totalFeedbackResponses > 0
+      ? roundToDecimal(
+          cohortEntries.reduce(
+            (sum, [, cohort]) =>
+              sum + cohort.summary.satisfaction.total_negative_feedback,
+            0,
+          ) / satisfaction.totalFeedbackResponses,
+        )
+      : 0
+
+  const performance = summary.aggregateMetrics.performance
+  performance.avgResponseTimeMinutes = roundToDecimal(
+    performance.avgResponseTimeMinutes / totalCohorts,
+  )
+  performance.avgHandlingTimeMinutes = roundToDecimal(
+    performance.avgHandlingTimeMinutes / totalCohorts,
+  )
+  performance.avgFirstContactResolutionRate = roundToDecimal(
+    performance.avgFirstContactResolutionRate / totalCohorts,
+  )
+  performance.avgEscalationRate = roundToDecimal(
+    performance.avgEscalationRate / totalCohorts,
+  )
+
+  // Calculate average retention by week with rounding
+  summary.aggregateMetrics.retention.averageRetentionByWeek =
+    summary.aggregateMetrics.retention.averageRetentionByWeek.map((total) =>
+      roundToDecimal(total / totalCohorts),
+    )
+  summary.aggregateMetrics.retention.overallRetentionRate = roundToDecimal(
+    summary.aggregateMetrics.retention.averageRetentionByWeek.reduce(
+      (sum, rate) => sum + rate,
+      0,
+    ) / summary.aggregateMetrics.retention.averageRetentionByWeek.length,
+  )
+
+  // Sort common issues by total count
+  summary.commonIssues.sort((a, b) => b.totalCount - a.totalCount)
+
+  return summary
+}
+
+const cohortsAggregate = generateCohortsAggregate(cohortData)
+
+fs.writeFileSync(
+  path.join(__dirname, "cohortsAggregate.ts"),
+  `import type { CohortsAggregate } from "./schema";\n\nexport const cohortsAggregate: CohortsAggregate = ${JSON.stringify(cohortsAggregate, null, 2)};`,
+)
+
+console.log("Cohort aggregate generated")

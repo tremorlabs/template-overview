@@ -20,7 +20,9 @@ import {
 } from "@/components/Table"
 
 import { Button } from "@/components/Button"
+import { Card } from "@/components/Card"
 import { cohorts } from "@/data/retention/cohorts"
+import { cohortsAggregate } from "@/data/retention/cohortsAggregate"
 import {
   ActivitySummary,
   ChannelDistribution,
@@ -31,7 +33,11 @@ import {
   TopIssue,
 } from "@/data/retention/schema"
 import { cx, focusRing } from "@/lib/utils"
-import { RiCloseLine, RiExpandDiagonalLine } from "@remixicon/react"
+import {
+  RiCloseLine,
+  RiErrorWarningLine,
+  RiExpandDiagonalLine,
+} from "@remixicon/react"
 import { useState } from "react"
 
 const colorClasses = [
@@ -268,7 +274,7 @@ export default function CohortRetention() {
   const weeks = Array.from({ length: weeksCount }, (_, i) => i)
 
   return (
-    <main className="mt-6">
+    <main className="pb-16 pt-6">
       <div className="flex items-center justify-between border-b pb-6">
         <h1 className="text-2xl font-semibold text-gray-950">
           Cohort Retention
@@ -359,17 +365,196 @@ export default function CohortRetention() {
             </TableBody>
           </Table>
         </TableRoot>
+        <CohortDetailsDialog
+          cohort={selectedCohort}
+          cohortKey={selectedCohortKey}
+          isOpen={!!selectedCohort}
+          onClose={() => {
+            setSelectedCohort(null)
+            setSelectedCohortKey(null)
+          }}
+        />
       </section>
+      <section className="mt-12">
+        <h2 className="text-xl font-semibold text-gray-950">
+          Cohort Analytics
+        </h2>
 
-      <CohortDetailsDialog
-        cohort={selectedCohort}
-        cohortKey={selectedCohortKey}
-        isOpen={!!selectedCohort}
-        onClose={() => {
-          setSelectedCohort(null)
-          setSelectedCohortKey(null)
-        }}
-      />
+        <div className="mt-8 grid grid-cols-8 gap-5">
+          <Card className="col-span-6">
+            <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
+              <span className="text-gray-900">Cohort Statistics</span>
+            </dt>
+            <dd className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {/* Left Column */}
+              <div className="space-y-6">
+                <div>
+                  <div className="text-sm text-gray-500">Total Users</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.totalUsers.toLocaleString()}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+17%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">
+                    Average CSAT Score
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.satisfaction.avgCsatScore.toFixed(
+                        1,
+                      )}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+6%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">
+                    Average Response Time
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.performance.avgResponseTimeMinutes.toFixed(
+                        1,
+                      )}
+                      m
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+12%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Middle Column */}
+              <div className="space-y-6">
+                <div>
+                  <div className="text-sm text-gray-500">Total Tickets</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.activity.totalTicketsCreated.toLocaleString()}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+11%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">Resolution Rate</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {(
+                        cohortsAggregate.aggregateMetrics.activity
+                          .ticketResolutionRate * 100
+                      ).toFixed(1)}
+                      %
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+2%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">Total Cohorts</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.totalCohorts}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+5%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="space-y-6">
+                <div>
+                  <div className="text-sm text-gray-500">
+                    Avg. Handling Time
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.performance.avgHandlingTimeMinutes.toFixed(
+                        1,
+                      )}
+                      m
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+21%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">
+                    First Contact Resolution
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {(
+                        cohortsAggregate.aggregateMetrics.performance
+                          .avgFirstContactResolutionRate * 100
+                      ).toFixed(1)}
+                      %
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+3%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">Retention Rate</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.retention.overallRetentionRate.toFixed(
+                        1,
+                      )}
+                      %
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+2%</span>
+                  </div>
+                </div>
+              </div>
+            </dd>
+          </Card>
+
+          <Card className="col-span-2">
+            <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
+              <span className="text-gray-900">Top Issues</span>
+              <RiErrorWarningLine
+                className="size-5 shrink-0 text-amber-500"
+                aria-hidden="true"
+              />
+            </dt>
+            <dd className="space-y-3">
+              {cohortsAggregate.commonIssues
+                .sort((a, b) => b.totalCount - a.totalCount)
+                .slice(0, 7)
+                .map((issue, index) => {
+                  const totalCount = cohortsAggregate.commonIssues.reduce(
+                    (sum, issue) => sum + issue.totalCount,
+                    0,
+                  )
+                  return (
+                    <div
+                      key={issue.category}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                          {index + 1}.
+                        </span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-50">
+                          {issue.category}
+                        </span>
+                      </div>
+                      <div className="text-sm tabular-nums text-gray-600 dark:text-gray-400">
+                        {Math.round((issue.totalCount / totalCount) * 100)}% (
+                        {issue.totalCount.toLocaleString()})
+                      </div>
+                    </div>
+                  )
+                })}
+            </dd>
+          </Card>
+        </div>
+      </section>
     </main>
   )
 }
