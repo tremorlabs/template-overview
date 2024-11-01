@@ -149,7 +149,14 @@ export default function Workflow() {
   }
 
   const currentImpact = calculateImpact(aggregateStats)
-  const scenarioImpact = calculateImpact(displayStats)
+  const scenarioImpact =
+    scenarioQuota === actualQuota
+      ? {
+          costs: currentImpact.costs,
+          savings: 0,
+          fteImpact: 0, 
+        }
+      : calculateImpact(displayStats)
 
   return (
     <main className="pb-12">
@@ -394,6 +401,7 @@ export default function Workflow() {
               </p>
             </div>
           </div>
+
           <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
             <span
               className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
@@ -406,7 +414,9 @@ export default function Workflow() {
               </p>
               <p className="flex items-center justify-between gap-2">
                 <span className="text-lg font-medium text-gray-900">
-                  ${valueFormatter(Math.round(scenarioImpact.savings))}
+                  {scenarioQuota === actualQuota
+                    ? "No impact"
+                    : `$${valueFormatter(Math.round(scenarioImpact.savings))}`}
                 </span>
                 <span className="text-base font-medium text-gray-500">
                   ${valueFormatter(Math.round(currentImpact.savings))}
@@ -414,6 +424,7 @@ export default function Workflow() {
               </p>
             </div>
           </div>
+
           <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
             <span
               className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
@@ -426,7 +437,9 @@ export default function Workflow() {
               </p>
               <p className="flex items-center justify-between gap-2">
                 <span className="text-lg font-medium text-gray-900">
-                  {scenarioImpact.fteImpact.toFixed(1)}
+                  {scenarioQuota === actualQuota
+                    ? "No impact"
+                    : scenarioImpact.fteImpact.toFixed(1)}
                 </span>
                 <span className="text-base font-medium text-gray-500">
                   {currentImpact.fteImpact.toFixed(1)}
@@ -435,6 +448,7 @@ export default function Workflow() {
             </div>
           </div>
         </div>
+
         <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div>
             <h3 className="text-sm font-medium text-gray-900">
@@ -444,11 +458,16 @@ export default function Workflow() {
               {[1, 5, 10].map((years) => {
                 const multiplier = Math.pow(1.1, years)
                 const currentSavings = currentImpact.savings * multiplier
-                const projectedSavings = scenarioImpact.savings * multiplier
+                const projectedSavings =
+                  scenarioQuota === actualQuota
+                    ? currentSavings
+                    : scenarioImpact.savings * multiplier
                 const difference =
-                  ((projectedSavings - currentSavings) /
-                    Math.abs(currentSavings)) *
-                  100
+                  scenarioQuota === actualQuota
+                    ? 0
+                    : ((projectedSavings - currentSavings) /
+                        Math.abs(currentSavings)) *
+                      100
 
                 return (
                   <li
@@ -460,7 +479,9 @@ export default function Workflow() {
                     </span>
                     <span className="flex items-center gap-3 tabular-nums">
                       <span className="text-right font-medium text-gray-900">
-                        ${valueFormatter(Math.round(projectedSavings))}
+                        {scenarioQuota === actualQuota
+                          ? "No impact"
+                          : `$${valueFormatter(Math.round(projectedSavings))}`}
                       </span>
                       <span
                         className="h-5 w-px bg-gray-200"
@@ -475,8 +496,9 @@ export default function Workflow() {
                               : "bg-red-50 text-red-600"
                         }`}
                       >
-                        {difference > 0 ? "+" : ""}
-                        {difference.toFixed(1)}%
+                        {difference === 0
+                          ? "0.0%"
+                          : `${difference > 0 ? "+" : ""}${difference.toFixed(1)}%`}
                       </span>
                     </span>
                   </li>
@@ -492,9 +514,14 @@ export default function Workflow() {
               {[1, 5, 10].map((years) => {
                 const multiplier = Math.pow(1.1, years)
                 const currentFTE = currentImpact.fteImpact * multiplier
-                const projectedFTE = scenarioImpact.fteImpact * multiplier
+                const projectedFTE =
+                  scenarioQuota === actualQuota
+                    ? currentFTE
+                    : scenarioImpact.fteImpact * multiplier
                 const difference =
-                  ((projectedFTE - currentFTE) / Math.abs(currentFTE)) * 100
+                  scenarioQuota === actualQuota
+                    ? 0
+                    : ((projectedFTE - currentFTE) / Math.abs(currentFTE)) * 100
 
                 return (
                   <li
@@ -506,7 +533,9 @@ export default function Workflow() {
                     </span>
                     <span className="flex items-center gap-3 tabular-nums">
                       <span className="text-right font-medium text-gray-900">
-                        {projectedFTE.toFixed(1)}
+                        {scenarioQuota === actualQuota
+                          ? "No impact"
+                          : projectedFTE.toFixed(1)}
                       </span>
                       <span
                         className="h-5 w-px bg-gray-200"
@@ -521,8 +550,9 @@ export default function Workflow() {
                               : "bg-red-50 text-red-600"
                         }`}
                       >
-                        {difference > 0 ? "+" : ""}
-                        {difference.toFixed(1)}%
+                        {difference === 0
+                          ? "0.0%"
+                          : `${difference > 0 ? "+" : ""}${difference.toFixed(1)}%`}
                       </span>
                     </span>
                   </li>
