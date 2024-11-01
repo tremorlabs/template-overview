@@ -1,5 +1,14 @@
 "use client"
-
+import {
+  Dialog,
+  DialogBody,
+  DialogClose,
+  DialogContentFull,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/Dialog"
 import {
   Table,
   TableBody,
@@ -9,168 +18,38 @@ import {
   TableRoot,
   TableRow,
 } from "@/components/Table"
-import { cx } from "@/lib/utils"
-import { RiArrowRightUpLine } from "@remixicon/react"
-import Link from "next/link"
 
-// Types
-interface WeekData {
-  percentage: number
-  users: number
-}
-
-interface CohortData {
-  date: string
-  initialDownloads: number
-  retention: {
-    [key: `week${number}`]: WeekData
-  }
-}
-
-const cohortData: CohortData[] = [
-  {
-    date: "Jun 28",
-    initialDownloads: 128,
-    retention: {
-      week0: { percentage: 100, users: 128 },
-      week1: { percentage: 34.0, users: 44 },
-      week2: { percentage: 16.5, users: 21 },
-      week3: { percentage: 22.8, users: 29 },
-      week4: { percentage: 20.4, users: 26 },
-      week5: { percentage: 19.7, users: 25 },
-      week6: { percentage: 19.7, users: 25 },
-      week7: { percentage: 19.4, users: 25 },
-      week8: { percentage: 6.6, users: 8 },
-      week9: { percentage: 5.5, users: 7 },
-      week10: { percentage: 4.7, users: 6 },
-    },
-  },
-  {
-    date: "Jul 1",
-    initialDownloads: 109,
-    retention: {
-      week0: { percentage: 100, users: 109 },
-      week1: { percentage: 25.7, users: 28 },
-      week2: { percentage: 27.9, users: 30 },
-      week3: { percentage: 27.1, users: 30 },
-      week4: { percentage: 27.1, users: 30 },
-      week5: { percentage: 25.1, users: 27 },
-      week6: { percentage: 23.3, users: 25 },
-      week7: { percentage: 21.4, users: 23 },
-      week8: { percentage: 11.0, users: 12 },
-      week9: { percentage: 9.2, users: 10 },
-      week10: { percentage: 7.3, users: 8 },
-    },
-  },
-  {
-    date: "Jul 3",
-    initialDownloads: 99,
-    retention: {
-      week0: { percentage: 100, users: 99 },
-      week1: { percentage: 78.4, users: 78 },
-      week2: { percentage: 71.3, users: 71 },
-      week3: { percentage: 69.5, users: 69 },
-      week4: { percentage: 53.3, users: 53 },
-      week5: { percentage: 43.8, users: 43 },
-      week6: { percentage: 39.3, users: 39 },
-      week7: { percentage: 21.3, users: 21 },
-      week8: { percentage: 18.3, users: 18 },
-      week9: { percentage: 15.3, users: 15 },
-      week10: { percentage: 12.2, users: 12 },
-    },
-  },
-  {
-    date: "Jul 7",
-    initialDownloads: 82,
-    retention: {
-      week0: { percentage: 100, users: 82 },
-      week1: { percentage: 91.3, users: 75 },
-      week2: { percentage: 89.3, users: 73 },
-      week3: { percentage: 81.2, users: 67 },
-      week4: { percentage: 76.9, users: 63 },
-      week5: { percentage: 71.2, users: 58 },
-      week6: { percentage: 34.3, users: 28 },
-      week7: { percentage: 19.5, users: 16 },
-      week8: { percentage: 11.2, users: 9 },
-      week9: { percentage: 8.5, users: 7 },
-      week10: { percentage: 6.1, users: 5 },
-    },
-  },
-  {
-    date: "Jul 11",
-    initialDownloads: 121,
-    retention: {
-      week0: { percentage: 100, users: 121 },
-      week1: { percentage: 87.3, users: 106 },
-      week2: { percentage: 84.7, users: 102 },
-      week3: { percentage: 74.4, users: 90 },
-      week4: { percentage: 71.3, users: 86 },
-      week5: { percentage: 69.3, users: 84 },
-      week6: { percentage: 63.4, users: 77 },
-      week7: { percentage: 59.3, users: 72 },
-      week8: { percentage: 23.2, users: 28 },
-      week9: { percentage: 19.8, users: 24 },
-      week10: { percentage: 16.5, users: 20 },
-    },
-  },
-  {
-    date: "Jul 15",
-    initialDownloads: 142,
-    retention: {
-      week0: { percentage: 100, users: 142 },
-      week1: { percentage: 88.3, users: 125 },
-      week2: { percentage: 81.7, users: 116 },
-      week3: { percentage: 73.4, users: 104 },
-      week4: { percentage: 45.2, users: 64 },
-      week5: { percentage: 38.1, users: 54 },
-      week6: { percentage: 23.8, users: 34 },
-      week7: { percentage: 12.2, users: 17 },
-      week8: { percentage: 9.1, users: 13 },
-      week9: { percentage: 7.0, users: 10 },
-      week10: { percentage: 5.6, users: 8 },
-    },
-  },
-  {
-    date: "Jul 19",
-    initialDownloads: 135,
-    retention: {
-      week0: { percentage: 100, users: 135 },
-      week1: { percentage: 91.1, users: 123 },
-      week2: { percentage: 85.2, users: 115 },
-      week3: { percentage: 77.8, users: 105 },
-      week4: { percentage: 70.4, users: 95 },
-      week5: { percentage: 63.0, users: 85 },
-      week6: { percentage: 55.6, users: 75 },
-      week7: { percentage: 48.1, users: 65 },
-      week8: { percentage: 40.7, users: 55 },
-      week9: { percentage: 33.3, users: 45 },
-      week10: { percentage: 25.9, users: 35 },
-    },
-  },
-]
-
-// Helper functions
-const getWeeks = (data: CohortData[]): string[] => {
-  return Object.keys(data[0].retention).sort(
-    (a, b) => parseInt(a.replace("week", "")) - parseInt(b.replace("week", "")),
-  )
-}
-
-const getAllPercentages = (data: CohortData[]): number[] => {
-  return data.flatMap((cohort) =>
-    Object.values(cohort.retention).map((week) => week.percentage),
-  )
-}
+import { Button } from "@/components/Button"
+import { Card } from "@/components/Card"
+import { cohorts } from "@/data/retention/cohorts"
+import { cohortsAggregate } from "@/data/retention/cohortsAggregate"
+import {
+  ActivitySummary,
+  ChannelDistribution,
+  CohortData,
+  CohortRetentionData,
+  PerformanceMetrics,
+  SatisfactionMetrics,
+  TopIssue,
+} from "@/data/retention/schema"
+import { cx, focusRing } from "@/lib/utils"
+import {
+  RiCloseLine,
+  RiErrorWarningLine,
+  RiExpandDiagonalLine,
+} from "@remixicon/react"
+import { useState } from "react"
 
 const colorClasses = [
-  "bg-gray-200/70 dark:bg-gray-800",
-  "bg-gray-100 dark:bg-gray-900",
   "bg-blue-50 dark:bg-blue-950",
   "bg-blue-100 dark:bg-blue-900",
   "bg-blue-200 dark:bg-blue-800",
   "bg-blue-300 dark:bg-blue-700",
   "bg-blue-400 dark:bg-blue-600",
   "bg-blue-500 dark:bg-blue-500",
+  "bg-blue-600 dark:bg-blue-400",
+  "bg-blue-700 dark:bg-blue-300",
+  "bg-blue-800 dark:bg-blue-200",
 ]
 
 const getBackgroundColor = (
@@ -187,97 +66,495 @@ const getBackgroundColor = (
 }
 
 const getTextColor = (value: number, minValue: number, maxValue: number) => {
-  const normalizedValue = (value - minValue) / (maxValue - minValue)
-  return normalizedValue > 0.6
+  return (value - minValue) / (maxValue - minValue) > 0.6
     ? "text-white dark:text-white"
     : "text-gray-900 dark:text-gray-50"
 }
 
-export default function Heatmap() {
-  const weeks = getWeeks(cohortData)
-  const allValues = getAllPercentages(cohortData)
-  const maxValue = Math.max(...allValues)
-  const minValue = Math.min(...allValues)
+interface CohortDetailsDialogProps {
+  cohort: CohortData | null
+  cohortKey: string | null
+  isOpen: boolean
+  onClose: () => void
+}
+
+const CohortDetailsDialog = ({
+  cohort,
+  cohortKey,
+  isOpen,
+  onClose,
+}: CohortDetailsDialogProps) => {
+  if (!cohort) return null
 
   return (
-    <main className="mt-6">
-      <TableRoot className="overflow-scroll">
-        <Table className="border-separate border-spacing-0 text-sm tabular-nums">
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell className="sticky left-0 top-0 z-20 w-56 whitespace-nowrap border-r border-gray-200 bg-white pr-4 dark:border-gray-800 dark:bg-gray-950">
-                <span className="block">Day of Download</span>
-                <span className="block font-normal text-gray-500 dark:text-gray-500">
-                  Initial users
-                </span>
-              </TableHeaderCell>
-              {weeks.map((week) => (
-                <TableHeaderCell
-                  key={week}
-                  className="border-r border-gray-200 dark:border-gray-800"
-                >
-                  <span>Week {week.replace("week", "")}</span>
-                </TableHeaderCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cohortData.map((cohort) => (
-              <TableRow key={cohort.date}>
-                <TableCell className="sticky left-0 z-10 min-w-56 border-r border-gray-200 bg-white px-2.5 dark:border-gray-800 dark:bg-gray-950">
-                  <Link
-                    className="group flex items-start justify-between"
-                    href="#"
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContentFull className="fixed inset-4 mx-auto flex w-[95vw] flex-col overflow-hidden rounded-lg border bg-white p-0 shadow-lg sm:max-w-3xl">
+        <DialogHeader className="flex-none border-b px-6 py-4">
+          <DialogTitle className="text-lg font-semibold">
+            Cohort Details
+          </DialogTitle>
+          <DialogDescription className="mt-1 text-sm/6">
+            Detailed metrics for cohort starting {cohortKey} with {cohort.size}{" "}
+            initial customers
+          </DialogDescription>
+          <DialogClose asChild>
+            <Button
+              className="absolute right-4 top-4 p-2 !text-gray-400 hover:text-gray-500 dark:!text-gray-600 hover:dark:text-gray-500"
+              variant="ghost"
+            >
+              <RiCloseLine className="size-5 shrink-0" />
+            </Button>
+          </DialogClose>
+        </DialogHeader>
+
+        <DialogBody className="flex-1 overflow-y-auto px-6">
+          <div className="space-y-6">
+            {/* Activity Metrics */}
+            <section>
+              <h3 className="mb-3 font-medium text-gray-900 dark:text-gray-50">
+                Activity Summary
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {Object.entries(
+                  cohort.summary.activity as Record<
+                    keyof ActivitySummary,
+                    number
+                  >,
+                ).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50"
                   >
-                    <div>
-                      <span className="block text-sm font-medium text-gray-900 dark:text-gray-50">
-                        {cohort.date}
-                      </span>
-                      <span className="mt-0.5 block text-sm text-gray-500 dark:text-gray-500">
-                        {cohort.initialDownloads}K users
-                      </span>
-                    </div>
-                    <RiArrowRightUpLine
-                      className="size-4 shrink-0 text-gray-400 transition-all group-hover:text-gray-700 dark:text-gray-600 group-hover:dark:text-gray-300"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </TableCell>
-                {weeks.map((week) => {
-                  const weekData =
-                    cohort.retention[week as keyof typeof cohort.retention]
-                  return (
-                    <TableCell
-                      key={week}
-                      className={cx(
-                        getBackgroundColor(
-                          weekData.percentage,
-                          minValue,
-                          maxValue,
-                        ),
-                        getTextColor(weekData.percentage, minValue, maxValue),
-                        "min-w-32 border-b border-r border-gray-200 dark:border-gray-800",
-                      )}
+                    <span className="text-sm capitalize text-gray-600 dark:text-gray-400">
+                      {key.replace(/_/g, " ")}:
+                    </span>
+                    <span className="font-medium">
+                      {value.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Satisfaction Metrics */}
+            <section>
+              <h3 className="mb-3 font-medium text-gray-900 dark:text-gray-50">
+                Customer Satisfaction
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {Object.entries(
+                  cohort.summary.satisfaction as Record<
+                    keyof SatisfactionMetrics,
+                    number
+                  >,
+                ).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50"
+                  >
+                    <span className="text-sm capitalize text-gray-600 dark:text-gray-400">
+                      {key.replace(/_/g, " ")}:
+                    </span>
+                    <span className="font-medium">
+                      {key.includes("score")
+                        ? `${value}%`
+                        : value.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Performance Metrics */}
+            <section>
+              <h3 className="mb-3 font-medium text-gray-900 dark:text-gray-50">
+                Performance Metrics
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {Object.entries(
+                  cohort.summary.performance as Record<
+                    keyof PerformanceMetrics,
+                    number
+                  >,
+                ).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50"
+                  >
+                    <span className="text-sm capitalize text-gray-600 dark:text-gray-400">
+                      {key.replace(/_/g, " ")}:
+                    </span>
+                    <span className="font-medium">
+                      {key.includes("rate")
+                        ? `${(value * 100).toFixed(1)}%`
+                        : `${value} mins`}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Top Issues */}
+            <section>
+              <h3 className="mb-3 font-medium text-gray-900 dark:text-gray-50">
+                Top Issues
+              </h3>
+              <div className="space-y-3">
+                {cohort.summary.top_issues.map(
+                  (issue: TopIssue, index: number) => (
+                    <div
+                      key={index}
+                      className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50"
                     >
-                      <span className="block text-sm font-medium">
-                        {weekData.percentage}%
-                      </span>
-                      <span
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium">{issue.category}</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                          {issue.count} tickets
+                        </span>
+                      </div>
+                      <div className="mt-1 h-2 rounded bg-gray-200 dark:bg-gray-700">
+                        <div
+                          className="h-full rounded bg-blue-500"
+                          style={{ width: `${issue.resolution_rate * 100}%` }}
+                        />
+                      </div>
+                      <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        {(issue.resolution_rate * 100).toFixed(1)}% resolved
+                      </div>
+                    </div>
+                  ),
+                )}
+              </div>
+            </section>
+
+            {/* Channel Distribution */}
+            <section>
+              <h3 className="mb-3 font-medium text-gray-900 dark:text-gray-50">
+                Channel Distribution
+              </h3>
+              <div className="grid grid-cols-4 gap-4">
+                {Object.entries(
+                  cohort.summary.channels as Record<
+                    keyof ChannelDistribution,
+                    number
+                  >,
+                ).map(([channel, value]) => (
+                  <div
+                    key={channel}
+                    className="rounded-lg bg-gray-50 p-3 text-center dark:bg-gray-800/50"
+                  >
+                    <span className="mb-1 block text-sm capitalize text-gray-600 dark:text-gray-400">
+                      {channel}
+                    </span>
+                    <span className="block text-lg font-medium">{value}%</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+        </DialogBody>
+        <DialogFooter className="flex-none border-t border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900">
+          <DialogClose asChild>
+            <Button variant="secondary">Close</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContentFull>
+    </Dialog>
+  )
+}
+
+export default function CohortRetention() {
+  const [selectedCohort, setSelectedCohort] = useState<CohortData | null>(null)
+  const [selectedCohortKey, setSelectedCohortKey] = useState<string | null>(
+    null,
+  )
+
+  const cohortEntries = Object.entries(cohorts as CohortRetentionData)
+  const weeksCount = cohortEntries[0]?.[1].weeks.length ?? 0
+  const weeks = Array.from({ length: weeksCount }, (_, i) => i)
+
+  return (
+    <main className="pb-16 pt-6">
+      <div className="flex items-center justify-between border-b pb-6">
+        <h1 className="text-2xl font-semibold text-gray-950">
+          Cohort Retention
+        </h1>
+      </div>
+      <section className="mt-12">
+        <TableRoot className="overflow-scroll">
+          <Table className="border-none">
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell className="sticky left-0 top-0 z-10 min-w-40 border-transparent bg-white p-px dark:border-transparent dark:bg-gray-900">
+                  <span className="block">Cohort</span>
+                  <span className="block font-normal text-gray-500 dark:text-gray-500">
+                    Initial customers
+                  </span>
+                </TableHeaderCell>
+                {weeks.map((week) => (
+                  <TableHeaderCell key={week} className="border-none">
+                    Week {week}
+                  </TableHeaderCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody className="divide-none">
+              {cohortEntries.map(
+                ([cohortKey, cohortData]: [string, CohortData]) => (
+                  <TableRow key={cohortKey} className="h-full">
+                    <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-gray-900">
+                      <button
                         className={cx(
-                          getTextColor(weekData.percentage, minValue, maxValue),
-                          "mt-0.5 block text-sm",
+                          "group relative -ml-2 h-full w-full rounded pl-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100",
+                          focusRing,
                         )}
+                        onClick={() => {
+                          setSelectedCohort(cohortData)
+                          setSelectedCohortKey(cohortKey)
+                        }}
                       >
-                        {weekData.users}K
-                      </span>
+                        <RiExpandDiagonalLine className="absolute right-4 top-4 size-5 shrink-0 text-gray-500/0 transition group-hover:text-gray-500 group-focus-visible:text-gray-500" />
+                        <span className="block text-sm font-medium text-gray-900 dark:text-gray-50">
+                          {cohortKey}
+                        </span>
+                        <span className="mt-0.5 block text-sm text-gray-500 dark:text-gray-500">
+                          {cohortData.size} customers
+                        </span>
+                      </button>
                     </TableCell>
+                    {cohortData.weeks.map((weekData, weekIndex) => (
+                      <TableCell
+                        key={weekIndex}
+                        className="h-full min-w-24 p-px"
+                      >
+                        {weekData === null ? (
+                          <div
+                            className={cx(
+                              "flex h-full flex-col justify-center rounded border border-dashed bg-gray-50 px-3.5 py-3 text-gray-200",
+                            )}
+                          >
+                            <span className="h-4 w-9 rounded-sm bg-gray-100" />
+                            <span className="mt-0.5 h-4 w-6 rounded-sm bg-gray-100" />
+                          </div>
+                        ) : (
+                          <div
+                            className={cx(
+                              "flex h-full flex-col justify-center rounded px-3.5 py-3",
+                              getBackgroundColor(weekData.percentage, 0, 100),
+                              getTextColor(weekData.percentage, 0, 100),
+                            )}
+                          >
+                            <span className="block text-sm font-semibold">
+                              {weekData.percentage.toFixed(1)}%
+                            </span>
+                            <span
+                              className={cx(
+                                "mt-0.5 block text-sm",
+                                getTextColor(weekData.percentage, 0, 100),
+                              )}
+                            >
+                              {weekData.count}
+                            </span>
+                          </div>
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ),
+              )}
+            </TableBody>
+          </Table>
+        </TableRoot>
+        <CohortDetailsDialog
+          cohort={selectedCohort}
+          cohortKey={selectedCohortKey}
+          isOpen={!!selectedCohort}
+          onClose={() => {
+            setSelectedCohort(null)
+            setSelectedCohortKey(null)
+          }}
+        />
+      </section>
+      <section className="mt-12">
+        <h2 className="text-xl font-semibold text-gray-950">
+          Cohort Analytics
+        </h2>
+
+        <div className="mt-8 grid grid-cols-8 gap-5">
+          <Card className="col-span-6">
+            <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
+              <span className="text-gray-900">Cohort Statistics</span>
+            </dt>
+            <dd className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {/* Left Column */}
+              <div className="space-y-6">
+                <div>
+                  <div className="text-sm text-gray-500">Total Users</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.totalUsers.toLocaleString()}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+17%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">
+                    Average CSAT Score
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.satisfaction.avgCsatScore.toFixed(
+                        1,
+                      )}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+6%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">
+                    Average Response Time
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.performance.avgResponseTimeMinutes.toFixed(
+                        1,
+                      )}
+                      m
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+12%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Middle Column */}
+              <div className="space-y-6">
+                <div>
+                  <div className="text-sm text-gray-500">Total Tickets</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.activity.totalTicketsCreated.toLocaleString()}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+11%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">Resolution Rate</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {(
+                        cohortsAggregate.aggregateMetrics.activity
+                          .ticketResolutionRate * 100
+                      ).toFixed(1)}
+                      %
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+2%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">Total Cohorts</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.totalCohorts}
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+5%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="space-y-6">
+                <div>
+                  <div className="text-sm text-gray-500">
+                    Avg. Handling Time
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.performance.avgHandlingTimeMinutes.toFixed(
+                        1,
+                      )}
+                      m
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+21%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">
+                    First Contact Resolution
+                  </div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {(
+                        cohortsAggregate.aggregateMetrics.performance
+                          .avgFirstContactResolutionRate * 100
+                      ).toFixed(1)}
+                      %
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+3%</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">Retention Rate</div>
+                  <div className="mt-1 flex items-baseline">
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                      {cohortsAggregate.aggregateMetrics.retention.overallRetentionRate.toFixed(
+                        1,
+                      )}
+                      %
+                    </span>
+                    <span className="ml-2 text-sm text-emerald-600">+2%</span>
+                  </div>
+                </div>
+              </div>
+            </dd>
+          </Card>
+
+          <Card className="col-span-2">
+            <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
+              <span className="text-gray-900">Top Issues</span>
+              <RiErrorWarningLine
+                className="size-5 shrink-0 text-amber-500"
+                aria-hidden="true"
+              />
+            </dt>
+            <dd className="space-y-3">
+              {cohortsAggregate.commonIssues
+                .sort((a, b) => b.totalCount - a.totalCount)
+                .slice(0, 7)
+                .map((issue, index) => {
+                  const totalCount = cohortsAggregate.commonIssues.reduce(
+                    (sum, issue) => sum + issue.totalCount,
+                    0,
+                  )
+                  return (
+                    <div
+                      key={issue.category}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                          {index + 1}.
+                        </span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-50">
+                          {issue.category}
+                        </span>
+                      </div>
+                      <div className="text-sm tabular-nums text-gray-600 dark:text-gray-400">
+                        {Math.round((issue.totalCount / totalCount) * 100)}% (
+                        {issue.totalCount.toLocaleString()})
+                      </div>
+                    </div>
                   )
                 })}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableRoot>
+            </dd>
+          </Card>
+        </div>
+      </section>
     </main>
   )
 }

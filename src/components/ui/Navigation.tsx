@@ -11,7 +11,7 @@ import { DropdownUserProfile } from "./UserProfile"
 function Navigation() {
   const pathname = usePathname()
   return (
-    <div className="sticky top-0 z-10 bg-white shadow-sm">
+    <div className="sticky top-0 z-20 bg-white shadow-sm">
       <div className="flex items-center justify-between px-6 pt-3">
         <Logo className="h-6" />
         <div className="flex flex-nowrap gap-2">
