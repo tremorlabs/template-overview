@@ -10,10 +10,10 @@ import { DropdownUserProfile } from "./UserProfile"
 function Navigation() {
   const pathname = usePathname()
   return (
-    <div className="sticky top-0 z-20 bg-white dark:bg-gray-950 shadow-sm">
+    <div className="sticky top-0 z-20 bg-white shadow-sm dark:bg-gray-950">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-3">
         <Logo className="h-6" />
-        <div className="flex flex-nowrap gap-2">
+        <div className="flex h-[42px] flex-nowrap gap-2">
           {/* @CHRIS: fundamental design changes */}
           {/* <Notifications /> */}
           <DropdownUserProfile />

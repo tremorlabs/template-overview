@@ -1,6 +1,6 @@
 "use client"
 import { Button } from "@/components/Button"
-import { Checkbox } from "@/components/Checkbox"
+import { CheckboxExclude } from "@/components/Checkbox"
 import { Divider } from "@/components/Divider"
 import { Input } from "@/components/Input"
 import { Label } from "@/components/Label"
@@ -14,13 +14,15 @@ import React from "react"
 export default function Workflow() {
   const data = React.useMemo(() => workflowStats, [])
 
-  const [selectedDepartments, setSelectedDepartments] = React.useState<
+  // Initialize excluded departments as empty set (all departments included by default)
+  const [excludedDepartments, setExcludedDepartments] = React.useState<
     Set<string>
-  >(new Set(data[0].department_stats.map((dept) => dept.department)))
+  >(new Set())
 
   const aggregateStats = React.useMemo(() => {
-    const selectedStats = data[0].department_stats.filter((dept) =>
-      selectedDepartments.has(dept.department),
+    // Filter out excluded departments
+    const selectedStats = data[0].department_stats.filter(
+      (dept) => !excludedDepartments.has(dept.department),
     )
 
     return {
@@ -45,7 +47,7 @@ export default function Workflow() {
         0,
       ),
     }
-  }, [data, selectedDepartments])
+  }, [data, excludedDepartments])
 
   const actualQuota = React.useMemo(() => {
     return Math.round(
@@ -88,7 +90,7 @@ export default function Workflow() {
     scenarioQuota === actualQuota ? aggregateStats : scenarioStats
 
   const handleDepartmentToggle = (department: string) => {
-    setSelectedDepartments((prev) => {
+    setExcludedDepartments((prev) => {
       const newSet = new Set(prev)
       if (newSet.has(department)) {
         newSet.delete(department)
@@ -210,14 +212,14 @@ export default function Workflow() {
         </div>
         <div>
           <legend className="text-sm font-medium text-gray-900 dark:text-gray-50">
-            Included departments
+            Select department to exclude
           </legend>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {data[0].department_stats.map((dept) => (
               <div key={dept.department} className="flex items-center gap-2.5">
-                <Checkbox
+                <CheckboxExclude
                   id={dept.department}
-                  checked={selectedDepartments.has(dept.department)}
+                  checked={excludedDepartments.has(dept.department)}
                   onCheckedChange={() =>
                     handleDepartmentToggle(dept.department)
                   }
