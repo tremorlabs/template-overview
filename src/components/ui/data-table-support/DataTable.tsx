@@ -68,7 +68,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
           </TableHead>
           <TableBody>
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} className="odd:bg-gray-50">
+              <TableRow key={row.id} className="odd:bg-gray-50 odd:dark:bg-gray-900">
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}

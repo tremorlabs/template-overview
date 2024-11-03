@@ -162,7 +162,7 @@ export default function Workflow() {
     <main>
       <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Workflow</h1>
       <Divider />
-      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 p-6 ring-1 ring-gray-200">
+      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 dark:bg-gray-900 p-6 ring-1 ring-gray-200 dark:ring-gray-800">
         <div className="w-full sm:w-96">
           <Label htmlFor="test-quota" className="font-medium">
             Test Quota (%)
@@ -185,13 +185,13 @@ export default function Workflow() {
               className="w-20 sm:w-16"
             />
           </div>
-          <p className="mt-1 flex items-center gap-2 text-sm text-gray-600">
-            <span className="text-gray-400">Current: {actualQuota}%</span>
-            <span className="text-gray-900">Scenario: {scenarioQuota}%</span>
+          <p className="mt-1 flex items-center gap-2 text-sm">
+            <span className="text-gray-400 dark:text-gray-600">Current: {actualQuota}%</span>
+            <span className="text-gray-900 dark:text-gray-50">Scenario: {scenarioQuota}%</span>
           </p>
         </div>
         <div>
-          <legend className="text-sm font-medium text-gray-900">
+          <legend className="text-sm font-medium text-gray-900 dark:text-gray-50">
             Select departments to include
           </legend>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -220,11 +220,9 @@ export default function Workflow() {
       <section className="mt-12 overflow-x-scroll p-4">
         <div className="grid min-w-[40rem] grid-cols-5">
           <div className="flex flex-col items-center gap-6">
-            <div>
-              <h2 className="text-nowrap text-sm font-medium text-gray-900">
-                1. Completed Cases
-              </h2>
-            </div>
+            <h2 className="text-nowrap text-sm font-medium text-gray-900 dark:text-gray-50">
+              1. Completed Cases
+            </h2>
             <div className="flex justify-center">
               <ProgressCircle
                 radius={45}
@@ -232,10 +230,10 @@ export default function Workflow() {
                 value={displayStats.total_cases}
               >
                 <div className="flex flex-col items-center">
-                  <span className="mt-1 font-medium tabular-nums text-gray-900">
+                  <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                     {valueFormatter(displayStats.total_cases)}
                   </span>
-                  <span className="text-xs font-medium tabular-nums text-gray-500">
+                  <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
                     100%
                   </span>
                 </div>
@@ -243,16 +241,14 @@ export default function Workflow() {
             </div>
           </div>
           <div className="mt-24 min-w-32">
-            <div className="w-full border-t border-dashed border-gray-300" />
-            <div className="mx-auto h-48 w-px border-l border-dashed border-gray-300" />
-            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300" />
+            <div className="w-full border-t border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="mx-auto h-48 w-px border-l border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300 dark:border-gray-700" />
           </div>
           <div className="flex flex-col items-center gap-6">
-            <div>
-              <h2 className="text-nowrap text-sm font-medium text-gray-900">
-                2. Test Results
-              </h2>
-            </div>
+            <h2 className="text-nowrap text-sm font-medium text-gray-900 dark:text-gray-50">
+              2. Test Results
+            </h2>
             <div>
               <div className="flex justify-center">
                 <ProgressCircle
@@ -263,10 +259,10 @@ export default function Workflow() {
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                       {valueFormatter(displayStats.tested_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500">
+                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
                       {(
                         (displayStats.tested_cases / displayStats.total_cases) *
                         100
@@ -276,7 +272,7 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700">Tested Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Tested Cases</p>
             </div>
             <div className="mt-10">
               <div className="flex justify-center">
@@ -289,10 +285,10 @@ export default function Workflow() {
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                       {valueFormatter(displayStats.untested_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500">
+                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
                       {(
                         (displayStats.untested_cases /
                           displayStats.total_cases) *
@@ -307,13 +303,13 @@ export default function Workflow() {
             </div>
           </div>
           <div className="mt-24 min-w-32">
-            <div className="w-full border-t border-dashed border-gray-300" />
-            <div className="mx-auto h-48 w-px border-l border-dashed border-gray-300" />
-            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300" />
+            <div className="w-full border-t border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="mx-auto h-48 w-px border-l border-dashed border-gray-300 dark:border-gray-700" />
+            <div className="ml-auto w-1/2 border-t border-dashed border-gray-300 dark:border-gray-700" />
           </div>
           <div className="flex flex-col items-center gap-6">
             <div>
-              <h2 className="text-nowrap text-sm font-medium text-gray-900">
+              <h2 className="text-nowrap text-sm font-medium text-gray-900 dark:text-gray-50">
                 3. Impact
               </h2>
             </div>
@@ -329,10 +325,10 @@ export default function Workflow() {
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                       {valueFormatter(displayStats.error_free_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500">
+                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
                       {(
                         (displayStats.error_free_cases /
                           displayStats.total_cases) *
@@ -343,7 +339,7 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700">Error-free Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Error-free Cases</p>
             </div>
             <div className="mt-10">
               <div className="flex justify-center">
@@ -357,10 +353,10 @@ export default function Workflow() {
                   }
                 >
                   <div className="flex flex-col items-center">
-                    <span className="mt-1 font-medium tabular-nums text-gray-900">
+                    <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                       {valueFormatter(displayStats.corrected_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500">
+                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
                       {(
                         (displayStats.corrected_cases /
                           displayStats.total_cases) *
@@ -371,7 +367,7 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700">Corrected Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Corrected Cases</p>
             </div>
           </div>
         </div>
@@ -379,69 +375,69 @@ export default function Workflow() {
 
       <Divider className="my-12" />
       <section className="mt-12">
-        <h2 className="font-medium text-gray-900">Impact overview</h2>
+        <h2 className="font-medium text-gray-900 dark:text-gray-50">Impact overview</h2>
         <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
+          <div className="relative rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
             <span
-              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
+              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500 dark:bg-blue-500"
               aria-hidden="true"
             />
             <div>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-sm text-gray-500">Total cases</span>
-                <span className="text-sm text-gray-500">current</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">Total cases</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">current</span>
               </p>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-lg font-medium text-gray-900">
+                <span className="text-lg font-medium text-gray-900 dark:text-gray-50">
                   {valueFormatter(displayStats.total_cases)}
                 </span>
-                <span className="text-base font-medium text-gray-500">
+                <span className="text-base font-medium text-gray-500 dark:text-gray-500">
                   {valueFormatter(aggregateStats.total_cases)}
                 </span>
               </p>
             </div>
           </div>
 
-          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
+          <div className="relative rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
             <span
-              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
+              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500 dark:bg-blue-500"
               aria-hidden="true"
             />
             <div>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-sm text-gray-500">Net cost savings</span>
-                <span className="text-sm text-gray-500">current</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">Net cost savings</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">current</span>
               </p>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-lg font-medium text-gray-900">
+                <span className="text-lg font-medium text-gray-900 dark:text-gray-50">
                   {scenarioQuota === actualQuota
                     ? "No impact"
                     : `$${valueFormatter(Math.round(scenarioImpact.savings))}`}
                 </span>
-                <span className="text-base font-medium text-gray-500">
+                <span className="text-base font-medium text-gray-500 dark:text-gray-500">
                   ${valueFormatter(Math.round(currentImpact.savings))}
                 </span>
               </p>
             </div>
           </div>
 
-          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm">
+          <div className="relative rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
             <span
-              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500"
+              className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500 dark:bg-blue-500"
               aria-hidden="true"
             />
             <div>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-sm text-gray-500">Net FTE impact</span>
-                <span className="text-sm text-gray-500">current</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">Net FTE impact</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">current</span>
               </p>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-lg font-medium text-gray-900">
+                <span className="text-lg font-medium text-gray-900 dark:text-gray-50">
                   {scenarioQuota === actualQuota
                     ? "No impact"
                     : scenarioImpact.fteImpact.toFixed(1)}
                 </span>
-                <span className="text-base font-medium text-gray-500">
+                <span className="text-base font-medium text-gray-500 dark:text-gray-500">
                   {currentImpact.fteImpact.toFixed(1)}
                 </span>
               </p>
@@ -451,10 +447,10 @@ export default function Workflow() {
 
         <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div>
-            <h3 className="text-sm font-medium text-gray-900">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-50">
               Cost savings breakdown
             </h3>
-            <ul role="list" className="mt-2 divide-y divide-gray-200 text-sm">
+            <ul role="list" className="mt-2 divide-y divide-gray-200 dark:divide-gray-800 text-sm">
               {[1, 5, 10].map((years) => {
                 const multiplier = Math.pow(1.1, years)
                 const currentSavings = currentImpact.savings * multiplier
@@ -478,21 +474,21 @@ export default function Workflow() {
                       In {years} year{years > 1 ? "s" : ""}
                     </span>
                     <span className="flex items-center gap-3 tabular-nums">
-                      <span className="text-right font-medium text-gray-900">
+                      <span className="text-right font-medium text-gray-900 dark:text-gray-50">
                         {scenarioQuota === actualQuota
                           ? "No impact"
                           : `$${valueFormatter(Math.round(projectedSavings))}`}
                       </span>
                       <span
-                        className="h-5 w-px bg-gray-200"
+                        className="h-5 w-px bg-gray-200 dark:bg-gray-800"
                         aria-hidden="true"
                       />
                       <span
                         className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 text-gray-600"
+                          ? "bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400"
                           : difference > 0
-                            ? "bg-emerald-50 text-emerald-600"
-                            : "bg-red-50 text-red-600"
+                            ? "bg-emerald-50 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400"
+                            : "bg-red-50 dark:bg-red-400/20 text-red-600 dark:text-red-500"
                           }`}
                       >
                         {difference === 0
@@ -506,10 +502,10 @@ export default function Workflow() {
             </ul>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-gray-900">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-50">
               FTE impact breakdown
             </h3>
-            <ul role="list" className="mt-2 divide-y divide-gray-200 text-sm">
+            <ul role="list" className="mt-2 divide-y divide-gray-200 dark:divide-gray-800 text-sm">
               {[1, 5, 10].map((years) => {
                 const multiplier = Math.pow(1.1, years)
                 const currentFTE = currentImpact.fteImpact * multiplier
@@ -531,21 +527,21 @@ export default function Workflow() {
                       In {years} year{years > 1 ? "s" : ""}
                     </span>
                     <span className="flex items-center gap-3 tabular-nums">
-                      <span className="text-right font-medium text-gray-900">
+                      <span className="text-right font-medium text-gray-900 dark:text-gray-50">
                         {scenarioQuota === actualQuota
                           ? "No impact"
                           : projectedFTE.toFixed(1)}
                       </span>
                       <span
-                        className="h-5 w-px bg-gray-200"
+                        className="h-5 w-px bg-gray-200 dark:bg-gray-800"
                         aria-hidden="true"
                       />
                       <span
                         className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 text-gray-600"
+                          ? "bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400"
                           : difference > 0
-                            ? "bg-emerald-50 text-emerald-600"
-                            : "bg-red-50 text-red-600"
+                            ? "bg-emerald-50 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400"
+                            : "bg-red-50 dark:bg-red-400/20 text-red-600 dark:text-red-500"
                           }`}
                       >
                         {difference === 0

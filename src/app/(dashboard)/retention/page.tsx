@@ -50,7 +50,7 @@ const colorClasses = [
   "bg-blue-500 dark:bg-blue-500",
   "bg-blue-600 dark:bg-blue-400",
   "bg-blue-700 dark:bg-blue-300",
-  "bg-blue-800 dark:bg-blue-200",
+  "bg-blue-800 dark:bg-blue-300/50",
 ]
 
 const getBackgroundColor = (
@@ -285,7 +285,7 @@ export default function CohortRetention() {
           <Table className="border-none">
             <TableHead>
               <TableRow>
-                <TableHeaderCell className="sticky left-0 top-0 z-10 min-w-40 border-transparent bg-white p-px dark:border-transparent dark:bg-gray-900">
+                <TableHeaderCell className="sticky left-0 top-0 z-10 min-w-40 border-transparent bg-white p-px dark:border-transparent dark:bg-transparent">
                   <span className="block">Cohort</span>
                   <span className="block font-normal text-gray-500 dark:text-gray-500">
                     Initial customers
@@ -302,10 +302,10 @@ export default function CohortRetention() {
               {cohortEntries.map(
                 ([cohortKey, cohortData]: [string, CohortData]) => (
                   <TableRow key={cohortKey} className="h-full">
-                    <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-gray-900">
+                    <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-transparent">
                       <button
                         className={cx(
-                          "group relative -ml-2 h-full w-full rounded pl-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100",
+                          "group relative -ml-2 h-full w-full rounded p-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100 hover:dark:bg-gray-900 hover:focus-visible:bg-gray-900",
                           focusRing,
                         )}
                         onClick={() => {
@@ -325,16 +325,16 @@ export default function CohortRetention() {
                     {cohortData.weeks.map((weekData, weekIndex) => (
                       <TableCell
                         key={weekIndex}
-                        className="h-full min-w-24 p-px"
+                        className="h-full min-w-24 p-[2px]"
                       >
                         {weekData === null ? (
                           <div
                             className={cx(
-                              "flex h-full flex-col justify-center rounded border border-dashed bg-gray-50 px-3.5 py-3 text-gray-200",
+                              "flex h-[64px] flex-col justify-center rounded border border-dashed border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 px-3.5 py-3 text-gray-200 dark:text-gray-800",
                             )}
                           >
-                            <span className="h-4 w-9 rounded-sm bg-gray-100" />
-                            <span className="mt-0.5 h-4 w-6 rounded-sm bg-gray-100" />
+                            <span className="h-3 w-9 rounded-sm bg-gray-100 dark:bg-gray-800/50" />
+                            <span className="mt-1 h-3 w-6 rounded-sm bg-gray-100 dark:bg-gray-800/50" />
                           </div>
                         ) : (
                           <div
@@ -383,7 +383,7 @@ export default function CohortRetention() {
         <div className="mt-8 grid grid-cols-8 gap-5">
           <Card className="col-span-6">
             <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
-              <span className="text-gray-900">Cohort Statistics</span>
+              <span className="text-gray-900 dark:text-gray-50">Cohort Statistics</span>
             </dt>
             <dd className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {/* Left Column */}
@@ -394,7 +394,7 @@ export default function CohortRetention() {
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.totalUsers.toLocaleString()}
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+17%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+17%</span>
                   </div>
                 </div>
 
@@ -408,12 +408,12 @@ export default function CohortRetention() {
                         1,
                       )}
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+6%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+6%</span>
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-500 dark:text-gray-500">
                     Average Response Time
                   </div>
                   <div className="mt-1 flex items-baseline">
@@ -423,7 +423,7 @@ export default function CohortRetention() {
                       )}
                       m
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+12%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+12%</span>
                   </div>
                 </div>
               </div>
@@ -431,12 +431,12 @@ export default function CohortRetention() {
               {/* Middle Column */}
               <div className="space-y-6">
                 <div>
-                  <div className="text-sm text-gray-500">Total Tickets</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-500">Total Tickets</div>
                   <div className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.activity.totalTicketsCreated.toLocaleString()}
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+11%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+11%</span>
                   </div>
                 </div>
 
@@ -516,9 +516,10 @@ export default function CohortRetention() {
 
           <Card className="col-span-2">
             <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
-              <span className="text-gray-900">Top Issues</span>
+              <span className="text-gray-900 dark:text-gray-50">Top Issues</span>
+              {/* @CHRIS: add tooltip */}
               <RiErrorWarningLine
-                className="size-5 shrink-0 text-amber-500"
+                className="size-5 shrink-0 text-gray-500 dark:text-gray-500"
                 aria-hidden="true"
               />
             </dt>
