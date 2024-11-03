@@ -81,7 +81,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   })
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-6">
       <Filterbar
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
@@ -90,7 +90,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
           table.getColumn("registered")?.setFilterValue(checked || null)
         }}
       />
-      <div className="relative overflow-hidden overflow-x-auto border-t pt-1">
+      <div className="relative overflow-hidden overflow-x-auto">
         <Table>
           <TableHead>
             {table.getHeaderGroups().map((headerGroup) => (
