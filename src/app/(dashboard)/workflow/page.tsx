@@ -6,10 +6,8 @@ import { Label } from "@/components/Label"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { Slider } from "@/components/Slider"
 import { workflowStats } from "@/data/workflow/workflow-data"
+import { valueFormatter } from "@/lib/formatters"
 import React from "react"
-
-const valueFormatter = (number: number) =>
-  `${Intl.NumberFormat("us").format(number).toString()}`
 
 export default function Workflow() {
   const data = React.useMemo(() => workflowStats, [])

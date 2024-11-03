@@ -1,4 +1,6 @@
 "use client"
+import { Button } from "@/components/Button"
+import { Card } from "@/components/Card"
 import {
   Dialog,
   DialogBody,
@@ -19,9 +21,6 @@ import {
   TableRoot,
   TableRow,
 } from "@/components/Table"
-
-import { Button } from "@/components/Button"
-import { Card } from "@/components/Card"
 import { cohorts } from "@/data/retention/cohorts"
 import { cohortsAggregate } from "@/data/retention/cohortsAggregate"
 import {
@@ -33,6 +32,7 @@ import {
   SatisfactionMetrics,
   TopIssue,
 } from "@/data/retention/schema"
+import { valueFormatter } from "@/lib/formatters"
 import { cx, focusRing } from "@/lib/utils"
 import {
   RiCloseLine,
@@ -318,7 +318,7 @@ export default function CohortRetention() {
                           {cohortKey}
                         </span>
                         <span className="mt-0.5 block text-sm text-gray-500 dark:text-gray-500">
-                          {cohortData.size} customers
+                          {valueFormatter(cohortData.size)} customers
                         </span>
                       </button>
                     </TableCell>

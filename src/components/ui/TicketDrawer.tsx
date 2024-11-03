@@ -92,6 +92,7 @@ const FirstPage = ({ formData, onUpdateForm }: FormPageProps) => (
             <RadioCardItem
               key={type.value}
               value={type.value}
+              // @SEV: you can fiddle around here with the white ring in dark mode
               className="p-2.5 duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white"
             >
               {type.name}
@@ -179,6 +180,7 @@ const SecondPage = ({ formData, onUpdateForm }: FormPageProps) => (
             <RadioCardItem
               key={priority.value}
               value={priority.value}
+
               className="p-2.5 duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white"
             >
               <div className="flex items-center justify-between">
