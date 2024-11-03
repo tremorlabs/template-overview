@@ -1,3 +1,4 @@
+import { Badge } from "@/components/Badge"
 import { Ticket } from "@/data/support/schema"
 import { cx } from "@/lib/utils"
 import {
@@ -102,20 +103,22 @@ export const columns = [
       className: "text-left",
     },
     cell: ({ row }) => (
-      <div className="inline-flex items-center gap-2">
+      <Badge variant="neutral" className="gap-1.5 font-normal">
         <span
           className={cx(
-            "size-2 shrink-0 rounded-full",
-            row.original.status === "resolved"
-              ? "bg-green-600 dark:bg-green-400"
-              : row.original.status === "escalated"
-                ? "bg-red-600 dark:bg-red-400"
-                : "bg-blue-500 dark:bg-blue-500",
+            "size-2 rounded-sm shrink-0",
+            row.original.priority === "low"
+              ? "bg-emerald-600 dark:bg-emerald-400"
+              : row.original.priority === "medium"
+                ? "bg-gray-500 dark:bg-gray-500"
+                : row.original.priority === "critical"
+                  ? "bg-orange-500 dark:bg-orange-500"
+                  : "bg-red-500 dark:bg-red-500",
           )}
+          aria-hidden="true"
         />
         {row.original.priority}
-      </div>
-    )
-
+      </Badge>
+    ),
   },
 ] as ColumnDef<Ticket>[]

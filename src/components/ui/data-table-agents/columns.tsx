@@ -5,12 +5,9 @@ import { ProgressCircle } from "@/components/ProgressCircle"
 import { Agent } from "@/data/agents/schema"
 import { cx } from "@/lib/utils"
 import {
-  RiCheckboxCircleFill,
-  RiCloseCircleFill,
-  RiShieldCheckFill,
+  RiShieldCheckFill
 } from "@remixicon/react"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
-import { ButtonTicketGeneration } from "./ButtonTicketGeneration"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 
 const columnHelper = createColumnHelper<Agent>()
@@ -207,14 +204,13 @@ export const columns = [
     cell: ({ row }) => {
       const isEnabled = row.original.ticket_generation
       return (
-        <ButtonTicketGeneration className="flex gap-1.5">
-          {isEnabled ? (
-            <RiCheckboxCircleFill className="size-4 shrink-0 text-emerald-600" />
-          ) : (
-            <RiCloseCircleFill className="size-4 shrink-0 text-gray-400" />
-          )}
+        <Badge variant="neutral" className="gap-1.5 font-normal">
+          <span className={cx(
+            isEnabled ? "bg-emerald-600 dark:bg-emerald-400" : "bg-gray-400 dark:bg-gray-600",
+            "size-2 rounded-sm shrink-0"
+          )} />
           {isEnabled ? "Enabled" : "Disabled"}
-        </ButtonTicketGeneration>
+        </Badge>
       )
     },
   }),

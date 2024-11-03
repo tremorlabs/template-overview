@@ -1,6 +1,6 @@
 import { Divider } from "@/components/Divider"
-import { columns } from "@/components/ui/data-table/columns"
-import { DataTable } from "@/components/ui/data-table/DataTable"
+import { DataTable } from "@/components/ui/data-table-agents/DataTable"
+import { columns } from "@/components/ui/data-table-agents/columns"
 import { agents } from "@/data/agents/agents"
 
 export default function Overview() {
@@ -8,7 +8,7 @@ export default function Overview() {
     <main>
       <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Call Agents</h1>
       <Divider />
-      <section className="mt-12">
+      <section>
         <DataTable data={agents} columns={columns} />
       </section>
     </main>
