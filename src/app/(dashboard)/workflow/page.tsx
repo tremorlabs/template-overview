@@ -196,11 +196,12 @@ export default function Workflow() {
             Select departments to include
           </legend>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {data[0].department_stats.map((dept) => (
+            {data[0].department_stats.map((dept, idx) => (
               <div key={dept.department} className="flex items-center gap-2.5">
                 <Checkbox
                   id={dept.department}
-                  checked={selectedDepartments.has(dept.department)}
+                  // @SEV: don't want to default select all. new logic that is as simple as below but works when you want to select them
+                  checked={idx !== 1 && idx !== 3 && idx !== data[0].department_stats.length - 1}
                   onCheckedChange={() =>
                     handleDepartmentToggle(dept.department)
                   }
@@ -489,10 +490,10 @@ export default function Workflow() {
                       />
                       <span
                         className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                            ? "bg-gray-50 text-gray-600"
-                            : difference > 0
-                              ? "bg-emerald-50 text-emerald-600"
-                              : "bg-red-50 text-red-600"
+                          ? "bg-gray-50 text-gray-600"
+                          : difference > 0
+                            ? "bg-emerald-50 text-emerald-600"
+                            : "bg-red-50 text-red-600"
                           }`}
                       >
                         {difference === 0
@@ -542,10 +543,10 @@ export default function Workflow() {
                       />
                       <span
                         className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                            ? "bg-gray-50 text-gray-600"
-                            : difference > 0
-                              ? "bg-emerald-50 text-emerald-600"
-                              : "bg-red-50 text-red-600"
+                          ? "bg-gray-50 text-gray-600"
+                          : difference > 0
+                            ? "bg-emerald-50 text-emerald-600"
+                            : "bg-red-50 text-red-600"
                           }`}
                       >
                         {difference === 0
