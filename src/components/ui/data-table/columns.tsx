@@ -203,6 +203,7 @@ export const columns = [
     },
     cell: ({ row }) => {
       const isEnabled = row.original.ticket_generation
+      const [enabled, setEnabled] = React.useState(isEnabled)
       return (
         <Badge variant="neutral" className="gap-1.5 font-normal">
           <span className={cx(
