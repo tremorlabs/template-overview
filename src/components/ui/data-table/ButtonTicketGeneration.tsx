@@ -1,21 +1,24 @@
 import React from "react"
 
 import { cx, focusRing } from "@/lib/utils"
+import { RiCheckboxCircleFill, RiCloseCircleFill } from "@remixicon/react"
 
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   asChild?: boolean
   isLoading?: boolean
   loadingText?: string
+  initalState: boolean
 }
 
 const ButtonTicketGeneration = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, children, ...props }: ButtonProps, forwardedRef) => {
+  ({ initalState, className, ...props }: ButtonProps, forwardedRef) => {
+    const [internalState, setInternalState] = React.useState(initalState)
     return (
       <button
         ref={forwardedRef}
         className={cx(
           // base
-          "relative inline-flex items-center justify-center whitespace-nowrap rounded-md border px-2 py-1 text-center text-sm font-medium shadow-sm transition-all duration-100 ease-in-out",
+          "relative inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md border px-2 py-1 text-center text-sm font-medium shadow-sm transition-all duration-100 ease-in-out",
           // disabled
           "disabled:pointer-events-none disabled:shadow-none",
           // focus
@@ -34,9 +37,15 @@ const ButtonTicketGeneration = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className,
         )}
         tremor-id="tremor-raw"
+        onClick={() => setInternalState(!internalState)}
         {...props}
       >
-        {children}
+        {internalState ? (
+          <RiCheckboxCircleFill className="size-4 shrink-0 text-emerald-600" />
+        ) : (
+          <RiCloseCircleFill className="size-4 shrink-0 text-gray-400" />
+        )}
+        {internalState ? "Enabled" : "Disabled"}
       </button>
     )
   },

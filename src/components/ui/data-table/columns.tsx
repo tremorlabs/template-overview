@@ -4,10 +4,9 @@ import { Badge } from "@/components/Badge"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { Agent } from "@/data/agents/schema"
 import { cx } from "@/lib/utils"
-import {
-  RiShieldCheckFill
-} from "@remixicon/react"
+import { RiShieldCheckFill } from "@remixicon/react"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
+import { ButtonTicketGeneration } from "./ButtonTicketGeneration"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 
 const columnHelper = createColumnHelper<Agent>()
@@ -129,8 +128,12 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="text-gray-900 dark:text-gray-50">{row.original.account}</span>
-          <span className="text-xs text-gray-500 dark:text-gray-500">Main division</span>
+          <span className="text-gray-900 dark:text-gray-50">
+            {row.original.account}
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-500">
+            Main division
+          </span>
         </div>
       )
     },
@@ -202,15 +205,8 @@ export const columns = [
       displayName: "Ticket Generation",
     },
     cell: ({ row }) => {
-      const isEnabled = row.original.ticket_generation
       return (
-        <Badge variant="neutral" className="gap-1.5 font-normal">
-          <span className={cx(
-            isEnabled ? "bg-emerald-600 dark:bg-emerald-400" : "bg-gray-400 dark:bg-gray-600",
-            "size-2 rounded-sm shrink-0"
-          )} />
-          {isEnabled ? "Enabled" : "Disabled"}
-        </Badge>
+        <ButtonTicketGeneration initalState={row.original.ticket_generation} />
       )
     },
   }),
