@@ -37,15 +37,14 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="font-medium text-gray-950">
+          <span className="font-medium text-gray-900 dark:text-gray-50">
             {row.original.full_name}
           </span>
           <div className="flex items-center gap-1 text-xs">
             <span className="text-gray-500">AgID </span>
-            <span className="font-mono font-medium uppercase tabular-nums text-gray-950">
+            <span className="font-mono font-medium uppercase tabular-nums text-gray-900 dark:text-gray-50">
               {row.original.agent_id}
             </span>
-
             <RiShieldCheckFill
               className={cx(
                 "size-3 shrink-0",
@@ -69,7 +68,7 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="text-gray-950">
+          <span className="text-gray-900 dark:text-gray-50">
             {row.original.number.replace(
               /(\+41)(\d{2})(\d{3})(\d{2})(\d{2})/,
               "$1 $2 $3 $4 $5",
@@ -92,7 +91,7 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="tabular-nums text-gray-950">
+          <span className="tabular-nums text-gray-900 dark:text-gray-50">
             {row.original.end_date ? (
               <>
                 End:{" "}
@@ -133,8 +132,8 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="text-gray-950">{row.original.account}</span>
-          <span className="text-xs text-gray-500">Main division</span>
+          <span className="text-gray-900 dark:text-gray-50">{row.original.account}</span>
+          <span className="text-xs text-gray-500 dark:text-gray-500">Main division</span>
         </div>
       )
     },
@@ -182,13 +181,13 @@ export const columns = [
             </ProgressCircle>
           </div>
           <div className="flex flex-col gap-0">
-            <span className="text-gray-950">
+            <span className="text-gray-900 dark:text-gray-50">
               <span className="text-gray-500">Called </span>
               <span className="font-medium">
                 {new Intl.NumberFormat().format(minutes_called)}
               </span>
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 dark:text-gray-500">
               Booked {new Intl.NumberFormat().format(minutes_booked)}
             </span>
           </div>

@@ -47,7 +47,7 @@ export default function SupportDashboard() {
           <CategoryBar
             values={[82, 13, 5]}
             className="mt-6"
-            colors={["blue", "lightGray", "rose"]}
+            colors={["blue", "lightGray", "red"]}
             showLabels={false}
           />
           <ul
@@ -72,7 +72,7 @@ export default function SupportDashboard() {
               </span>
               <div className="flex items-center gap-2">
                 <span
-                  className="size-2.5 shrink-0 rounded-sm bg-gray-500 dark:bg-gray-500"
+                  className="size-2.5 shrink-0 rounded-sm bg-gray-400 dark:bg-gray-600"
                   aria-hidden="true"
                 />
                 <span className="text-sm">In Progress</span>
@@ -84,7 +84,7 @@ export default function SupportDashboard() {
               </span>
               <div className="flex items-center gap-2">
                 <span
-                  className="size-2.5 shrink-0 rounded-sm bg-rose-500 dark:bg-rose-500"
+                  className="size-2.5 shrink-0 rounded-sm bg-red-500 dark:bg-red-500"
                   aria-hidden="true"
                 />
                 <span className="text-sm">Escalated</span>
@@ -114,17 +114,17 @@ export default function SupportDashboard() {
               <div>
                 <div className="flex items-center gap-2">
                   <span
-                    className="size-2.5 shrink-0 rounded-sm bg-rose-500 dark:bg-rose-500"
+                    className="size-2.5 shrink-0 rounded-sm bg-red-500 dark:bg-red-500"
                     aria-hidden="true"
                   />
-                  <span className="text-sm">SLA Breached</span>
+                  <span className="text-sm text-gray-900 dark:text-gray-50">SLA Breached</span>
                 </div>
                 <span className="mt-1 block text-2xl font-semibold text-gray-900 dark:text-gray-50">
                   16.7%
                 </span>
               </div>
             </dd>
-
+            {/* <ProgressCircle value={83} radius={45} strokeWidth={7} className="[&_circle:first-child]:stroke-red-500 [&_circle:first-child]:dark:stroke-red-500" /> */}
             <ProgressCircle value={83} radius={45} strokeWidth={7} />
           </div>
         </Card>

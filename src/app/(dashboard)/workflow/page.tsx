@@ -123,8 +123,8 @@ export default function Workflow() {
 
     const baselineErrorCosts = Math.round(
       stats.total_cases *
-        COST_ASSUMPTIONS.expectedErrorRate *
-        COST_ASSUMPTIONS.undetectedErrorCost,
+      COST_ASSUMPTIONS.expectedErrorRate *
+      COST_ASSUMPTIONS.undetectedErrorCost,
     )
 
     const totalCosts = testingCosts + correctionCosts + undetectedErrorCosts
@@ -152,16 +152,16 @@ export default function Workflow() {
   const scenarioImpact =
     scenarioQuota === actualQuota
       ? {
-          costs: currentImpact.costs,
-          savings: 0,
-          fteImpact: 0, 
-        }
+        costs: currentImpact.costs,
+        savings: 0,
+        fteImpact: 0,
+      }
       : calculateImpact(displayStats)
 
   return (
     <main className="pb-12">
       <div className="flex items-center justify-between border-b pb-6">
-        <h1 className="text-2xl font-semibold text-gray-950">Workflow</h1>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Workflow</h1>
       </div>
       <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 p-6 ring-1 ring-gray-200">
         <div className="w-full sm:w-96">
@@ -466,8 +466,8 @@ export default function Workflow() {
                   scenarioQuota === actualQuota
                     ? 0
                     : ((projectedSavings - currentSavings) /
-                        Math.abs(currentSavings)) *
-                      100
+                      Math.abs(currentSavings)) *
+                    100
 
                 return (
                   <li
@@ -488,13 +488,12 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
-                          difference === 0
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
                             ? "bg-gray-50 text-gray-600"
                             : difference > 0
                               ? "bg-emerald-50 text-emerald-600"
                               : "bg-red-50 text-red-600"
-                        }`}
+                          }`}
                       >
                         {difference === 0
                           ? "0.0%"
@@ -542,13 +541,12 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
-                          difference === 0
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
                             ? "bg-gray-50 text-gray-600"
                             : difference > 0
                               ? "bg-emerald-50 text-emerald-600"
                               : "bg-red-50 text-red-600"
-                        }`}
+                          }`}
                       >
                         {difference === 0
                           ? "0.0%"
