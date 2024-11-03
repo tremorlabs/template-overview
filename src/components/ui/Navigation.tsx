@@ -11,7 +11,7 @@ function Navigation() {
   const pathname = usePathname()
   return (
     <div className="sticky top-0 z-20 bg-white shadow-sm">
-      <div className="flex items-center justify-between mx-auto max-w-7xl px-6 pt-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-3">
         <Logo className="h-6" />
         <div className="flex flex-nowrap gap-2">
           {/* <Notifications /> */}
@@ -19,7 +19,7 @@ function Navigation() {
         </div>
       </div>
       <TabNavigation className="mt-8">
-        <div className="flex items-center mx-auto max-w-7xl w-full px-6">
+        <div className="mx-auto flex w-full max-w-7xl items-center px-6">
           <TabNavigationLink
             className="inline-flex gap-2"
             asChild

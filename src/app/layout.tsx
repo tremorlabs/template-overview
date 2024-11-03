@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${GeistSans.className} min-h-full antialiased bg-white dark:bg-blue-500`}
+        className={`${GeistSans.className} min-h-full bg-white antialiased dark:bg-gray-950`}
         suppressHydrationWarning
       >
         <ThemeProvider
