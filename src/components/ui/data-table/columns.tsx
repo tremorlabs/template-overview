@@ -10,6 +10,7 @@ import {
   RiShieldCheckFill,
 } from "@remixicon/react"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
+import React from "react"
 import { ButtonTicketGeneration } from "./ButtonTicketGeneration"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 
@@ -207,14 +208,18 @@ export const columns = [
     },
     cell: ({ row }) => {
       const isEnabled = row.original.ticket_generation
+      const [enabled, setEnabled] = React.useState(isEnabled)
       return (
-        <ButtonTicketGeneration className="flex gap-1.5">
-          {isEnabled ? (
+        <ButtonTicketGeneration
+          onClick={() => setEnabled(!enabled)}
+          className="flex gap-1.5"
+        >
+          {enabled ? (
             <RiCheckboxCircleFill className="size-4 shrink-0 text-emerald-600" />
           ) : (
             <RiCloseCircleFill className="size-4 shrink-0 text-gray-400" />
           )}
-          {isEnabled ? "Enabled" : "Disabled"}
+          {enabled ? "Enabled" : "Disabled"}
         </ButtonTicketGeneration>
       )
     },
