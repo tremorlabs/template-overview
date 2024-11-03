@@ -200,7 +200,7 @@ export default function Workflow() {
             Select departments to include
           </legend>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {data[0].department_stats.map((dept, idx) => (
+            {data[0].department_stats.map((dept) => (
               <div key={dept.department} className="flex items-center gap-2.5">
                 <Checkbox
                   id={dept.department}
