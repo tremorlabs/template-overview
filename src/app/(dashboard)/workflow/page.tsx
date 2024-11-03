@@ -11,9 +11,16 @@ import React from "react"
 
 export default function Workflow() {
   const data = React.useMemo(() => workflowStats, [])
-  const [selectedDepartments, setSelectedDepartments] = React.useState<
-    Set<string>
-  >(new Set(data[0].department_stats.map((dept) => dept.department)))
+
+  const [selectedDepartments, setSelectedDepartments] = React.useState<Set<string>>(() => {
+    const initialSelected = new Set<string>()
+    data[0].department_stats.forEach((dept, idx) => {
+      if (idx !== 1 && idx !== 3 && idx !== data[0].department_stats.length - 1) {
+        initialSelected.add(dept.department)
+      }
+    })
+    return initialSelected
+  })
 
   const aggregateStats = React.useMemo(() => {
     const selectedStats = data[0].department_stats.filter((dept) =>
@@ -197,8 +204,7 @@ export default function Workflow() {
               <div key={dept.department} className="flex items-center gap-2.5">
                 <Checkbox
                   id={dept.department}
-                  // @SEV: don't want to default select all. new logic that is as simple as below but works when you want to select them
-                  checked={idx !== 1 && idx !== 3 && idx !== data[0].department_stats.length - 1}
+                  checked={selectedDepartments.has(dept.department)}
                   onCheckedChange={() =>
                     handleDepartmentToggle(dept.department)
                   }
