@@ -102,7 +102,7 @@ export const columns = [
       className: "text-left",
     },
     cell: ({ row }) => (
-      <div className="flex items-center gap-2">
+      <div className="inline-flex items-center gap-2">
         <span
           className={cx(
             "size-2 shrink-0 rounded-full",

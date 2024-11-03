@@ -40,7 +40,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   })
 
   return (
-    <div className="mt-6 space-y-3">
+    <div className="mt-8 space-y-3">
       <div className="relative overflow-hidden overflow-x-auto">
         <Table>
           <TableHead>

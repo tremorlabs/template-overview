@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/DropdownMenu"
 import { cx, focusRing } from "@/lib/utils"
-import { RiArrowRightUpLine, RiUser2Line } from "@remixicon/react"
+import { RiArrowRightUpLine, RiMenuLine } from "@remixicon/react"
 import { Button } from "../Button"
 
 function DropdownUserProfile() {
@@ -20,18 +20,27 @@ function DropdownUserProfile() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            aria-label="User settings"
             variant="ghost"
+            aria-label="open sidebar"
             className={cx(
               focusRing,
-              "group relative size-9 rounded-full bg-white text-sm text-gray-900 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 data-[state=open]:bg-gray-200/50",
+              "group rounded-md p-1.5 text-sm font-medium hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
             )}
           >
-            <RiUser2Line
-              className="size-5 shrink-0 text-gray-500 group-hover:text-gray-700"
+            <RiMenuLine className="size-6 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50" aria-hidden="true" />
+          </Button>
+          {/* <button
+            aria-label="User settings"
+            className={cx(
+              focusRing,
+              "p-2"
+            )}
+          >
+            <RiMenuLine
+              className="size-5 shrink-0 text-gray-900 dark:text-gray-50"
               aria-hidden="true"
             />
-          </Button>
+          </button> */}
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
