@@ -31,8 +31,6 @@ import { Input } from "../Input"
 import { Label } from "../Label"
 import { Textarea } from "../Textarea"
 
-// Types
-
 type TicketFormData = Partial<Ticket>
 
 interface TicketDrawerProps {
@@ -73,7 +71,6 @@ const FormField = ({
   </div>
 )
 
-// Page Components
 const FirstPage = ({ formData, onUpdateForm }: FormPageProps) => (
   <>
     <DrawerHeader>
@@ -304,9 +301,7 @@ const SummaryPage = ({ formData }: { formData: TicketFormData }) => (
   </>
 )
 
-// Main Component
 export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
-  // State
   const [formData, setFormData] = React.useState<TicketFormData>({
     status: "in-progress",
     category: categoryTypes[0].value,
@@ -321,7 +316,6 @@ export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
 
   const [currentPage, setCurrentPage] = React.useState(1)
 
-  // Handlers
   const handleUpdateForm = (updates: Partial<TicketFormData>) => {
     setFormData((prev) => ({ ...prev, ...updates }))
   }
@@ -331,7 +325,6 @@ export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
     onOpenChange(false)
   }
 
-  // Render helpers
   const renderPage = () => {
     switch (currentPage) {
       case 1:
@@ -380,9 +373,9 @@ export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="dark:bg-gray-925 overflow-x-hidden sm:max-w-lg">
+      <DrawerContent className="overflow-x-hidden sm:max-w-lg">
         {renderPage()}
-        <DrawerFooter className="dark:bg-gray-925 -mx-6 -mb-2 gap-2 bg-white px-6 sm:justify-between">
+        <DrawerFooter className="-mx-6 -mb-2 gap-2 px-6 sm:justify-between">
           {renderFooter()}
         </DrawerFooter>
       </DrawerContent>

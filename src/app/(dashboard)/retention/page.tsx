@@ -89,8 +89,8 @@ const CohortDetailsDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContentFull className="fixed inset-4 mx-auto flex w-[95vw] flex-col overflow-hidden rounded-lg border bg-white p-0 shadow-lg sm:max-w-3xl">
-        <DialogHeader className="flex-none border-b px-6 py-4">
+      <DialogContentFull className="fixed inset-4 mx-auto flex w-[95vw] flex-col overflow-hidden rounded-lg p-0 shadow-lg sm:max-w-3xl">
+        <DialogHeader className="flex-none border-b border-gray-200 dark:border-gray-900 px-6 py-4">
           <DialogTitle className="text-lg font-semibold">
             Cohort Details
           </DialogTitle>
@@ -100,7 +100,7 @@ const CohortDetailsDialog = ({
           </DialogDescription>
           <DialogClose asChild>
             <Button
-              className="absolute right-4 top-4 p-2 !text-gray-400 hover:text-gray-500 dark:!text-gray-600 hover:dark:text-gray-500"
+              className="absolute right-4 top-4 p-2"
               variant="ghost"
             >
               <RiCloseLine className="size-5 shrink-0" />
@@ -254,7 +254,7 @@ const CohortDetailsDialog = ({
             </section>
           </div>
         </DialogBody>
-        <DialogFooter className="flex-none border-t border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900">
+        <DialogFooter className="flex-none border-t border-gray-200 bg-white px-6 py-4 dark:border-gray-900 dark:bg-[#090E1A]">
           <DialogClose asChild>
             <Button variant="secondary">Close</Button>
           </DialogClose>

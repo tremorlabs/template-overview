@@ -103,7 +103,7 @@ export const columns = [
       className: "text-left",
     },
     cell: ({ row }) => (
-      <Badge variant="neutral" className="gap-1.5 font-normal">
+      <Badge variant="neutral" className="gap-1.5 font-normal text-gray-700 dark:text-gray-300">
         <span
           className={cx(
             "size-2 rounded-sm shrink-0",
