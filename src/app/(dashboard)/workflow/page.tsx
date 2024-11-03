@@ -14,13 +14,11 @@ import React from "react"
 export default function Workflow() {
   const data = React.useMemo(() => workflowStats, [])
 
-  // Initialize excluded departments as empty set (all departments included by default)
   const [excludedDepartments, setExcludedDepartments] = React.useState<
     Set<string>
   >(new Set())
 
   const aggregateStats = React.useMemo(() => {
-    // Filter out excluded departments
     const selectedStats = data[0].department_stats.filter(
       (dept) => !excludedDepartments.has(dept.department),
     )
