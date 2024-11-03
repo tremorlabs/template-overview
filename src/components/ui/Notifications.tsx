@@ -150,6 +150,23 @@ export function Notifications() {
     <Popover>
       <PopoverTrigger asChild>
         <Button
+          variant="ghost"
+          aria-label={`Notifications (${unreadCount} unread)`}
+          className={cx(
+            focusRing,
+            "group relative rounded-md p-1 text-sm font-medium"
+          )}
+        >
+          {unreadCount > 0 && (
+            <div className="absolute right-1 top-2.5 size-2 shrink-0 rounded-full bg-blue-500" />
+          )}
+          <RiNotification2Line
+            className="size-5 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50"
+            aria-hidden="true"
+          />
+        </Button>
+
+        {/* <Button
           aria-label={`Notifications (${unreadCount} unread)`}
           variant="ghost"
           className={cx(
@@ -164,7 +181,7 @@ export function Notifications() {
             className="size-5 shrink-0 text-gray-500 group-hover:text-gray-700"
             aria-hidden="true"
           />
-        </Button>
+        </Button> */}
       </PopoverTrigger>
       <PopoverContent align="end" className="z-20 mx-2 max-w-md px-4">
         <div className="flex items-center justify-between gap-16">

@@ -14,6 +14,7 @@ function Navigation() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-3">
         <Logo className="h-6" />
         <div className="flex flex-nowrap gap-2">
+          {/* @CHRIS: fundamental design changes */}
           {/* <Notifications /> */}
           <DropdownUserProfile />
         </div>
