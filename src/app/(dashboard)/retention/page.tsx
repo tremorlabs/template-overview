@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/Dialog"
+import { Divider } from "@/components/Divider"
 import {
   Table,
   TableBody,
@@ -274,12 +275,11 @@ export default function CohortRetention() {
   const weeks = Array.from({ length: weeksCount }, (_, i) => i)
 
   return (
-    <main className="pb-16 pt-6">
-      <div className="flex items-center justify-between border-b pb-6">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
-          Cohort Retention
-        </h1>
-      </div>
+    <main>
+      <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+        Cohort Retention
+      </h1>
+      <Divider />
       <section className="mt-12">
         <TableRoot className="overflow-scroll">
           <Table className="border-none">

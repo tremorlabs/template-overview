@@ -159,10 +159,9 @@ export default function Workflow() {
       : calculateImpact(displayStats)
 
   return (
-    <main className="pb-12">
-      <div className="flex items-center justify-between border-b pb-6">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Workflow</h1>
-      </div>
+    <main>
+      <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Workflow</h1>
+      <Divider />
       <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 p-6 ring-1 ring-gray-200">
         <div className="w-full sm:w-96">
           <Label htmlFor="test-quota" className="font-medium">

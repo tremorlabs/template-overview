@@ -17,7 +17,7 @@ export default function SupportDashboard() {
   const [isOpen, setIsOpen] = React.useState(false)
   return (
     <main>
-      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-50">
             Support Dashboard
