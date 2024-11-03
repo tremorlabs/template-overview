@@ -1,5 +1,6 @@
-import { GeistSans } from "geist/font/sans" // import font
+import { GeistSans } from "geist/font/sans"
 import type { Metadata } from "next"
+import { ThemeProvider } from "next-themes"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -13,8 +14,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.className} min-h-full antialiased`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body
+        className={`${GeistSans.className} min-h-full antialiased bg-white dark:bg-blue-500`}
+        suppressHydrationWarning
+      >
+        <ThemeProvider
+          defaultTheme="system"
+          disableTransitionOnChange
+          attribute="class"
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

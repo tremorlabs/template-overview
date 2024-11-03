@@ -10,7 +10,7 @@ import { DataTable } from "@/components/ui/data-table-support/DataTable"
 import { columns } from "@/components/ui/data-table-support/columns"
 import { tickets } from "@/data/support/tickets"
 import { volume } from "@/data/support/volume"
-import { RiAddCircleLine } from "@remixicon/react"
+import { RiAddLine } from "@remixicon/react"
 import React from "react"
 
 export default function SupportDashboard() {
@@ -28,10 +28,10 @@ export default function SupportDashboard() {
         </div>
         <Button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 font-semibold"
         >
           Create Ticket
-          <RiAddCircleLine className="size-5 shrink-0" aria-hidden="true" />
+          <RiAddLine className="-mr-0.5 size-5 shrink-0" aria-hidden="true" />
         </Button>
         <TicketDrawer open={isOpen} onOpenChange={setIsOpen} />
       </div>

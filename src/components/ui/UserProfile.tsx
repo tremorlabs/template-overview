@@ -7,14 +7,30 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSubMenu,
+  DropdownMenuSubMenuContent,
+  DropdownMenuSubMenuTrigger,
   DropdownMenuTrigger,
 } from "@/components/DropdownMenu"
 import { cx, focusRing } from "@/lib/utils"
-import { RiArrowRightUpLine, RiMenuLine } from "@remixicon/react"
+import { RiArrowRightUpLine, RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
+import { useTheme } from "next-themes"
+import React from "react"
 import { Button } from "../Button"
 
 function DropdownUserProfile() {
+  const [mounted, setMounted] = React.useState(false)
+  const { theme, setTheme } = useTheme()
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
   return (
     <>
       <DropdownMenu>
@@ -24,30 +40,60 @@ function DropdownUserProfile() {
             aria-label="open sidebar"
             className={cx(
               focusRing,
-              "group rounded-md p-1.5 text-sm font-medium hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
+              "group rounded-md p-1 text-sm font-medium hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
             )}
           >
-            <RiMenuLine className="size-6 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50" aria-hidden="true" />
-          </Button>
-          {/* <button
-            aria-label="User settings"
-            className={cx(
-              focusRing,
-              "p-2"
-            )}
-          >
-            <RiMenuLine
-              className="size-5 shrink-0 text-gray-900 dark:text-gray-50"
+            <span
+              className="flex size-8 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
               aria-hidden="true"
-            />
-          </button> */}
+            >
+              ES
+            </span>
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
           className="!min-w-[calc(var(--radix-dropdown-menu-trigger-width))]"
         >
           <DropdownMenuLabel>emma.stone@acme.com</DropdownMenuLabel>
-
+          <DropdownMenuGroup>
+            <DropdownMenuSubMenu>
+              <DropdownMenuSubMenuTrigger>Theme</DropdownMenuSubMenuTrigger>
+              <DropdownMenuSubMenuContent>
+                <DropdownMenuRadioGroup
+                  value={theme}
+                  onValueChange={(value) => {
+                    setTheme(value)
+                  }}
+                >
+                  <DropdownMenuRadioItem
+                    aria-label="Switch to Light Mode"
+                    value="light"
+                    iconType="check"
+                  >
+                    <RiSunLine className="size-4 shrink-0" aria-hidden="true" />
+                    Light
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem
+                    aria-label="Switch to Dark Mode"
+                    value="dark"
+                    iconType="check"
+                  >
+                    <RiMoonLine className="size-4 shrink-0" aria-hidden="true" />
+                    Dark
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem
+                    aria-label="Switch to System Mode"
+                    value="system"
+                    iconType="check"
+                  >
+                    <RiComputerLine className="size-4 shrink-0" aria-hidden="true" />
+                    System
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuSubMenuContent>
+            </DropdownMenuSubMenu>
+          </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
@@ -81,7 +127,7 @@ function DropdownUserProfile() {
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu >
     </>
   )
 }
