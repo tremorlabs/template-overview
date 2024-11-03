@@ -1,4 +1,5 @@
 "use client"
+import { Button } from "@/components/Button"
 import { Checkbox } from "@/components/Checkbox"
 import { Divider } from "@/components/Divider"
 import { Input } from "@/components/Input"
@@ -7,20 +8,15 @@ import { ProgressCircle } from "@/components/ProgressCircle"
 import { Slider } from "@/components/Slider"
 import { workflowStats } from "@/data/workflow/workflow-data"
 import { valueFormatter } from "@/lib/formatters"
+import { RiResetLeftLine } from "@remixicon/react"
 import React from "react"
 
 export default function Workflow() {
   const data = React.useMemo(() => workflowStats, [])
 
-  const [selectedDepartments, setSelectedDepartments] = React.useState<Set<string>>(() => {
-    const initialSelected = new Set<string>()
-    data[0].department_stats.forEach((dept, idx) => {
-      if (idx !== 1 && idx !== 3 && idx !== data[0].department_stats.length - 1) {
-        initialSelected.add(dept.department)
-      }
-    })
-    return initialSelected
-  })
+  const [selectedDepartments, setSelectedDepartments] = React.useState<
+    Set<string>
+  >(new Set(data[0].department_stats.map((dept) => dept.department)))
 
   const aggregateStats = React.useMemo(() => {
     const selectedStats = data[0].department_stats.filter((dept) =>
@@ -128,8 +124,8 @@ export default function Workflow() {
 
     const baselineErrorCosts = Math.round(
       stats.total_cases *
-      COST_ASSUMPTIONS.expectedErrorRate *
-      COST_ASSUMPTIONS.undetectedErrorCost,
+        COST_ASSUMPTIONS.expectedErrorRate *
+        COST_ASSUMPTIONS.undetectedErrorCost,
     )
 
     const totalCosts = testingCosts + correctionCosts + undetectedErrorCosts
@@ -157,17 +153,19 @@ export default function Workflow() {
   const scenarioImpact =
     scenarioQuota === actualQuota
       ? {
-        costs: currentImpact.costs,
-        savings: 0,
-        fteImpact: 0,
-      }
+          costs: currentImpact.costs,
+          savings: 0,
+          fteImpact: 0,
+        }
       : calculateImpact(displayStats)
 
   return (
     <main>
-      <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">Workflow</h1>
+      <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+        Workflow
+      </h1>
       <Divider />
-      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 dark:bg-gray-900 p-6 ring-1 ring-gray-200 dark:ring-gray-800">
+      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
         <div className="w-full sm:w-96">
           <Label htmlFor="test-quota" className="font-medium">
             Test Quota (%)
@@ -181,6 +179,7 @@ export default function Workflow() {
               step={5}
               className="w-full sm:max-w-56"
             />
+
             <Input
               type="number"
               value={scenarioQuota}
@@ -189,15 +188,29 @@ export default function Workflow() {
               max={100}
               className="w-20 sm:w-16"
             />
+            {scenarioQuota !== actualQuota ? (
+              <Button
+                onClick={() => setScenarioQuota(actualQuota)}
+                variant="light"
+                className="group -ml-3 p-2 hover:bg-red-500"
+              >
+                <RiResetLeftLine className="size-5 text-gray-900 transition group-hover:-rotate-45 group-hover:text-white" />
+                <span className="sr-only">Reset</span>
+              </Button>
+            ) : null}
           </div>
           <p className="mt-1 flex items-center gap-2 text-sm">
-            <span className="text-gray-400 dark:text-gray-600">Current: {actualQuota}%</span>
-            <span className="text-gray-900 dark:text-gray-50">Scenario: {scenarioQuota}%</span>
+            <span className="text-gray-400 dark:text-gray-600">
+              Current: {actualQuota}%
+            </span>
+            <span className="text-gray-900 dark:text-gray-50">
+              Scenario: {scenarioQuota}%
+            </span>
           </p>
         </div>
         <div>
           <legend className="text-sm font-medium text-gray-900 dark:text-gray-50">
-            Select departments to include
+            Included departments
           </legend>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {data[0].department_stats.map((dept) => (
@@ -276,7 +289,9 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Tested Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">
+                Tested Cases
+              </p>
             </div>
             <div className="mt-10">
               <div className="flex justify-center">
@@ -343,7 +358,9 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Error-free Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">
+                Error-free Cases
+              </p>
             </div>
             <div className="mt-10">
               <div className="flex justify-center">
@@ -371,7 +388,9 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Corrected Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">
+                Corrected Cases
+              </p>
             </div>
           </div>
         </div>
@@ -379,17 +398,23 @@ export default function Workflow() {
 
       <Divider className="my-12" />
       <section className="mt-12">
-        <h2 className="font-medium text-gray-900 dark:text-gray-50">Impact overview</h2>
+        <h2 className="font-medium text-gray-900 dark:text-gray-50">
+          Impact overview
+        </h2>
         <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="relative rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
+          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <span
               className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500 dark:bg-blue-500"
               aria-hidden="true"
             />
             <div>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-sm text-gray-500 dark:text-gray-500">Total cases</span>
-                <span className="text-sm text-gray-500 dark:text-gray-500">current</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">
+                  Total cases
+                </span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">
+                  current
+                </span>
               </p>
               <p className="flex items-center justify-between gap-2">
                 <span className="text-lg font-medium text-gray-900 dark:text-gray-50">
@@ -402,15 +427,19 @@ export default function Workflow() {
             </div>
           </div>
 
-          <div className="relative rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
+          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <span
               className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500 dark:bg-blue-500"
               aria-hidden="true"
             />
             <div>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-sm text-gray-500 dark:text-gray-500">Net cost savings</span>
-                <span className="text-sm text-gray-500 dark:text-gray-500">current</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">
+                  Net cost savings
+                </span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">
+                  current
+                </span>
               </p>
               <p className="flex items-center justify-between gap-2">
                 <span className="text-lg font-medium text-gray-900 dark:text-gray-50">
@@ -425,15 +454,19 @@ export default function Workflow() {
             </div>
           </div>
 
-          <div className="relative rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
+          <div className="relative rounded-md border border-gray-200 bg-white px-4 py-3 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <span
               className="absolute inset-x-0 top-1/2 h-10 w-1 -translate-y-1/2 rounded-r-md bg-blue-500 dark:bg-blue-500"
               aria-hidden="true"
             />
             <div>
               <p className="flex items-center justify-between gap-2">
-                <span className="text-sm text-gray-500 dark:text-gray-500">Net FTE impact</span>
-                <span className="text-sm text-gray-500 dark:text-gray-500">current</span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">
+                  Net FTE impact
+                </span>
+                <span className="text-sm text-gray-500 dark:text-gray-500">
+                  current
+                </span>
               </p>
               <p className="flex items-center justify-between gap-2">
                 <span className="text-lg font-medium text-gray-900 dark:text-gray-50">
@@ -454,7 +487,10 @@ export default function Workflow() {
             <h3 className="text-sm font-medium text-gray-900 dark:text-gray-50">
               Cost savings breakdown
             </h3>
-            <ul role="list" className="mt-2 divide-y divide-gray-200 dark:divide-gray-800 text-sm">
+            <ul
+              role="list"
+              className="mt-2 divide-y divide-gray-200 text-sm dark:divide-gray-800"
+            >
               {[1, 5, 10].map((years) => {
                 const multiplier = Math.pow(1.1, years)
                 const currentSavings = currentImpact.savings * multiplier
@@ -466,8 +502,8 @@ export default function Workflow() {
                   scenarioQuota === actualQuota
                     ? 0
                     : ((projectedSavings - currentSavings) /
-                      Math.abs(currentSavings)) *
-                    100
+                        Math.abs(currentSavings)) *
+                      100
 
                 return (
                   <li
@@ -488,12 +524,13 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400"
-                          : difference > 0
-                            ? "bg-emerald-50 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400"
-                            : "bg-red-50 dark:bg-red-400/20 text-red-600 dark:text-red-500"
-                          }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                        }`}
                       >
                         {difference === 0
                           ? "0.0%"
@@ -509,7 +546,10 @@ export default function Workflow() {
             <h3 className="text-sm font-medium text-gray-900 dark:text-gray-50">
               FTE impact breakdown
             </h3>
-            <ul role="list" className="mt-2 divide-y divide-gray-200 dark:divide-gray-800 text-sm">
+            <ul
+              role="list"
+              className="mt-2 divide-y divide-gray-200 text-sm dark:divide-gray-800"
+            >
               {[1, 5, 10].map((years) => {
                 const multiplier = Math.pow(1.1, years)
                 const currentFTE = currentImpact.fteImpact * multiplier
@@ -541,12 +581,13 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400"
-                          : difference > 0
-                            ? "bg-emerald-50 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400"
-                            : "bg-red-50 dark:bg-red-400/20 text-red-600 dark:text-red-500"
-                          }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                        }`}
                       >
                         {difference === 0
                           ? "0.0%"

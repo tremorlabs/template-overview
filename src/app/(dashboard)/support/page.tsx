@@ -117,14 +117,15 @@ export default function SupportDashboard() {
                     className="size-2.5 shrink-0 rounded-sm bg-red-500 dark:bg-red-500"
                     aria-hidden="true"
                   />
-                  <span className="text-sm text-gray-900 dark:text-gray-50">SLA Breached</span>
+                  <span className="text-sm text-gray-900 dark:text-gray-50">
+                    SLA Breached
+                  </span>
                 </div>
                 <span className="mt-1 block text-2xl font-semibold text-gray-900 dark:text-gray-50">
                   16.7%
                 </span>
               </div>
             </dd>
-            {/* <ProgressCircle value={83} radius={45} strokeWidth={7} className="[&_circle:first-child]:stroke-red-500 [&_circle:first-child]:dark:stroke-red-500" /> */}
             <ProgressCircle value={83} radius={45} strokeWidth={7} />
           </div>
         </Card>

@@ -90,7 +90,7 @@ const CohortDetailsDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContentFull className="fixed inset-4 mx-auto flex w-[95vw] flex-col overflow-hidden rounded-lg p-0 shadow-lg sm:max-w-3xl">
-        <DialogHeader className="flex-none border-b border-gray-200 dark:border-gray-900 px-6 py-4">
+        <DialogHeader className="flex-none border-b border-gray-200 px-6 py-4 dark:border-gray-900">
           <DialogTitle className="text-lg font-semibold">
             Cohort Details
           </DialogTitle>
@@ -99,10 +99,7 @@ const CohortDetailsDialog = ({
             initial customers
           </DialogDescription>
           <DialogClose asChild>
-            <Button
-              className="absolute right-4 top-4 p-2"
-              variant="ghost"
-            >
+            <Button className="absolute right-4 top-4 p-2" variant="ghost">
               <RiCloseLine className="size-5 shrink-0" />
             </Button>
           </DialogClose>
@@ -305,7 +302,7 @@ export default function CohortRetention() {
                     <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-transparent">
                       <button
                         className={cx(
-                          "group relative -ml-2 h-full w-full rounded p-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100 hover:dark:bg-gray-900 hover:focus-visible:bg-gray-900",
+                          "group relative -ml-2 h-full w-full rounded p-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100 hover:focus-visible:bg-gray-900 hover:dark:bg-gray-900",
                           focusRing,
                         )}
                         onClick={() => {
@@ -330,7 +327,7 @@ export default function CohortRetention() {
                         {weekData === null ? (
                           <div
                             className={cx(
-                              "flex h-[64px] flex-col justify-center rounded border border-dashed border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 px-3.5 py-3 text-gray-200 dark:text-gray-800",
+                              "flex h-[64px] flex-col justify-center rounded border border-dashed border-gray-200 bg-gray-50 px-3.5 py-3 text-gray-200 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-800",
                             )}
                           >
                             <span className="h-3 w-9 rounded-sm bg-gray-100 dark:bg-gray-800/50" />
@@ -383,7 +380,9 @@ export default function CohortRetention() {
         <div className="mt-8 grid grid-cols-8 gap-5">
           <Card className="col-span-6">
             <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
-              <span className="text-gray-900 dark:text-gray-50">Cohort Statistics</span>
+              <span className="text-gray-900 dark:text-gray-50">
+                Cohort Statistics
+              </span>
             </dt>
             <dd className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {/* Left Column */}
@@ -394,7 +393,9 @@ export default function CohortRetention() {
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.totalUsers.toLocaleString()}
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+17%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
+                      +17%
+                    </span>
                   </div>
                 </div>
 
@@ -408,7 +409,9 @@ export default function CohortRetention() {
                         1,
                       )}
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+6%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
+                      +6%
+                    </span>
                   </div>
                 </div>
 
@@ -423,7 +426,9 @@ export default function CohortRetention() {
                       )}
                       m
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+12%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
+                      +12%
+                    </span>
                   </div>
                 </div>
               </div>
@@ -431,12 +436,16 @@ export default function CohortRetention() {
               {/* Middle Column */}
               <div className="space-y-6">
                 <div>
-                  <div className="text-sm text-gray-500 dark:text-gray-500">Total Tickets</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-500">
+                    Total Tickets
+                  </div>
                   <div className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.activity.totalTicketsCreated.toLocaleString()}
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+11%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
+                      +11%
+                    </span>
                   </div>
                 </div>
 
@@ -516,7 +525,9 @@ export default function CohortRetention() {
 
           <Card className="col-span-2">
             <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
-              <span className="text-gray-900 dark:text-gray-50">Top Issues</span>
+              <span className="text-gray-900 dark:text-gray-50">
+                Top Issues
+              </span>
               {/* @CHRIS: add tooltip */}
               <RiErrorWarningLine
                 className="size-5 shrink-0 text-gray-500 dark:text-gray-500"

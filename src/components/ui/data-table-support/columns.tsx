@@ -103,17 +103,30 @@ export const columns = [
       className: "text-left",
     },
     cell: ({ row }) => (
-      <Badge variant="neutral" className="gap-1.5 font-normal text-gray-700 dark:text-gray-300">
+      <Badge
+        variant="neutral"
+        className="gap-1.5 font-normal capitalize text-gray-700 dark:text-gray-300"
+      >
         <span
           className={cx(
-            "size-2 rounded-sm shrink-0",
-            row.original.priority === "low"
-              ? "bg-emerald-600 dark:bg-emerald-400"
-              : row.original.priority === "medium"
-                ? "bg-gray-500 dark:bg-gray-500"
-                : row.original.priority === "critical"
-                  ? "bg-orange-500 dark:bg-orange-500"
-                  : "bg-red-500 dark:bg-red-500",
+            "size-2 shrink-0 rounded-sm",
+            "bg-gray-500 dark:bg-gray-500",
+            {
+              "bg-emerald-600 dark:bg-emerald-400":
+                row.original.priority === "low",
+            },
+            {
+              "bg-gray-500 dark:bg-gray-500":
+                row.original.priority === "medium",
+            },
+            {
+              "bg-orange-500 dark:bg-orange-500":
+                row.original.priority === "high",
+            },
+            {
+              "bg-red-500 dark:bg-red-500":
+                row.original.priority === "emergency",
+            },
           )}
           aria-hidden="true"
         />
