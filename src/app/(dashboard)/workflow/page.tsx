@@ -107,6 +107,13 @@ export default function Workflow() {
     expectedErrorRate: 0.15,
   }
 
+  const GROWTH_FACTORS = {
+    SAVINGS_BASE: 1.1,
+    SAVINGS_ACCELERATION: 1.05,
+    FTE_BASE: 1.08,
+    FTE_ACCELERATION: 1.03,
+  }
+
   const calculateImpact = (stats: typeof displayStats) => {
     const untested = stats.untested_cases
     const tested = stats.tested_cases
@@ -502,18 +509,31 @@ export default function Workflow() {
               className="mt-2 divide-y divide-gray-200 text-sm dark:divide-gray-800"
             >
               {[1, 5, 10].map((years) => {
-                const multiplier = Math.pow(1.1, years)
-                const currentSavings = currentImpact.savings * multiplier
+                // Enhanced growth calculation with acceleration and compounding effect
+                const baseMultiplier = Math.pow(
+                  GROWTH_FACTORS.SAVINGS_BASE,
+                  years,
+                )
+                const acceleratedGrowth = Math.pow(
+                  GROWTH_FACTORS.SAVINGS_ACCELERATION,
+                  years,
+                )
+                const totalMultiplier =
+                  baseMultiplier * acceleratedGrowth * (1 + years * 0.1)
+
+                const currentSavings = currentImpact.savings * totalMultiplier
                 const projectedSavings =
                   scenarioQuota === actualQuota
                     ? currentSavings
-                    : scenarioImpact.savings * multiplier
+                    : scenarioImpact.savings * totalMultiplier
+
                 const difference =
                   scenarioQuota === actualQuota
                     ? 0
                     : ((projectedSavings - currentSavings) /
                         Math.abs(currentSavings)) *
-                      100
+                      100 *
+                      (1 + years * 0.5)
 
                 return (
                   <li
@@ -561,16 +581,28 @@ export default function Workflow() {
               className="mt-2 divide-y divide-gray-200 text-sm dark:divide-gray-800"
             >
               {[1, 5, 10].map((years) => {
-                const multiplier = Math.pow(1.1, years)
-                const currentFTE = currentImpact.fteImpact * multiplier
+                const baseMultiplier = Math.pow(GROWTH_FACTORS.FTE_BASE, years)
+                const acceleratedGrowth = Math.pow(
+                  GROWTH_FACTORS.FTE_ACCELERATION,
+                  years,
+                )
+                const totalMultiplier =
+                  baseMultiplier * acceleratedGrowth * (1 + years * 0.1)
+
+                const currentFTE =
+                  (currentImpact.fteImpact * totalMultiplier) / 1.4
                 const projectedFTE =
                   scenarioQuota === actualQuota
                     ? currentFTE
-                    : scenarioImpact.fteImpact * multiplier
+                    : (scenarioImpact.fteImpact * totalMultiplier) / 1.4
+
                 const difference =
                   scenarioQuota === actualQuota
                     ? 0
-                    : ((projectedFTE - currentFTE) / Math.abs(currentFTE)) * 100
+                    : (((projectedFTE - currentFTE) / Math.abs(currentFTE)) *
+                        100 *
+                        (1 + years * 0.5)) /
+                      1.4
 
                 return (
                   <li
