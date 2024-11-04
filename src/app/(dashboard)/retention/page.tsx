@@ -289,7 +289,7 @@ export default function CohortRetention() {
                   </span>
                 </TableHeaderCell>
                 {weeks.map((week) => (
-                  <TableHeaderCell key={week} className="border-none">
+                  <TableHeaderCell key={week} className="border-none font-medium">
                     Week {week}
                   </TableHeaderCell>
                 ))}
