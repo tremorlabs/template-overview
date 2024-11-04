@@ -36,8 +36,7 @@ import { valueFormatter } from "@/lib/formatters"
 import { cx, focusRing } from "@/lib/utils"
 import {
   RiCloseLine,
-  RiErrorWarningLine,
-  RiExpandDiagonalLine,
+  RiExpandDiagonalLine
 } from "@remixicon/react"
 import { useState } from "react"
 
@@ -49,8 +48,9 @@ const colorClasses = [
   "bg-blue-400 dark:bg-blue-600",
   "bg-blue-500 dark:bg-blue-500",
   "bg-blue-600 dark:bg-blue-400",
-  "bg-blue-700 dark:bg-blue-300",
-  "bg-blue-800 dark:bg-blue-300/50",
+  // @SEV: mal wirken lassen -> konsistentere Farbton für theme allgemein
+  // "bg-blue-700 dark:bg-blue-300",
+  // "bg-blue-800 dark:bg-blue-300/50",
 ]
 
 const getBackgroundColor = (
@@ -379,31 +379,28 @@ export default function CohortRetention() {
 
         <div className="mt-8 grid grid-cols-8 gap-5">
           <Card className="col-span-6">
-            <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
-              <span className="text-gray-900 dark:text-gray-50">
-                Cohort Statistics
-              </span>
-            </dt>
-            <dd className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <p className="font-semibold text-gray-900 dark:text-gray-50">
+              Cohort Statistics
+            </p>
+            <dl className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-3">
               {/* Left Column */}
               <div className="space-y-6">
                 <div>
-                  <div className="text-sm text-gray-500">Total Users</div>
-                  <div className="mt-1 flex items-baseline">
+                  <dt className="text-sm text-gray-500">Total Users</dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.totalUsers.toLocaleString()}
                     </span>
                     <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
                       +17%
                     </span>
-                  </div>
+                  </dd>
                 </div>
-
                 <div>
-                  <div className="text-sm text-gray-500">
+                  <dt className="text-sm text-gray-500">
                     Average CSAT Score
-                  </div>
-                  <div className="mt-1 flex items-baseline">
+                  </dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.satisfaction.avgCsatScore.toFixed(
                         1,
@@ -412,14 +409,13 @@ export default function CohortRetention() {
                     <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
                       +6%
                     </span>
-                  </div>
+                  </dd>
                 </div>
-
                 <div>
-                  <div className="text-sm text-gray-500 dark:text-gray-500">
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">
                     Average Response Time
-                  </div>
-                  <div className="mt-1 flex items-baseline">
+                  </dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.performance.avgResponseTimeMinutes.toFixed(
                         1,
@@ -429,29 +425,28 @@ export default function CohortRetention() {
                     <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
                       +12%
                     </span>
-                  </div>
+                  </dd>
                 </div>
               </div>
 
               {/* Middle Column */}
               <div className="space-y-6">
                 <div>
-                  <div className="text-sm text-gray-500 dark:text-gray-500">
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">
                     Total Tickets
-                  </div>
-                  <div className="mt-1 flex items-baseline">
+                  </dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.activity.totalTicketsCreated.toLocaleString()}
                     </span>
                     <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">
                       +11%
                     </span>
-                  </div>
+                  </dd>
                 </div>
-
                 <div>
-                  <div className="text-sm text-gray-500">Resolution Rate</div>
-                  <div className="mt-1 flex items-baseline">
+                  <dt className="text-sm text-gray-500">Resolution Rate</dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {(
                         cohortsAggregate.aggregateMetrics.activity
@@ -460,27 +455,25 @@ export default function CohortRetention() {
                       %
                     </span>
                     <span className="ml-2 text-sm text-emerald-600">+2%</span>
-                  </div>
+                  </dd>
                 </div>
-
                 <div>
-                  <div className="text-sm text-gray-500">Total Cohorts</div>
-                  <div className="mt-1 flex items-baseline">
+                  <dt className="text-sm text-gray-500">Total Cohorts</dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.totalCohorts}
                     </span>
                     <span className="ml-2 text-sm text-emerald-600">+5%</span>
-                  </div>
+                  </dd>
                 </div>
               </div>
-
               {/* Right Column */}
               <div className="space-y-6">
                 <div>
-                  <div className="text-sm text-gray-500">
+                  <dt className="text-sm text-gray-500">
                     Avg. Handling Time
-                  </div>
-                  <div className="mt-1 flex items-baseline">
+                  </dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.performance.avgHandlingTimeMinutes.toFixed(
                         1,
@@ -488,14 +481,13 @@ export default function CohortRetention() {
                       m
                     </span>
                     <span className="ml-2 text-sm text-emerald-600">+21%</span>
-                  </div>
+                  </dd>
                 </div>
-
                 <div>
-                  <div className="text-sm text-gray-500">
+                  <dt className="text-sm text-gray-500">
                     First Contact Resolution
-                  </div>
-                  <div className="mt-1 flex items-baseline">
+                  </dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {(
                         cohortsAggregate.aggregateMetrics.performance
@@ -504,12 +496,11 @@ export default function CohortRetention() {
                       %
                     </span>
                     <span className="ml-2 text-sm text-emerald-600">+3%</span>
-                  </div>
+                  </dd>
                 </div>
-
                 <div>
-                  <div className="text-sm text-gray-500">Retention Rate</div>
-                  <div className="mt-1 flex items-baseline">
+                  <dt className="text-sm text-gray-500">Retention Rate</dt>
+                  <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.retention.overallRetentionRate.toFixed(
                         1,
@@ -517,36 +508,29 @@ export default function CohortRetention() {
                       %
                     </span>
                     <span className="ml-2 text-sm text-emerald-600">+2%</span>
-                  </div>
+                  </dd>
                 </div>
               </div>
-            </dd>
+            </dl>
           </Card>
 
           <Card className="col-span-2">
-            <dt className="mb-4 flex flex-nowrap items-center gap-2 font-semibold text-gray-500 dark:text-gray-400">
-              <span className="text-gray-900 dark:text-gray-50">
-                Top Issues
-              </span>
-              {/* @CHRIS: add tooltip */}
-              <RiErrorWarningLine
-                className="size-5 shrink-0 text-gray-500 dark:text-gray-500"
-                aria-hidden="true"
-              />
-            </dt>
-            <dd className="space-y-3">
+            <p className="font-semibold text-gray-900 dark:text-gray-50">
+              Top Issues
+            </p>
+            <ol className="mt-4 divide-y divide-gray-200 dark:divide-gray-800">
               {cohortsAggregate.commonIssues
                 .sort((a, b) => b.totalCount - a.totalCount)
-                .slice(0, 7)
+                .slice(0, 6)
                 .map((issue, index) => {
                   const totalCount = cohortsAggregate.commonIssues.reduce(
                     (sum, issue) => sum + issue.totalCount,
                     0,
                   )
                   return (
-                    <div
+                    <li
                       key={issue.category}
-                      className="flex items-center justify-between"
+                      className="py-2 flex items-center justify-between"
                     >
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -560,10 +544,10 @@ export default function CohortRetention() {
                         {Math.round((issue.totalCount / totalCount) * 100)}% (
                         {issue.totalCount.toLocaleString()})
                       </div>
-                    </div>
+                    </li>
                   )
                 })}
-            </dd>
+            </ol>
           </Card>
         </div>
       </section>
