@@ -22,7 +22,7 @@ export function Filterbar({
   }, 300)
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-6 rounded-lg bg-gray-50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
+    <div className="flex flex-wrap items-center justify-between gap-6 rounded-lg bg-gray-50/50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
       <Input
         className="w-full sm:w-96"
         type="search"
@@ -41,14 +41,6 @@ export function Filterbar({
           Registered agents only
         </Label>
       </div>
-      {/* @SEV: would kick out */}
-      {/* <Button
-        variant="secondary"
-        className="hidden items-center gap-x-2 lg:flex"
-      >
-        <RiDownloadLine className="size-4 shrink-0" aria-hidden="true" />
-        Export
-      </Button> */}
     </div>
   )
 }
