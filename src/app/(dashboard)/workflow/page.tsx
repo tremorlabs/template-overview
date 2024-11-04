@@ -197,6 +197,7 @@ export default function Workflow() {
               max={100}
               step={5}
               className="w-full sm:max-w-56"
+              disabled={excludedDepartments.size === departments.length}
             />
 
             <Input
@@ -206,6 +207,7 @@ export default function Workflow() {
               min={0}
               max={100}
               className="w-20 sm:w-16"
+              disabled={excludedDepartments.size === departments.length}
             />
             {scenarioQuota !== actualQuota ? (
               <Button
@@ -218,7 +220,7 @@ export default function Workflow() {
               </Button>
             ) : null}
           </div>
-          <p className="mt-1 flex items-center gap-2 text-sm">
+          <p className="mt-1 flex items-center gap-2 text-sm tabular-nums">
             <span className="text-gray-400 dark:text-gray-600">
               Current: {actualQuota}%
             </span>
@@ -376,20 +378,19 @@ export default function Workflow() {
                   variant="success"
                   radius={45}
                   strokeWidth={6}
-                  value={
-                    (displayStats.error_free_cases / displayStats.total_cases) *
-                    100
-                  }
+                  value={calculatePercentage(
+                    displayStats.error_free_cases,
+                    displayStats.total_cases,
+                  )}
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                       {valueFormatter(displayStats.error_free_cases)}
                     </span>
                     <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
-                      {(
-                        (displayStats.error_free_cases /
-                          displayStats.total_cases) *
-                        100
+                      {calculatePercentage(
+                        displayStats.error_free_cases,
+                        displayStats.total_cases,
                       ).toFixed(1)}
                       %
                     </span>
@@ -406,20 +407,19 @@ export default function Workflow() {
                   variant="error"
                   radius={45}
                   strokeWidth={6}
-                  value={
-                    (displayStats.corrected_cases / displayStats.total_cases) *
-                    100
-                  }
+                  value={calculatePercentage(
+                    displayStats.corrected_cases,
+                    displayStats.total_cases,
+                  )}
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                       {valueFormatter(displayStats.corrected_cases)}
                     </span>
                     <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
-                      {(
-                        (displayStats.corrected_cases /
-                          displayStats.total_cases) *
-                        100
+                      {calculatePercentage(
+                        displayStats.corrected_cases,
+                        displayStats.total_cases,
                       ).toFixed(1)}
                       %
                     </span>
