@@ -19,7 +19,6 @@ import { cx, focusRing } from "@/lib/utils"
 import { RiArrowRightUpLine, RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
 import { useTheme } from "next-themes"
 import React from "react"
-import { Button } from "../Button"
 
 function DropdownUserProfile() {
   const [mounted, setMounted] = React.useState(false)
@@ -35,21 +34,20 @@ function DropdownUserProfile() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            aria-label="open sidebar"
+          <button
+            aria-label="open settings"
             className={cx(
               focusRing,
-              "group rounded-md p-1 text-sm font-medium hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
+              "group rounded-md p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
             )}
           >
             <span
-              className="flex size-8 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
+              className="flex size-8 shrink-0 items-center justify-center font-medium rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
               aria-hidden="true"
             >
               ES
             </span>
-          </Button>
+          </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"

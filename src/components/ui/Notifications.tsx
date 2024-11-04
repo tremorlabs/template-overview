@@ -104,8 +104,8 @@ const formatDate = (dateString: string): string => {
 const NotificationItem = ({ notification }: { notification: Notification }) => {
   const { message, date, read } = notification
   return (
-    <li className="relative py-2.5">
-      <a href="#" className="focus:outline-none">
+    <li className="py-2.5">
+      <a href="#" className="px-1 py-1.5 rounded-md relative block hover:bg-gray-100/90 hover:dark:bg-gray-900 focus:outline-none">
         {/* Extend touch target to entire field */}
         <span aria-hidden="true" className="absolute inset-0" />
         <p className="text-sm text-gray-900 dark:text-gray-50">
@@ -148,22 +148,24 @@ export function Notifications() {
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          aria-label={`Notifications (${unreadCount} unread)`}
+          aria-label="open notifications"
           className={cx(
             focusRing,
-            "group relative rounded-md py-1 px-2.5 text-sm font-medium"
+            "group rounded-md p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
           )}
         >
-          {unreadCount > 0 && (
-            <div className="absolute right-2.5 top-2.5 size-2 shrink-0 rounded-full bg-blue-500" />
-          )}
-          <RiNotification2Line
-            className="size-5 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50"
-            aria-hidden="true"
-          />
+          <span className="size-8 flex items-center justify-center bg-white dark:bg-gray-900 hover:dark:bg-gray-400/10 rounded-full border border-gray-300 dark:border-gray-700 p-1">
+            {unreadCount > 0 && (
+              <span className="absolute right-2.5 top-2.5 size-2 shrink-0 rounded-full bg-blue-500" aria-hidden="true" />
+            )}
+            <RiNotification2Line
+              className="size-4 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50"
+              aria-hidden="true"
+            />
+          </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="z-20 mx-2 max-w-md px-4">
+      <PopoverContent align="end" className="z-20 max-w-sm mx-2 px-4">
         <div className="flex items-center justify-between gap-16">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">
             Notifications
@@ -176,15 +178,15 @@ export function Notifications() {
             <TabsTrigger value="all">All</TabsTrigger>
           </TabsList>
           <div className="mt-2">
-            <TabsContent value="unread" className="max-w-xs">
+            <TabsContent value="unread">
               <NotificationList />
             </TabsContent>
-            <TabsContent value="all" className="max-w-xs">
+            <TabsContent value="all">
               <div className="relative">
                 <NotificationList showAll />
                 <div
-                  aria-hidden="true"
                   className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-white dark:to-gray-950"
+                  aria-hidden="true"
                 />
               </div>
               <Button variant="secondary" className="mt-2 w-full">
