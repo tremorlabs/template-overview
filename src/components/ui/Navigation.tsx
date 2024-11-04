@@ -18,7 +18,6 @@ function Navigation() {
           <Logo className="h-6" />
         </div>
         <div className="flex h-[42px] flex-nowrap gap-1">
-          {/* @CHRIS: fundamental design changes */}
           <Notifications />
           <DropdownUserProfile />
         </div>

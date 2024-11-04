@@ -124,8 +124,8 @@ export default function Workflow() {
 
     const baselineErrorCosts = Math.round(
       stats.total_cases *
-        COST_ASSUMPTIONS.expectedErrorRate *
-        COST_ASSUMPTIONS.undetectedErrorCost,
+      COST_ASSUMPTIONS.expectedErrorRate *
+      COST_ASSUMPTIONS.undetectedErrorCost,
     )
 
     const totalCosts = testingCosts + correctionCosts + undetectedErrorCosts
@@ -153,10 +153,10 @@ export default function Workflow() {
   const scenarioImpact =
     scenarioQuota === actualQuota
       ? {
-          costs: currentImpact.costs,
-          savings: 0,
-          fteImpact: 0,
-        }
+        costs: currentImpact.costs,
+        savings: 0,
+        fteImpact: 0,
+      }
       : calculateImpact(displayStats)
 
   return (
@@ -192,9 +192,9 @@ export default function Workflow() {
               <Button
                 onClick={() => setScenarioQuota(actualQuota)}
                 variant="light"
-                className="group -ml-3 p-2 hover:bg-red-500"
+                className="group -ml-3 p-2 hover:bg-red-500 hover:dark:bg-red-500"
               >
-                <RiResetLeftLine className="size-5 text-gray-900 transition group-hover:-rotate-45 group-hover:text-white" />
+                <RiResetLeftLine className="size-5 text-gray-900 dark:text-gray-50 transition group-hover:-rotate-45 group-hover:text-white" />
                 <span className="sr-only">Reset</span>
               </Button>
             ) : null}
@@ -318,7 +318,7 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700">Untested Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Untested Cases</p>
             </div>
           </div>
           <div className="mt-24 min-w-32">
@@ -502,8 +502,8 @@ export default function Workflow() {
                   scenarioQuota === actualQuota
                     ? 0
                     : ((projectedSavings - currentSavings) /
-                        Math.abs(currentSavings)) *
-                      100
+                      Math.abs(currentSavings)) *
+                    100
 
                 return (
                   <li
@@ -524,13 +524,12 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
-                          difference === 0
-                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
-                            : difference > 0
-                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
-                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
-                        }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
+                          ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                          : difference > 0
+                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                            : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                          }`}
                       >
                         {difference === 0
                           ? "0.0%"
@@ -581,13 +580,12 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
-                          difference === 0
-                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
-                            : difference > 0
-                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
-                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
-                        }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
+                          ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                          : difference > 0
+                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                            : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                          }`}
                       >
                         {difference === 0
                           ? "0.0%"

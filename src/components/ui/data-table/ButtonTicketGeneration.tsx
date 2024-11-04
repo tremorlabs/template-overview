@@ -41,9 +41,9 @@ const ButtonTicketGeneration = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {internalState ? (
-          <RiCheckboxCircleFill className="size-4 shrink-0 text-emerald-600" />
+          <RiCheckboxCircleFill className="size-4 shrink-0 text-emerald-600 dark:text-emerald-500" aria-hidden="true" />
         ) : (
-          <RiCloseCircleFill className="size-4 shrink-0 text-gray-400" />
+          <RiCloseCircleFill className="size-4 shrink-0 text-gray-400 dark:text-gray-600" aria-hidden="true" />
         )}
         {internalState ? "Enabled" : "Disabled"}
       </button>

@@ -151,7 +151,7 @@ export function Notifications() {
           aria-label="open notifications"
           className={cx(
             focusRing,
-            "group rounded-md p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
+            "group rounded-md p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:dark:bg-gray-400/10 hover:dark:bg-gray-400/10"
           )}
         >
           <span className="size-8 flex items-center justify-center bg-white dark:bg-gray-900 hover:dark:bg-gray-400/10 rounded-full border border-gray-300 dark:border-gray-700 p-1">

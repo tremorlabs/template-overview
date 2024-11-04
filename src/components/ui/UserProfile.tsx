@@ -38,7 +38,7 @@ function DropdownUserProfile() {
             aria-label="open settings"
             className={cx(
               focusRing,
-              "group rounded-md p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10"
+              "group rounded-md p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:dark:bg-gray-400/10 hover:dark:bg-gray-400/10"
             )}
           >
             <span

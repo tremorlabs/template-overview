@@ -302,7 +302,7 @@ export default function CohortRetention() {
                     <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-transparent">
                       <button
                         className={cx(
-                          "group relative -ml-2 h-full w-full rounded p-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100 hover:focus-visible:bg-gray-900 hover:dark:bg-gray-900",
+                          "group relative -ml-2 h-full w-full rounded p-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900 hover:dark:bg-gray-900",
                           focusRing,
                         )}
                         onClick={() => {
@@ -386,7 +386,7 @@ export default function CohortRetention() {
               {/* Left Column */}
               <div className="space-y-6">
                 <div>
-                  <dt className="text-sm text-gray-500">Total Users</dt>
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">Total Users</dt>
                   <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.totalUsers.toLocaleString()}
@@ -397,7 +397,7 @@ export default function CohortRetention() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-gray-500">
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">
                     Average CSAT Score
                   </dt>
                   <dd className="mt-1 flex items-baseline">
@@ -445,7 +445,7 @@ export default function CohortRetention() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-gray-500">Resolution Rate</dt>
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">Resolution Rate</dt>
                   <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {(
@@ -454,23 +454,23 @@ export default function CohortRetention() {
                       ).toFixed(1)}
                       %
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+2%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+2%</span>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-gray-500">Total Cohorts</dt>
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">Total Cohorts</dt>
                   <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.totalCohorts}
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+5%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+5%</span>
                   </dd>
                 </div>
               </div>
               {/* Right Column */}
               <div className="space-y-6">
                 <div>
-                  <dt className="text-sm text-gray-500">
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">
                     Avg. Handling Time
                   </dt>
                   <dd className="mt-1 flex items-baseline">
@@ -480,11 +480,11 @@ export default function CohortRetention() {
                       )}
                       m
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+21%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+21%</span>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-gray-500">
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">
                     First Contact Resolution
                   </dt>
                   <dd className="mt-1 flex items-baseline">
@@ -495,11 +495,11 @@ export default function CohortRetention() {
                       ).toFixed(1)}
                       %
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+3%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+3%</span>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-gray-500">Retention Rate</dt>
+                  <dt className="text-sm text-gray-500 dark:text-gray-500">Retention Rate</dt>
                   <dd className="mt-1 flex items-baseline">
                     <span className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
                       {cohortsAggregate.aggregateMetrics.retention.overallRetentionRate.toFixed(
@@ -507,7 +507,7 @@ export default function CohortRetention() {
                       )}
                       %
                     </span>
-                    <span className="ml-2 text-sm text-emerald-600">+2%</span>
+                    <span className="ml-2 text-sm text-emerald-600 dark:text-emerald-500">+2%</span>
                   </dd>
                 </div>
               </div>

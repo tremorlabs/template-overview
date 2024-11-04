@@ -37,14 +37,14 @@ export const columns = [
             {row.original.full_name}
           </span>
           <div className="flex items-center gap-1 text-xs">
-            <span className="text-gray-500">AgID </span>
+            <span className="text-gray-500 dark:text-gray-500">AgID </span>
             <span className="font-mono font-medium uppercase tabular-nums text-gray-900 dark:text-gray-50">
               {row.original.agent_id}
             </span>
             <RiShieldCheckFill
               className={cx(
                 "size-3 shrink-0",
-                row.original.registered ? "text-emerald-600" : "text-gray-400",
+                row.original.registered ? "text-emerald-600 dark:text-emerald-400" : "text-gray-400 dark:text-gray-600",
               )}
             />
           </div>
@@ -70,7 +70,7 @@ export const columns = [
               "$1 $2 $3 $4 $5",
             )}
           </span>
-          <span className="text-xs text-gray-500">{row.original.email}</span>
+          <span className="text-xs text-gray-500 dark:text-gray-500">{row.original.email}</span>
         </div>
       )
     },
@@ -103,7 +103,7 @@ export const columns = [
               </Badge>
             )}
           </span>
-          <span className="text-xs tabular-nums text-gray-500">
+          <span className="text-xs tabular-nums text-gray-500 dark:text-gray-500">
             Start:{" "}
             {new Date(row.original.start_date).toLocaleDateString("en-GB", {
               day: "2-digit",
@@ -182,7 +182,7 @@ export const columns = [
           </div>
           <div className="flex flex-col gap-0">
             <span className="text-gray-900 dark:text-gray-50">
-              <span className="text-gray-500">Called </span>
+              <span className="text-gray-500 dark:text-gray-500">Called </span>
               <span className="font-medium">
                 {new Intl.NumberFormat().format(minutes_called)}
               </span>

@@ -36,7 +36,6 @@ export default function SupportDashboard() {
         <TicketDrawer open={isOpen} onOpenChange={setIsOpen} />
       </div>
       <dl className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {/* --- Card 1: Ticket Status --- */}
         <Card>
           <dt className="text-sm font-medium text-gray-900 dark:text-gray-50">
             Current Tickets
@@ -92,7 +91,6 @@ export default function SupportDashboard() {
             </li>
           </ul>
         </Card>
-        {/* --- Card 2: SLA Metrics --- */}
         <Card>
           <dt className="text-sm font-medium text-gray-900 dark:text-gray-50">
             SLA Performance
@@ -129,7 +127,6 @@ export default function SupportDashboard() {
             <ProgressCircle value={83} radius={45} strokeWidth={7} />
           </div>
         </Card>
-        {/* --- Card 3: Call Volume --- */}
         <Card>
           <dt className="text-sm font-medium text-gray-900 dark:text-gray-50">
             Call Volume Trends

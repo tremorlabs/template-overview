@@ -56,7 +56,7 @@ export function DataTablePagination<TData>({
 
   return (
     <div className="flex items-center justify-between">
-      <p className="hidden text-sm tabular-nums text-gray-500 sm:block">
+      <p className="hidden text-sm tabular-nums text-gray-500 dark:text-gray-500 sm:block">
         Showing{" "}
         <span className="font-medium text-gray-900 dark:text-gray-50">
           {firstRowIndex}-{lastRowIndex}
