@@ -23,13 +23,13 @@ export default function SupportDashboard() {
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Support Dashboard
           </h1>
-          <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 sm:text-sm/6 dark:text-gray-400">
             Real-time monitoring of support metrics with AI-powered insights
           </p>
         </div>
         <Button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-base sm:text-sm"
         >
           Create Ticket
           <RiAddLine className="-mr-0.5 size-5 shrink-0" aria-hidden="true" />

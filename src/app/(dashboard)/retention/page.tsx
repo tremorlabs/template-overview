@@ -88,7 +88,7 @@ const CohortDetailsDialog = ({
           <DialogTitle className="text-lg font-semibold">
             Cohort Details
           </DialogTitle>
-          <DialogDescription className="mt-1 text-sm/6">
+          <DialogDescription className="mt-1 sm:text-sm/6">
             Detailed metrics for cohort starting {cohortKey} with {cohort.size}{" "}
             initial customers
           </DialogDescription>
@@ -272,7 +272,7 @@ export default function CohortRetention() {
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Cohort Retention
           </h1>
-          <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 sm:text-sm/6 dark:text-gray-400">
             Track customer engagement patterns and analyze support trends across
             user segments
           </p>
@@ -382,8 +382,8 @@ export default function CohortRetention() {
           Cohort Analytics
         </h2>
 
-        <div className="mt-8 grid grid-cols-8 gap-5">
-          <Card className="col-span-6">
+        <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-8">
+          <Card className="lg:col-span-6">
             <p className="font-semibold text-gray-900 dark:text-gray-50">
               Cohort Statistics
             </p>
@@ -537,7 +537,7 @@ export default function CohortRetention() {
             </dl>
           </Card>
 
-          <Card className="col-span-2">
+          <Card className="lg:col-span-2">
             <p className="font-semibold text-gray-900 dark:text-gray-50">
               Top Issues
             </p>

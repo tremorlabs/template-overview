@@ -167,13 +167,16 @@ export function Notifications() {
               />
             )}
             <RiNotification2Line
-              className="size-4 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50"
+              className="-ml-px size-4 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50"
               aria-hidden="true"
             />
           </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="z-20 mx-2 max-w-sm px-4">
+      <PopoverContent
+        align="end"
+        className="z-20 ml-2 max-w-[95vw] px-4 sm:ml-0 sm:max-w-sm"
+      >
         <div className="flex items-center justify-between gap-16">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">
             Notifications

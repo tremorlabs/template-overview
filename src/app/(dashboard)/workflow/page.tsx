@@ -177,7 +177,7 @@ export default function Workflow() {
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Workflow
           </h1>
-          <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 sm:text-sm/6 dark:text-gray-400">
             Analyze case testing efficiency and simulate cost impacts across
             departments
           </p>
@@ -186,7 +186,10 @@ export default function Workflow() {
       <Divider />
       <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-lg bg-gray-50/50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
         <div className="w-full sm:w-96">
-          <Label htmlFor="test-quota" className="font-medium">
+          <Label
+            htmlFor="test-quota"
+            className="text-base font-medium sm:text-sm"
+          >
             Test Quota (%)
           </Label>
           <div className="mt-2 flex items-center gap-4">
@@ -230,7 +233,7 @@ export default function Workflow() {
           </p>
         </div>
         <div>
-          <legend className="text-sm font-medium text-gray-900 dark:text-gray-50">
+          <legend className="font-medium text-gray-900 sm:text-sm dark:text-gray-50">
             Select department to exclude
           </legend>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -245,7 +248,7 @@ export default function Workflow() {
                 />
                 <Label
                   htmlFor={dept.department}
-                  className="whitespace-nowrap sm:text-sm"
+                  className="whitespace-nowrap text-base sm:text-sm"
                 >
                   {dept.department_label}
                 </Label>

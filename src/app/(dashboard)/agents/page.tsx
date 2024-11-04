@@ -11,7 +11,7 @@ export default function Agents() {
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Agents
           </h1>
-          <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 sm:text-sm/6 dark:text-gray-400">
             Monitor agent performance and manage ticket generation
           </p>
         </div>

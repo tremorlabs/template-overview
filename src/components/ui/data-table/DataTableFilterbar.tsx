@@ -37,7 +37,10 @@ export function Filterbar({
           checked={registeredOnly}
           onCheckedChange={(checked) => setRegisteredOnly(checked)}
         />
-        <Label htmlFor="registered" className="text-sm text-gray-600">
+        <Label
+          htmlFor="registered"
+          className="text-base text-gray-600 sm:text-sm"
+        >
           Registered agents only
         </Label>
       </div>

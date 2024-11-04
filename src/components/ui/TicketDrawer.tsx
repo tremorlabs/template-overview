@@ -81,7 +81,7 @@ const FirstPage = ({ formData, onUpdateForm }: FormPageProps) => (
         </span>
       </DrawerTitle>
     </DrawerHeader>
-    <DrawerBody className="-mx-6 space-y-6 border-t border-gray-200 px-6 dark:border-gray-800">
+    <DrawerBody className="-mx-6 space-y-6 overflow-y-scroll border-t border-gray-200 px-6 dark:border-gray-800">
       <FormField label="Contact Type">
         <RadioCardGroup
           defaultValue={formData.type}
@@ -92,11 +92,12 @@ const FirstPage = ({ formData, onUpdateForm }: FormPageProps) => (
             <RadioCardItem
               key={type.value}
               value={type.value}
-              // @SEV: you can fiddle around here with the white ring in dark mode
-              className="p-2.5 duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white"
+              className="flex flex-col justify-start p-2.5 text-base duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white sm:text-sm dark:focus:ring-blue-500"
             >
               {type.name}
-              <span className="block text-xs opacity-75">{type.extended}</span>
+              <span className="block text-sm opacity-75 sm:text-xs">
+                {type.extended}
+              </span>
             </RadioCardItem>
           ))}
         </RadioCardGroup>
@@ -180,14 +181,15 @@ const SecondPage = ({ formData, onUpdateForm }: FormPageProps) => (
             <RadioCardItem
               key={priority.value}
               value={priority.value}
-
-              className="p-2.5 duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white"
+              className="p-2.5 text-base duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white sm:text-sm dark:focus:ring-blue-500"
             >
               <div className="flex items-center justify-between">
                 <span>{priority.label}</span>
-                <span className="text-xs">SLA: {priority.sla}</span>
+                <span className="text-sm opacity-75 sm:text-xs">
+                  SLA: {priority.sla}
+                </span>
               </div>
-              <span className="block text-xs opacity-75">
+              <span className="block text-sm opacity-75 sm:text-xs">
                 {priority.description}
               </span>
             </RadioCardItem>
