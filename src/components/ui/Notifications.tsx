@@ -105,19 +105,24 @@ const NotificationItem = ({ notification }: { notification: Notification }) => {
   const { message, date, read } = notification
   return (
     <li className="py-2.5">
-      <a href="#" className="px-1 py-1.5 rounded-md relative block hover:bg-gray-100/90 hover:dark:bg-gray-900 focus:outline-none">
+      <a
+        href="#"
+        className="relative block rounded-md px-1 py-1.5 hover:bg-gray-100/90 focus:outline-none hover:dark:bg-gray-900"
+      >
         {/* Extend touch target to entire field */}
         <span aria-hidden="true" className="absolute inset-0" />
         <p className="text-sm text-gray-900 dark:text-gray-50">
           {!read && (
             <span
               aria-hidden="true"
-              className="mb-px mr-1.5 inline-flex size-2 shrink-0 rounded-full bg-blue-500 dark:bg-blue-500 sm:text-sm"
+              className="mb-px mr-1.5 inline-flex size-2 shrink-0 rounded-full bg-blue-500 sm:text-sm dark:bg-blue-500"
             />
           )}
           {message}
         </p>
-        <p className="mt-2.5 text-xs text-gray-500 dark:text-gray-500">{formatDate(date)}</p>
+        <p className="mt-2.5 text-xs text-gray-500 dark:text-gray-500">
+          {formatDate(date)}
+        </p>
       </a>
     </li>
   )
@@ -131,7 +136,7 @@ const NotificationList = ({ showAll = false }: { showAll?: boolean }) => {
   return (
     <ol
       aria-label="Unread notifications"
-      className="flex max-h-96 flex-col divide-y divide-gray-200 dark:divide-gray-800 overflow-y-scroll"
+      className="flex max-h-96 flex-col divide-y divide-gray-200 overflow-y-scroll dark:divide-gray-800"
     >
       {filteredNotifications.map((notification) => (
         <NotificationItem key={notification.id} notification={notification} />
@@ -151,12 +156,15 @@ export function Notifications() {
           aria-label="open notifications"
           className={cx(
             focusRing,
-            "group rounded-md p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:dark:bg-gray-400/10 hover:dark:bg-gray-400/10"
+            "group rounded-full p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 hover:dark:bg-gray-400/10 data-[state=open]:dark:bg-gray-400/10",
           )}
         >
-          <span className="size-8 flex items-center justify-center bg-white dark:bg-gray-900 hover:dark:bg-gray-400/10 rounded-full border border-gray-300 dark:border-gray-700 p-1">
+          <span className="flex size-8 items-center justify-center rounded-full border border-gray-300 bg-white p-1 dark:border-gray-700 dark:bg-gray-900 hover:dark:bg-gray-400/10">
             {unreadCount > 0 && (
-              <span className="absolute right-2.5 top-2.5 size-2 shrink-0 rounded-full bg-blue-500" aria-hidden="true" />
+              <span
+                className="absolute right-2.5 top-2.5 size-2 shrink-0 rounded-full bg-blue-500"
+                aria-hidden="true"
+              />
             )}
             <RiNotification2Line
               className="size-4 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50"
@@ -165,7 +173,7 @@ export function Notifications() {
           </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="z-20 max-w-sm mx-2 px-4">
+      <PopoverContent align="end" className="z-20 mx-2 max-w-sm px-4">
         <div className="flex items-center justify-between gap-16">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">
             Notifications

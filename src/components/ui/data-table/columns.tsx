@@ -44,7 +44,9 @@ export const columns = [
             <RiShieldCheckFill
               className={cx(
                 "size-3 shrink-0",
-                row.original.registered ? "text-emerald-600 dark:text-emerald-400" : "text-gray-400 dark:text-gray-600",
+                row.original.registered
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-gray-400 dark:text-gray-600",
               )}
             />
           </div>
@@ -70,7 +72,9 @@ export const columns = [
               "$1 $2 $3 $4 $5",
             )}
           </span>
-          <span className="text-xs text-gray-500 dark:text-gray-500">{row.original.email}</span>
+          <span className="text-xs text-gray-500 dark:text-gray-500">
+            {row.original.email}
+          </span>
         </div>
       )
     },

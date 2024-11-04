@@ -10,8 +10,8 @@ const TableRoot = React.forwardRef<
 >(({ className, children, ...props }, forwardedRef) => (
   <div
     ref={forwardedRef}
-  // Activate if table is used in a float environment
-  // className="flow-root"
+    // Activate if table is used in a float environment
+    // className="flow-root"
   >
     <div
       // make table scrollable on mobile
@@ -101,8 +101,8 @@ const TableRow = React.forwardRef<
   <tr
     ref={forwardedRef}
     className={cx(
-      "[&_td:last-child]:pr-4 [&_th:last-child]:pr-4",
-      "[&_td:first-child]:pl-4 [&_th:first-child]:pl-4",
+      "[&_td:last-child]:pr-2 [&_th:last-child]:pr-2",
+      "[&_td:first-child]:pl-2 [&_th:first-child]:pl-2",
       className,
     )}
     {...props}
@@ -181,6 +181,5 @@ export {
   TableHead,
   TableHeaderCell,
   TableRoot,
-  TableRow
+  TableRow,
 }
-

@@ -124,8 +124,8 @@ export default function Workflow() {
 
     const baselineErrorCosts = Math.round(
       stats.total_cases *
-      COST_ASSUMPTIONS.expectedErrorRate *
-      COST_ASSUMPTIONS.undetectedErrorCost,
+        COST_ASSUMPTIONS.expectedErrorRate *
+        COST_ASSUMPTIONS.undetectedErrorCost,
     )
 
     const totalCosts = testingCosts + correctionCosts + undetectedErrorCosts
@@ -153,19 +153,27 @@ export default function Workflow() {
   const scenarioImpact =
     scenarioQuota === actualQuota
       ? {
-        costs: currentImpact.costs,
-        savings: 0,
-        fteImpact: 0,
-      }
+          costs: currentImpact.costs,
+          savings: 0,
+          fteImpact: 0,
+        }
       : calculateImpact(displayStats)
 
   return (
     <main>
-      <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
-        Workflow
-      </h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+            Workflow
+          </h1>
+          <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+            Analyze case testing efficiency and simulate cost impacts across
+            departments
+          </p>
+        </div>
+      </div>
       <Divider />
-      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-md bg-gray-50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
+      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-lg bg-gray-50/50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
         <div className="w-full sm:w-96">
           <Label htmlFor="test-quota" className="font-medium">
             Test Quota (%)
@@ -194,7 +202,7 @@ export default function Workflow() {
                 variant="light"
                 className="group -ml-3 p-2 hover:bg-red-500 hover:dark:bg-red-500"
               >
-                <RiResetLeftLine className="size-5 text-gray-900 dark:text-gray-50 transition group-hover:-rotate-45 group-hover:text-white" />
+                <RiResetLeftLine className="size-5 text-gray-900 transition group-hover:-rotate-45 group-hover:text-white dark:text-gray-50" />
                 <span className="sr-only">Reset</span>
               </Button>
             ) : null}
@@ -318,7 +326,9 @@ export default function Workflow() {
                   </div>
                 </ProgressCircle>
               </div>
-              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">Untested Cases</p>
+              <p className="mt-4 text-sm text-gray-700 dark:text-gray-300">
+                Untested Cases
+              </p>
             </div>
           </div>
           <div className="mt-24 min-w-32">
@@ -502,8 +512,8 @@ export default function Workflow() {
                   scenarioQuota === actualQuota
                     ? 0
                     : ((projectedSavings - currentSavings) /
-                      Math.abs(currentSavings)) *
-                    100
+                        Math.abs(currentSavings)) *
+                      100
 
                 return (
                   <li
@@ -524,12 +534,13 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
-                          : difference > 0
-                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
-                            : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
-                          }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                        }`}
                       >
                         {difference === 0
                           ? "0.0%"
@@ -580,12 +591,13 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
-                          : difference > 0
-                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
-                            : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
-                          }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                        }`}
                       >
                         {difference === 0
                           ? "0.0%"

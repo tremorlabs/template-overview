@@ -22,7 +22,7 @@ export function Filterbar({
   }, 300)
 
   return (
-    <div className="rounded-md flex flex-wrap items-center justify-between gap-6 bg-gray-50 dark:bg-gray-900 p-6 ring-1 ring-gray-200 dark:ring-gray-800">
+    <div className="flex flex-wrap items-center justify-between gap-6 rounded-lg bg-gray-50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
       <Input
         className="w-full sm:w-96"
         type="search"
