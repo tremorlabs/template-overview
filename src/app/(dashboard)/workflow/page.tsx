@@ -6,6 +6,7 @@ import { Input } from "@/components/Input"
 import { Label } from "@/components/Label"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { Slider } from "@/components/Slider"
+import { departments } from "@/data/workflow/schema"
 import { workflowStats } from "@/data/workflow/workflow-data"
 import { valueFormatter } from "@/lib/formatters"
 import { RiResetLeftLine } from "@remixicon/react"
@@ -48,9 +49,11 @@ export default function Workflow() {
   }, [data, excludedDepartments])
 
   const actualQuota = React.useMemo(() => {
-    return Math.round(
-      (aggregateStats.tested_cases / aggregateStats.total_cases) * 100,
-    )
+    return aggregateStats.total_cases === 0
+      ? 0
+      : Math.round(
+          (aggregateStats.tested_cases / aggregateStats.total_cases) * 100,
+        )
   }, [aggregateStats])
 
   const [scenarioQuota, setScenarioQuota] = React.useState<number>(actualQuota)
@@ -58,6 +61,11 @@ export default function Workflow() {
   React.useEffect(() => {
     setScenarioQuota(actualQuota)
   }, [actualQuota])
+
+  const calculatePercentage = (numerator: number, denominator: number) => {
+    if (denominator === 0) return 0
+    return (numerator / denominator) * 100
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.min(Math.max(0, Number(event.target.value)), 100)
@@ -159,11 +167,7 @@ export default function Workflow() {
   const currentImpact = calculateImpact(aggregateStats)
   const scenarioImpact =
     scenarioQuota === actualQuota
-      ? {
-          costs: currentImpact.costs,
-          savings: 0,
-          fteImpact: 0,
-        }
+      ? { costs: currentImpact.costs, savings: 0, fteImpact: 0 }
       : calculateImpact(displayStats)
 
   return (
@@ -249,8 +253,24 @@ export default function Workflow() {
         </div>
       </div>
 
-      <section className="mt-12 overflow-x-scroll p-4">
-        <div className="grid min-w-[40rem] grid-cols-5">
+      <section className="relative mt-12 overflow-x-scroll p-4">
+        {excludedDepartments.size === departments.length ? (
+          <div className="absolute inset-0 z-10 bg-white/10 backdrop-blur-sm">
+            <div className="flex h-full items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-2 rounded-lg bg-white p-6 shadow-xl shadow-black/5 ring-1 ring-black/5">
+                You must include at least one department
+                <Button
+                  className="w-full"
+                  variant="secondary"
+                  onClick={() => setExcludedDepartments(new Set())}
+                >
+                  Reset departments
+                </Button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+        <div className="relative grid min-w-[40rem] grid-cols-5">
           <div className="flex flex-col items-center gap-6">
             <h2 className="text-nowrap text-sm font-medium text-gray-900 dark:text-gray-50">
               1. Completed Cases
@@ -286,18 +306,19 @@ export default function Workflow() {
                 <ProgressCircle
                   radius={45}
                   strokeWidth={6}
-                  value={
-                    (displayStats.tested_cases / displayStats.total_cases) * 100
-                  }
+                  value={calculatePercentage(
+                    displayStats.tested_cases,
+                    displayStats.total_cases,
+                  )}
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
                       {valueFormatter(displayStats.tested_cases)}
                     </span>
-                    <span className="text-xs font-medium tabular-nums text-gray-500 dark:text-gray-500">
-                      {(
-                        (displayStats.tested_cases / displayStats.total_cases) *
-                        100
+                    <span className="text-xs font-medium tabular-nums text-gray-500">
+                      {calculatePercentage(
+                        displayStats.tested_cases,
+                        displayStats.total_cases,
                       ).toFixed(1)}
                       %
                     </span>
@@ -414,7 +435,7 @@ export default function Workflow() {
       </section>
 
       <Divider className="my-12" />
-      <section className="mt-12">
+      <section className="relative mt-12">
         <h2 className="font-medium text-gray-900 dark:text-gray-50">
           Impact overview
         </h2>
