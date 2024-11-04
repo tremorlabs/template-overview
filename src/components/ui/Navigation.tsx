@@ -2,6 +2,7 @@
 
 import { TabNavigation, TabNavigationLink } from "@/components/TabNavigation"
 import Link from "next/link"
+import { Notifications } from "./Notifications"
 
 import { usePathname } from "next/navigation"
 import { Logo } from "../../../public/Logo"
@@ -18,7 +19,7 @@ function Navigation() {
         </div>
         <div className="flex h-[42px] flex-nowrap gap-2">
           {/* @CHRIS: fundamental design changes */}
-          {/* <Notifications /> */}
+          <Notifications />
           <DropdownUserProfile />
         </div>
       </div>
