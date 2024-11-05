@@ -202,7 +202,6 @@ export default function Workflow() {
               className="w-full sm:max-w-56"
               disabled={excludedDepartments.size === departments.length}
             />
-
             <Input
               type="number"
               value={scenarioQuota}
@@ -215,10 +214,10 @@ export default function Workflow() {
             {scenarioQuota !== actualQuota ? (
               <Button
                 onClick={() => setScenarioQuota(actualQuota)}
-                variant="light"
-                className="group -ml-3 p-2 hover:bg-red-500 hover:dark:bg-red-500"
+                variant="ghost"
+                className="group -ml-2.5 py-2.5 sm:py-2"
               >
-                <RiResetLeftLine className="size-5 text-gray-900 transition group-hover:-rotate-45 group-hover:text-white dark:text-gray-50" />
+                <RiResetLeftLine className="size-5 text-gray-500 transition group-hover:-rotate-45 group-hover:text-gray-700 dark:text-gray-500 group-hover:dark:text-gray-300" />
                 <span className="sr-only">Reset</span>
               </Button>
             ) : null}

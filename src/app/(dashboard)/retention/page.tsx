@@ -346,7 +346,7 @@ export default function CohortRetention() {
                               getTextColor(weekData.percentage, 0, 100),
                             )}
                           >
-                            <span className="block text-sm font-semibold">
+                            <span className="block text-sm font-medium">
                               {weekData.percentage.toFixed(1)}%
                             </span>
                             <span
