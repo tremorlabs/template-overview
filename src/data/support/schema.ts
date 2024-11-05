@@ -196,12 +196,6 @@ export const priorities: {
     description: "Accidents, injuries, immediate assistance needed",
   },
   {
-    value: "urgent",
-    label: "Urgent",
-    sla: "1h",
-    description: "Active claims requiring immediate attention",
-  },
-  {
     value: "high",
     label: "High Priority",
     sla: "4h",

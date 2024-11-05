@@ -104,24 +104,26 @@ const formatDate = (dateString: string): string => {
 const NotificationItem = ({ notification }: { notification: Notification }) => {
   const { message, date, read } = notification
   return (
-    <li className="space-y-1 py-2.5">
-      <p>
-        {!read && (
-          <div
-            aria-hidden="true"
-            className="mb-px mr-1.5 inline-flex size-2 shrink-0 rounded-full bg-blue-500 sm:text-sm"
-          />
-        )}
-        {message}
-      </p>
-      <div className="flex items-center justify-between">
-        <p className="text-gray-500">{formatDate(date)}</p>
-        {!read && (
-          <Button className="h-6 px-1.5" variant="light">
-            Read
-          </Button>
-        )}
-      </div>
+    <li className="py-2.5">
+      <a
+        href="#"
+        className="relative block rounded-md px-1 py-1.5 hover:bg-gray-100/90 focus:outline-none hover:dark:bg-gray-900"
+      >
+        {/* Extend touch target to entire field */}
+        <span aria-hidden="true" className="absolute inset-0" />
+        <p className="text-sm text-gray-900 dark:text-gray-50">
+          {!read && (
+            <span
+              aria-hidden="true"
+              className="mb-px mr-1.5 inline-flex size-2 shrink-0 rounded-full bg-blue-500 sm:text-sm dark:bg-blue-500"
+            />
+          )}
+          {message}
+        </p>
+        <p className="mt-2.5 text-xs text-gray-500 dark:text-gray-500">
+          {formatDate(date)}
+        </p>
+      </a>
     </li>
   )
 }
@@ -134,7 +136,7 @@ const NotificationList = ({ showAll = false }: { showAll?: boolean }) => {
   return (
     <ol
       aria-label="Unread notifications"
-      className="flex max-h-96 flex-col divide-y overflow-y-scroll"
+      className="flex max-h-96 flex-col divide-y divide-gray-200 overflow-y-scroll dark:divide-gray-800"
     >
       {filteredNotifications.map((notification) => (
         <NotificationItem key={notification.id} notification={notification} />
@@ -150,25 +152,33 @@ export function Notifications() {
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          aria-label={`Notifications (${unreadCount} unread)`}
           variant="ghost"
+          aria-label="open notifications"
           className={cx(
             focusRing,
-            "group relative size-9 rounded-full bg-white text-sm text-gray-900 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 data-[state=open]:bg-gray-200/50",
+            "group rounded-full p-1 hover:bg-gray-100 data-[state=open]:bg-gray-100 hover:dark:bg-gray-400/10 data-[state=open]:dark:bg-gray-400/10",
           )}
         >
-          {unreadCount > 0 && (
-            <div className="absolute right-1.5 top-1.5 size-2 shrink-0 rounded-full bg-blue-500" />
-          )}
-          <RiNotification2Line
-            className="size-5 shrink-0 text-gray-500 group-hover:text-gray-700"
-            aria-hidden="true"
-          />
+          <span className="flex size-8 items-center justify-center rounded-full border border-gray-300 bg-white p-1 dark:border-gray-700 dark:bg-gray-900 hover:dark:bg-gray-400/10">
+            {unreadCount > 0 && (
+              <span
+                className="absolute right-2.5 top-2.5 size-2 shrink-0 rounded-full bg-blue-500"
+                aria-hidden="true"
+              />
+            )}
+            <RiNotification2Line
+              className="-ml-px size-4 shrink-0 text-gray-700 group-hover:text-gray-900 dark:text-gray-300 group-hover:dark:text-gray-50"
+              aria-hidden="true"
+            />
+          </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="z-20 mx-2 max-w-md px-4">
+      <PopoverContent
+        align="end"
+        className="z-20 ml-2 max-w-[95vw] px-4 sm:ml-0 sm:max-w-sm"
+      >
         <div className="flex items-center justify-between gap-16">
-          <h2 className="text-base font-semibold text-gray-900">
+          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">
             Notifications
           </h2>
           <Button variant="ghost">Mark {unreadCount} as read</Button>
@@ -178,16 +188,16 @@ export function Notifications() {
             <TabsTrigger value="unread">Unread</TabsTrigger>
             <TabsTrigger value="all">All</TabsTrigger>
           </TabsList>
-          <div className="mt-4">
-            <TabsContent value="unread" className="max-w-xs">
+          <div className="mt-2">
+            <TabsContent value="unread">
               <NotificationList />
             </TabsContent>
-            <TabsContent value="all" className="max-w-xs">
+            <TabsContent value="all">
               <div className="relative">
                 <NotificationList showAll />
                 <div
+                  className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-white dark:to-gray-950"
                   aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-white"
                 />
               </div>
               <Button variant="secondary" className="mt-2 w-full">

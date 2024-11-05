@@ -24,17 +24,7 @@ export const columns = [
       className: "text-left",
     },
     cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <span
-          className={cx(
-            "size-2 shrink-0 rounded-full",
-            row.original.status === "resolved"
-              ? "bg-green-600 dark:bg-green-400"
-              : row.original.status === "escalated"
-                ? "bg-rose-600 dark:bg-rose-400"
-                : "bg-blue-400 dark:bg-blue-600",
-          )}
-        />
+      <>
         {new Date(row.original.created).toLocaleDateString("en-GB", {
           day: "2-digit",
           month: "2-digit",
@@ -42,7 +32,7 @@ export const columns = [
           hour: "2-digit",
           minute: "2-digit",
         })}
-      </div>
+      </>
     ),
   },
   {
@@ -110,31 +100,38 @@ export const columns = [
     header: "Assessed Priority",
     accessorKey: "priority",
     meta: {
-      className: "text-center",
+      className: "text-left",
     },
-    cell: ({ row }) => {
-      const getPriorityVariant = (priority: string) => {
-        switch (priority) {
-          case "emergency":
-            return "error"
-          case "urgent":
-            return "warning"
-          case "high":
-            return "default"
-          case "medium":
-            return "neutral"
-          default:
-            return "neutral"
-        }
-      }
-      return (
-        <Badge
-          variant={getPriorityVariant(row.original.priority)}
-          className="capitalize"
-        >
-          {row.original.priority}
-        </Badge>
-      )
-    },
+    cell: ({ row }) => (
+      <Badge
+        variant="neutral"
+        className="gap-1.5 font-normal capitalize text-gray-700 dark:text-gray-300"
+      >
+        <span
+          className={cx(
+            "size-2 shrink-0 rounded-sm",
+            "bg-gray-500 dark:bg-gray-500",
+            {
+              "bg-emerald-600 dark:bg-emerald-400":
+                row.original.priority === "low",
+            },
+            {
+              "bg-gray-500 dark:bg-gray-500":
+                row.original.priority === "medium",
+            },
+            {
+              "bg-orange-500 dark:bg-orange-500":
+                row.original.priority === "high",
+            },
+            {
+              "bg-red-500 dark:bg-red-500":
+                row.original.priority === "emergency",
+            },
+          )}
+          aria-hidden="true"
+        />
+        {row.original.priority}
+      </Badge>
+    ),
   },
 ] as ColumnDef<Ticket>[]

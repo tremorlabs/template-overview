@@ -101,8 +101,8 @@ const TableRow = React.forwardRef<
   <tr
     ref={forwardedRef}
     className={cx(
-      "[&_td:last-child]:pr-4 [&_th:last-child]:pr-4",
-      "[&_td:first-child]:pl-4 [&_th:first-child]:pl-4",
+      "[&_td:last-child]:pr-2 [&_th:last-child]:pr-2",
+      "[&_td:first-child]:pl-2 [&_th:first-child]:pl-2",
       className,
     )}
     {...props}

@@ -4,13 +4,8 @@ import { Badge } from "@/components/Badge"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { Agent } from "@/data/agents/schema"
 import { cx } from "@/lib/utils"
-import {
-  RiCheckboxCircleFill,
-  RiCloseCircleFill,
-  RiShieldCheckFill,
-} from "@remixicon/react"
+import { RiShieldCheckFill } from "@remixicon/react"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
-import React from "react"
 import { ButtonTicketGeneration } from "./ButtonTicketGeneration"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 
@@ -38,19 +33,20 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="font-medium text-gray-950">
+          <span className="font-medium text-gray-900 dark:text-gray-50">
             {row.original.full_name}
           </span>
           <div className="flex items-center gap-1 text-xs">
-            <span className="text-gray-500">AgID </span>
-            <span className="font-mono font-medium uppercase tabular-nums text-gray-950">
+            <span className="text-gray-500 dark:text-gray-500">AgID </span>
+            <span className="font-mono font-medium uppercase tabular-nums text-gray-900 dark:text-gray-50">
               {row.original.agent_id}
             </span>
-
             <RiShieldCheckFill
               className={cx(
                 "size-3 shrink-0",
-                row.original.registered ? "text-emerald-600" : "text-gray-400",
+                row.original.registered
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-gray-400 dark:text-gray-600",
               )}
             />
           </div>
@@ -70,13 +66,15 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="text-gray-950">
+          <span className="text-gray-900 dark:text-gray-50">
             {row.original.number.replace(
               /(\+41)(\d{2})(\d{3})(\d{2})(\d{2})/,
               "$1 $2 $3 $4 $5",
             )}
           </span>
-          <span className="text-xs text-gray-500">{row.original.email}</span>
+          <span className="text-xs text-gray-500 dark:text-gray-500">
+            {row.original.email}
+          </span>
         </div>
       )
     },
@@ -93,7 +91,7 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="tabular-nums text-gray-950">
+          <span className="tabular-nums text-gray-900 dark:text-gray-50">
             {row.original.end_date ? (
               <>
                 End:{" "}
@@ -109,7 +107,7 @@ export const columns = [
               </Badge>
             )}
           </span>
-          <span className="text-xs tabular-nums text-gray-500">
+          <span className="text-xs tabular-nums text-gray-500 dark:text-gray-500">
             Start:{" "}
             {new Date(row.original.start_date).toLocaleDateString("en-GB", {
               day: "2-digit",
@@ -134,8 +132,12 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-1">
-          <span className="text-gray-950">{row.original.account}</span>
-          <span className="text-xs text-gray-500">Main division</span>
+          <span className="text-gray-900 dark:text-gray-50">
+            {row.original.account}
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-500">
+            Main division
+          </span>
         </div>
       )
     },
@@ -183,13 +185,13 @@ export const columns = [
             </ProgressCircle>
           </div>
           <div className="flex flex-col gap-0">
-            <span className="text-gray-950">
-              <span className="text-gray-500">Called </span>
+            <span className="text-gray-900 dark:text-gray-50">
+              <span className="text-gray-500 dark:text-gray-500">Called </span>
               <span className="font-medium">
                 {new Intl.NumberFormat().format(minutes_called)}
               </span>
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 dark:text-gray-500">
               Booked {new Intl.NumberFormat().format(minutes_booked)}
             </span>
           </div>
@@ -207,20 +209,8 @@ export const columns = [
       displayName: "Ticket Generation",
     },
     cell: ({ row }) => {
-      const isEnabled = row.original.ticket_generation
-      const [enabled, setEnabled] = React.useState(isEnabled)
       return (
-        <ButtonTicketGeneration
-          onClick={() => setEnabled(!enabled)}
-          className="flex gap-1.5"
-        >
-          {enabled ? (
-            <RiCheckboxCircleFill className="size-4 shrink-0 text-emerald-600" />
-          ) : (
-            <RiCloseCircleFill className="size-4 shrink-0 text-gray-400" />
-          )}
-          {enabled ? "Enabled" : "Disabled"}
-        </ButtonTicketGeneration>
+        <ButtonTicketGeneration initalState={row.original.ticket_generation} />
       )
     },
   }),

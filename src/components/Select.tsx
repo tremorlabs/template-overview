@@ -162,7 +162,7 @@ const SelectContent = React.forwardRef<
           className={cx(
             "p-1",
             position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[calc(var(--radix-select-trigger-width))]",
+            "h-[var(--radix-select-trigger-height)] w-full min-w-[calc(var(--radix-select-trigger-width))]",
           )}
         >
           {children}
@@ -219,7 +219,6 @@ const SelectItem = React.forwardRef<
       <SelectPrimitives.ItemText className="flex-1 truncate">
         {children}
       </SelectPrimitives.ItemText>
-      {/* @CHRIS: stopped here */}
       <SelectPrimitives.ItemIndicator>
         <RiCheckLine
           className="size-5 shrink-0 text-gray-800 dark:text-gray-200"
@@ -296,5 +295,6 @@ export {
   SelectItemExtended,
   SelectSeparator,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 }
+

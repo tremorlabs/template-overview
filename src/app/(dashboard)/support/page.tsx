@@ -3,40 +3,41 @@
 import { Button } from "@/components/Button"
 import { Card } from "@/components/Card"
 import { CategoryBar } from "@/components/CategoryBar"
+import { Divider } from "@/components/Divider"
 import { LineChartSupport } from "@/components/LineChartSupport"
 import { ProgressCircle } from "@/components/ProgressCircle"
 import { TicketDrawer } from "@/components/ui/TicketDrawer"
-import { DataTable } from "@/components/ui/data-table-transactions/DataTable"
-import { columns } from "@/components/ui/data-table-transactions/columns"
+import { DataTable } from "@/components/ui/data-table-support/DataTable"
+import { columns } from "@/components/ui/data-table-support/columns"
 import { tickets } from "@/data/support/tickets"
 import { volume } from "@/data/support/volume"
-import { RiAddCircleLine } from "@remixicon/react"
+import { RiAddLine } from "@remixicon/react"
 import React from "react"
 
 export default function SupportDashboard() {
   const [isOpen, setIsOpen] = React.useState(false)
   return (
     <main>
-      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-50">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Support Dashboard
-          </h2>
-          <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+          </h1>
+          <p className="text-gray-500 sm:text-sm/6 dark:text-gray-500">
             Real-time monitoring of support metrics with AI-powered insights
           </p>
         </div>
         <Button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-base sm:text-sm"
         >
           Create Ticket
-          <RiAddCircleLine className="size-5 shrink-0" aria-hidden="true" />
+          <RiAddLine className="-mr-0.5 size-5 shrink-0" aria-hidden="true" />
         </Button>
         <TicketDrawer open={isOpen} onOpenChange={setIsOpen} />
       </div>
-      <dl className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {/* --- Card 1: Ticket Status --- */}
+      <Divider />
+      <dl className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <dt className="text-sm font-medium text-gray-900 dark:text-gray-50">
             Current Tickets
@@ -47,7 +48,7 @@ export default function SupportDashboard() {
           <CategoryBar
             values={[82, 13, 5]}
             className="mt-6"
-            colors={["blue", "lightGray", "rose"]}
+            colors={["blue", "lightGray", "red"]}
             showLabels={false}
           />
           <ul
@@ -72,7 +73,7 @@ export default function SupportDashboard() {
               </span>
               <div className="flex items-center gap-2">
                 <span
-                  className="size-2.5 shrink-0 rounded-sm bg-gray-500 dark:bg-gray-500"
+                  className="size-2.5 shrink-0 rounded-sm bg-gray-400 dark:bg-gray-600"
                   aria-hidden="true"
                 />
                 <span className="text-sm">In Progress</span>
@@ -84,7 +85,7 @@ export default function SupportDashboard() {
               </span>
               <div className="flex items-center gap-2">
                 <span
-                  className="size-2.5 shrink-0 rounded-sm bg-rose-500 dark:bg-rose-500"
+                  className="size-2.5 shrink-0 rounded-sm bg-red-500 dark:bg-red-500"
                   aria-hidden="true"
                 />
                 <span className="text-sm">Escalated</span>
@@ -92,7 +93,6 @@ export default function SupportDashboard() {
             </li>
           </ul>
         </Card>
-        {/* --- Card 2: SLA Metrics --- */}
         <Card>
           <dt className="text-sm font-medium text-gray-900 dark:text-gray-50">
             SLA Performance
@@ -114,21 +114,21 @@ export default function SupportDashboard() {
               <div>
                 <div className="flex items-center gap-2">
                   <span
-                    className="size-2.5 shrink-0 rounded-sm bg-rose-500 dark:bg-rose-500"
+                    className="size-2.5 shrink-0 rounded-sm bg-red-500 dark:bg-red-500"
                     aria-hidden="true"
                   />
-                  <span className="text-sm">SLA Breached</span>
+                  <span className="text-sm text-gray-900 dark:text-gray-50">
+                    SLA Breached
+                  </span>
                 </div>
                 <span className="mt-1 block text-2xl font-semibold text-gray-900 dark:text-gray-50">
                   16.7%
                 </span>
               </div>
             </dd>
-
             <ProgressCircle value={83} radius={45} strokeWidth={7} />
           </div>
         </Card>
-        {/* --- Card 3: Call Volume --- */}
         <Card>
           <dt className="text-sm font-medium text-gray-900 dark:text-gray-50">
             Call Volume Trends

@@ -31,8 +31,6 @@ import { Input } from "../Input"
 import { Label } from "../Label"
 import { Textarea } from "../Textarea"
 
-// Types
-
 type TicketFormData = Partial<Ticket>
 
 interface TicketDrawerProps {
@@ -73,7 +71,6 @@ const FormField = ({
   </div>
 )
 
-// Page Components
 const FirstPage = ({ formData, onUpdateForm }: FormPageProps) => (
   <>
     <DrawerHeader>
@@ -84,7 +81,7 @@ const FirstPage = ({ formData, onUpdateForm }: FormPageProps) => (
         </span>
       </DrawerTitle>
     </DrawerHeader>
-    <DrawerBody className="-mx-6 space-y-6 border-t border-gray-200 px-6 dark:border-gray-800">
+    <DrawerBody className="-mx-6 space-y-6 overflow-y-scroll border-t border-gray-200 px-6 dark:border-gray-800">
       <FormField label="Contact Type">
         <RadioCardGroup
           defaultValue={formData.type}
@@ -95,10 +92,12 @@ const FirstPage = ({ formData, onUpdateForm }: FormPageProps) => (
             <RadioCardItem
               key={type.value}
               value={type.value}
-              className="p-2.5 duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white"
+              className="flex flex-col justify-start p-2.5 text-base duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white sm:text-sm dark:focus:ring-blue-500"
             >
               {type.name}
-              <span className="block text-xs opacity-75">{type.extended}</span>
+              <span className="block text-sm opacity-75 sm:text-xs">
+                {type.extended}
+              </span>
             </RadioCardItem>
           ))}
         </RadioCardGroup>
@@ -182,13 +181,15 @@ const SecondPage = ({ formData, onUpdateForm }: FormPageProps) => (
             <RadioCardItem
               key={priority.value}
               value={priority.value}
-              className="p-2.5 duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white"
+              className="p-2.5 text-base duration-75 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 data-[state=checked]:border-transparent data-[state=checked]:bg-blue-500 data-[state=checked]:text-white sm:text-sm dark:focus:ring-blue-500"
             >
               <div className="flex items-center justify-between">
                 <span>{priority.label}</span>
-                <span className="text-xs">SLA: {priority.sla}</span>
+                <span className="text-sm opacity-75 sm:text-xs">
+                  SLA: {priority.sla}
+                </span>
               </div>
-              <span className="block text-xs opacity-75">
+              <span className="block text-sm opacity-75 sm:text-xs">
                 {priority.description}
               </span>
             </RadioCardItem>
@@ -304,9 +305,7 @@ const SummaryPage = ({ formData }: { formData: TicketFormData }) => (
   </>
 )
 
-// Main Component
 export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
-  // State
   const [formData, setFormData] = React.useState<TicketFormData>({
     status: "in-progress",
     category: categoryTypes[0].value,
@@ -321,7 +320,6 @@ export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
 
   const [currentPage, setCurrentPage] = React.useState(1)
 
-  // Handlers
   const handleUpdateForm = (updates: Partial<TicketFormData>) => {
     setFormData((prev) => ({ ...prev, ...updates }))
   }
@@ -331,7 +329,6 @@ export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
     onOpenChange(false)
   }
 
-  // Render helpers
   const renderPage = () => {
     switch (currentPage) {
       case 1:
@@ -380,9 +377,9 @@ export function TicketDrawer({ open, onOpenChange }: TicketDrawerProps) {
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="dark:bg-gray-925 overflow-x-hidden sm:max-w-lg">
+      <DrawerContent className="overflow-x-hidden sm:max-w-lg">
         {renderPage()}
-        <DrawerFooter className="dark:bg-gray-925 -mx-6 -mb-2 gap-2 bg-white px-6 sm:justify-between">
+        <DrawerFooter className="-mx-6 -mb-2 gap-2 px-6 sm:justify-between">
           {renderFooter()}
         </DrawerFooter>
       </DrawerContent>

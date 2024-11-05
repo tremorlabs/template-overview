@@ -40,7 +40,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   })
 
   return (
-    <div className="mt-6 space-y-3">
+    <div className="mt-8 space-y-3">
       <div className="relative overflow-hidden overflow-x-auto">
         <Table>
           <TableHead>
@@ -68,7 +68,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
           </TableHead>
           <TableBody>
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} className="odd:bg-gray-50">
+              <TableRow key={row.id} className="odd:bg-gray-50 odd:dark:bg-[#090E1A]">
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}

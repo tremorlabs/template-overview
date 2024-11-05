@@ -16,11 +16,11 @@ export default function Example() {
           }}
         >
           <div className="flex flex-col gap-1">
-            {Array.from({ length: 10 }, (_, idx) => (
-              <div key={`outer-${idx}`}>
+            {Array.from({ length: 10 }, (_, index) => (
+              <div key={`outer-${index}`}>
                 <div className="flex gap-2">
-                  {Array.from({ length: 10 }, (_, idx2) => (
-                    <div key={`inner-${idx}-${idx2}`}>
+                  {Array.from({ length: 10 }, (_, index2) => (
+                    <div key={`inner-${index}-${index2}`}>
                       <div className="size-7 rounded-md shadow shadow-indigo-500/40 ring-1 ring-black/5 dark:shadow-indigo-400/20 dark:ring-white/10" />
                     </div>
                   ))}
