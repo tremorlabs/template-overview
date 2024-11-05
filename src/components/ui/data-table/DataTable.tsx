@@ -86,7 +86,7 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
         registeredOnly={Boolean(registeredFilterValue)}
-        setRegisteredOnly={(checked) => {
+        setRegisteredOnly={(checked: boolean) => {
           table.getColumn("registered")?.setFilterValue(checked || null)
         }}
       />
