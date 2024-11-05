@@ -1,25 +1,34 @@
 // Tremor TabNavigation [v0.1.0]
 
-import * as NavigationMenuPrimitives from "@radix-ui/react-navigation-menu";
-import React from "react";
+import * as NavigationMenuPrimitives from "@radix-ui/react-navigation-menu"
+import React from "react"
 
-import { cx, focusRing } from "@/lib/utils";
+import { cx, focusRing } from "@/lib/utils"
 
-function getSubtree(
-  options: { asChild: boolean | undefined; children: React.ReactNode },
-  content: React.ReactNode | ((children: React.ReactNode) => React.ReactNode),
-) {
+interface SubtreeOptions {
+  asChild?: boolean
+  children: React.ReactNode
+}
+
+type ContentRenderer = (children: React.ReactNode) => React.ReactNode
+
+export function getSubtree(
+  options: SubtreeOptions,
+  content: React.ReactNode | ContentRenderer,
+): React.ReactNode {
   const { asChild, children } = options
-  if (!asChild)
-    return typeof content === "function" ? content(children) : content
 
-  const firstChild = React.Children.only(children) as React.ReactElement
-  return React.cloneElement(firstChild, {
-    children:
-      typeof content === "function"
-        ? content(firstChild.props.children)
-        : content,
-  })
+  if (!asChild) {
+    return typeof content === "function" ? content(children) : content
+  }
+
+  const firstChild = React.Children.only(children) as React.ReactElement<{
+    children?: React.ReactNode
+  }>
+  const contentValue =
+    typeof content === "function" ? content(firstChild.props.children) : content
+
+  return React.cloneElement(firstChild, { children: contentValue })
 }
 
 const TabNavigation = React.forwardRef<
@@ -66,7 +75,7 @@ const TabNavigationLink = React.forwardRef<
         disabled ? "pointer-events-none" : "",
       )}
       ref={forwardedRef}
-      onSelect={() => { }}
+      onSelect={() => {}}
       asChild={asChild}
       {...props}
     >
@@ -101,5 +110,4 @@ const TabNavigationLink = React.forwardRef<
 
 TabNavigationLink.displayName = "TabNavigationLink"
 
-export { TabNavigation, TabNavigationLink };
-
+export { TabNavigation, TabNavigationLink }
