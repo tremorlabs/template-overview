@@ -162,7 +162,7 @@ const SelectContent = React.forwardRef<
           className={cx(
             "p-1",
             position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[calc(var(--radix-select-trigger-width))]",
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[calc(var(--radix-select-trigger-width))]",
           )}
         >
           {children}
@@ -244,7 +244,7 @@ const SelectItemExtended = React.forwardRef<
       ref={forwardedRef}
       className={cx(
         // base
-        "flex cursor-pointer items-center justify-between rounded px-3 py-2 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+        "flex max-w-[var(--radix-select-trigger-width)] cursor-pointer items-center justify-between whitespace-nowrap rounded px-3 py-2 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
         // text color
         "text-gray-900 dark:text-gray-50",
         // disabled
@@ -258,7 +258,7 @@ const SelectItemExtended = React.forwardRef<
       {...props}
     >
       <SelectPrimitives.ItemText>{option}</SelectPrimitives.ItemText>
-      <span className="font-normal text-gray-400 dark:text-gray-600">
+      <span className="ml-2 truncate font-normal text-gray-400 dark:text-gray-600">
         {description}
       </span>
     </SelectPrimitives.Item>
@@ -295,6 +295,5 @@ export {
   SelectItemExtended,
   SelectSeparator,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 }
-
