@@ -184,7 +184,7 @@ export default function Workflow() {
         </div>
       </div>
       <Divider />
-      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-lg bg-gray-50/50 p-6 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
+      <div className="mt-8 flex w-full flex-wrap items-start gap-6 rounded-lg bg-gray-50/50 p-6 ring-1 ring-gray-200 dark:bg-[#090E1A] dark:ring-gray-800">
         <div className="w-full sm:w-96">
           <Label
             htmlFor="test-quota"
