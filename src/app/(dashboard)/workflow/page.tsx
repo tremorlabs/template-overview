@@ -177,7 +177,7 @@ export default function Workflow() {
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Workflow
           </h1>
-          <p className="text-gray-600 sm:text-sm/6 dark:text-gray-400">
+          <p className="text-gray-500 sm:text-sm/6 dark:text-gray-500">
             Analyze case testing efficiency and simulate cost impacts across
             departments
           </p>

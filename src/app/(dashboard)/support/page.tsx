@@ -23,7 +23,7 @@ export default function SupportDashboard() {
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Support Dashboard
           </h1>
-          <p className="text-gray-600 sm:text-sm/6 dark:text-gray-400">
+          <p className="text-gray-500 sm:text-sm/6 dark:text-gray-500">
             Real-time monitoring of support metrics with AI-powered insights
           </p>
         </div>

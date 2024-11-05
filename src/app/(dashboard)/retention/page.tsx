@@ -272,7 +272,7 @@ export default function CohortRetention() {
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
             Cohort Retention
           </h1>
-          <p className="text-gray-600 sm:text-sm/6 dark:text-gray-400">
+          <p className="text-gray-500 sm:text-sm/6 dark:text-gray-500">
             Track customer engagement patterns and analyze support trends across
             user segments
           </p>
