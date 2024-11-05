@@ -32,7 +32,7 @@ export function getSubtree(
 }
 
 const TabNavigation = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitives.Root>,
+  React.ComponentRef<typeof NavigationMenuPrimitives.Root>,
   Omit<
     React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitives.Root>,
     "orientation" | "defaultValue" | "dir"
@@ -61,7 +61,7 @@ const TabNavigation = React.forwardRef<
 TabNavigation.displayName = "TabNavigation"
 
 const TabNavigationLink = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitives.Link>,
+  React.ComponentRef<typeof NavigationMenuPrimitives.Link>,
   Omit<
     React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitives.Link>,
     "onSelect"

@@ -6,7 +6,7 @@ import React from "react"
 import { cx, focusInput, focusRing } from "@/lib/utils"
 
 const RadioCardGroup = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitives.Root>,
+  React.ComponentRef<typeof RadioGroupPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Root>
 >(({ className, ...props }, forwardedRef) => {
   return (
@@ -22,7 +22,7 @@ const RadioCardGroup = React.forwardRef<
 RadioCardGroup.displayName = "RadioCardGroup"
 
 const RadioCardItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitives.Item>,
+  React.ComponentRef<typeof RadioGroupPrimitives.Item>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Item>
 >(({ className, children, ...props }, forwardedRef) => {
   return (
@@ -53,7 +53,7 @@ const RadioCardItem = React.forwardRef<
 RadioCardItem.displayName = "RadioCardItem"
 
 const RadioCardIndicator = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitives.Indicator>,
+  React.ComponentRef<typeof RadioGroupPrimitives.Indicator>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Indicator>
 >(({ className, ...props }, forwardedRef) => {
   return (
