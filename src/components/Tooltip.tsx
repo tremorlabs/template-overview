@@ -21,7 +21,7 @@ interface TooltipProps
 }
 
 const Tooltip = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitives.Content>,
+  React.ComponentRef<typeof TooltipPrimitives.Content>,
   TooltipProps
 >(
   (

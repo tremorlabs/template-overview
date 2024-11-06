@@ -14,10 +14,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${GeistSans.className} min-h-full bg-white antialiased dark:bg-gray-950`}
-        suppressHydrationWarning
       >
         <ThemeProvider
           defaultTheme="system"

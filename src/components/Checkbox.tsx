@@ -6,7 +6,7 @@ import React from "react"
 import { cx, focusRing } from "@/lib/utils"
 
 const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitives.Root>,
+  React.ComponentRef<typeof CheckboxPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitives.Root>
 >(({ className, checked, ...props }, forwardedRef) => {
   return (
@@ -84,7 +84,7 @@ const Checkbox = React.forwardRef<
 
 Checkbox.displayName = "Checkbox"
 const CheckboxExclude = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitives.Root>,
+  React.ComponentRef<typeof CheckboxPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitives.Root>
 >(({ className, checked, ...props }, forwardedRef) => {
   return (

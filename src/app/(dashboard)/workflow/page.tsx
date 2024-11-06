@@ -52,8 +52,8 @@ export default function Workflow() {
     return aggregateStats.total_cases === 0
       ? 0
       : Math.round(
-        (aggregateStats.tested_cases / aggregateStats.total_cases) * 100,
-      )
+          (aggregateStats.tested_cases / aggregateStats.total_cases) * 100,
+        )
   }, [aggregateStats])
 
   const [scenarioQuota, setScenarioQuota] = React.useState<number>(actualQuota)
@@ -139,8 +139,8 @@ export default function Workflow() {
 
     const baselineErrorCosts = Math.round(
       stats.total_cases *
-      COST_ASSUMPTIONS.expectedErrorRate *
-      COST_ASSUMPTIONS.undetectedErrorCost,
+        COST_ASSUMPTIONS.expectedErrorRate *
+        COST_ASSUMPTIONS.undetectedErrorCost,
     )
 
     const totalCosts = testingCosts + correctionCosts + undetectedErrorCosts
@@ -259,9 +259,9 @@ export default function Workflow() {
 
       <section className="relative mt-12 overflow-x-scroll p-4">
         {excludedDepartments.size === departments.length ? (
-          <div className="absolute inset-0 z-10 bg-white/10 dark:bg-gray-950/30 backdrop-blur-sm">
+          <div className="absolute inset-0 z-10 bg-white/10 backdrop-blur-sm dark:bg-gray-950/30">
             <div className="flex h-full items-center justify-center">
-              <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-white dark:bg-gray-900 p-6 shadow-xl shadow-black/5 ring-1 ring-black/5">
+              <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-white p-6 shadow-xl shadow-black/5 ring-1 ring-black/5 dark:bg-gray-900">
                 You must include at least one department
                 <Button
                   className="w-full"
@@ -338,10 +338,10 @@ export default function Workflow() {
                 <ProgressCircle
                   radius={45}
                   strokeWidth={6}
-                  value={
-                    (displayStats.untested_cases / displayStats.total_cases) *
-                    100
-                  }
+                  value={calculatePercentage(
+                    displayStats.untested_cases,
+                    displayStats.total_cases,
+                  )}
                 >
                   <div className="flex flex-col items-center">
                     <span className="mt-1 font-medium tabular-nums text-gray-900 dark:text-gray-50">
@@ -553,9 +553,9 @@ export default function Workflow() {
                   scenarioQuota === actualQuota
                     ? 0
                     : ((projectedSavings - currentSavings) /
-                      Math.abs(currentSavings)) *
-                    100 *
-                    (1 + years * 0.5)
+                        Math.abs(currentSavings)) *
+                      100 *
+                      (1 + years * 0.5)
 
                 return (
                   <li
@@ -576,12 +576,13 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
-                          : difference > 0
-                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
-                            : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
-                          }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                        }`}
                       >
                         {difference === 0
                           ? "0.0%"
@@ -621,9 +622,9 @@ export default function Workflow() {
                   scenarioQuota === actualQuota
                     ? 0
                     : (((projectedFTE - currentFTE) / Math.abs(currentFTE)) *
-                      100 *
-                      (1 + years * 0.5)) /
-                    1.4
+                        100 *
+                        (1 + years * 0.5)) /
+                      1.4
 
                 return (
                   <li
@@ -644,12 +645,13 @@ export default function Workflow() {
                         aria-hidden="true"
                       />
                       <span
-                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${difference === 0
-                          ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
-                          : difference > 0
-                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
-                            : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
-                          }`}
+                        className={`rounded px-1.5 py-1 text-right text-xs font-semibold ${
+                          difference === 0
+                            ? "bg-gray-50 text-gray-600 dark:bg-gray-400/10 dark:text-gray-400"
+                            : difference > 0
+                              ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400"
+                              : "bg-red-50 text-red-600 dark:bg-red-400/20 dark:text-red-500"
+                        }`}
                       >
                         {difference === 0
                           ? "0.0%"
