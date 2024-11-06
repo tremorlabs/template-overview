@@ -202,7 +202,11 @@ export default function Workflow() {
               className="w-full sm:max-w-56"
               disabled={excludedDepartments.size === departments.length}
             />
+            <label htmlFor="quota" className="sr-only">
+              Scenario Quota (Percent)
+            </label>
             <Input
+              id="quota"
               type="number"
               value={scenarioQuota}
               onChange={handleInputChange}
@@ -244,6 +248,7 @@ export default function Workflow() {
                   onCheckedChange={() =>
                     handleDepartmentToggle(dept.department)
                   }
+                  aria-label={dept.department_label}
                 />
                 <Label
                   htmlFor={dept.department}
