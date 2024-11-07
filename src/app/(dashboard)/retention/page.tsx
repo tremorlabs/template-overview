@@ -284,7 +284,7 @@ export default function CohortRetention() {
           <Table className="border-none">
             <TableHead>
               <TableRow>
-                <TableHeaderCell className="sticky left-0 top-0 z-10 min-w-40 border-transparent bg-white p-px dark:border-transparent dark:bg-transparent">
+                <TableHeaderCell className="sticky left-0 top-0 z-10 min-w-40 border-transparent bg-white p-px dark:border-transparent dark:bg-gray-950">
                   <span className="block">Cohort</span>
                   <span className="block font-normal text-gray-500 dark:text-gray-500">
                     Initial customers
@@ -304,7 +304,7 @@ export default function CohortRetention() {
               {cohortEntries.map(
                 ([cohortKey, cohortData]: [string, CohortData]) => (
                   <TableRow key={cohortKey} className="h-full">
-                    <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-transparent">
+                    <TableCell className="sticky left-0 z-10 h-full bg-white p-0 sm:min-w-56 dark:bg-gray-950">
                       <button
                         className={cx(
                           "group relative -ml-2 h-full w-full rounded p-2 text-left transition hover:bg-gray-100 focus-visible:bg-gray-100 hover:dark:bg-gray-900 focus-visible:dark:bg-gray-900",
