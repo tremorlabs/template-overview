@@ -12,7 +12,7 @@ function Navigation() {
   const pathname = usePathname()
   return (
     <div className="shadow-s sticky top-0 z-20 bg-white dark:bg-gray-950">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 pt-3">
         <div>
           <span className="sr-only">Your Company</span>
           <Logo className="h-6" />
