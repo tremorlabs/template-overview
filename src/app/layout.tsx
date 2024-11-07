@@ -5,7 +5,7 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: "Overview",
-  description: "The best dashboard overview.",
+  description: "Dashboard pages to summarize data.",
 }
 
 export default function RootLayout({
