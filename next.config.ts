@@ -1,6 +1,6 @@
-/** @type {import('next').NextConfig} */
+import type { NextConfig } from "next"
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   redirects: async () => {
     return [
       {

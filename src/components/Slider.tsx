@@ -13,7 +13,7 @@ interface SliderProps
 }
 
 const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentRef<typeof SliderPrimitive.Root>,
   SliderProps
 >(({ className, ariaLabelThumb, ...props }, forwardedRef) => {
   const value = props.value || props.defaultValue

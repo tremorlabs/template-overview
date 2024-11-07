@@ -41,7 +41,7 @@ const variantStyles: Record<TabsListVariant, string> = {
 }
 
 const TabsList = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitives.List>,
+  React.ComponentRef<typeof TabsPrimitives.List>,
   TabsListProps
 >(({ className, variant = "line", children, ...props }, forwardedRef) => (
   <TabsPrimitives.List
@@ -96,7 +96,7 @@ function getVariantStyles(tabVariant: TabsListVariant) {
 }
 
 const TabsTrigger = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitives.Trigger>,
+  React.ComponentRef<typeof TabsPrimitives.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitives.Trigger>
 >(({ className, children, ...props }, forwardedRef) => {
   const variant = React.useContext(TabsListVariantContext)
@@ -114,7 +114,7 @@ const TabsTrigger = React.forwardRef<
 TabsTrigger.displayName = "TabsTrigger"
 
 const TabsContent = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitives.Content>,
+  React.ComponentRef<typeof TabsPrimitives.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitives.Content>
 >(({ className, ...props }, forwardedRef) => (
   <TabsPrimitives.Content
