@@ -175,7 +175,7 @@ export function Notifications() {
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        className="z-20 ml-2 max-w-[95vw] px-4 sm:ml-0 sm:max-w-sm"
+        className="z-20 ml-2 max-w-[95vw] px-3 sm:ml-0 sm:max-w-sm"
       >
         <div className="flex items-center justify-between gap-16">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">
